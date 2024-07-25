@@ -1,10 +1,13 @@
-import RagPosting from "./CreateRide/CreateRide";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import CreateRide from "./CreateRide/CreateRide";
 
 const App = () => {
   return (
-    <div>
-      <RagPosting />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/createRide" element={<CreateRide />} />
+      </Routes>
+    </Router>
   );
 };
 
