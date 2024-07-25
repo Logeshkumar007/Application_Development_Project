@@ -32,9 +32,11 @@
 }
 .ride-content{
     padding-top: 2%;
-   
+    
+    height: 77dvh;
     background-color: rgb(255, 255, 255);
     /* background-color: #f6f6f6; */
     width: 62%;
-    text-align: center;
+    overflow-y: scroll;
+    
 }
