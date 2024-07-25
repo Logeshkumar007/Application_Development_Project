@@ -1,3 +1,4 @@
+import BookRide from "./components/BookRide/BookRide"
 import Homepage from "./components/Homepage/Homepage"
 
 function App() {
@@ -5,8 +6,8 @@ function App() {
 
   return (
     <>
-      <Homepage></Homepage>
-       
+      {/* <Homepage></Homepage> */}
+       <BookRide></BookRide>
     </>
   )
 }
