@@ -1,16 +1,16 @@
-import BookRide from "./components/BookRide/BookRide"
-import Homepage from "./components/Homepage/Homepage"
 
-function App() {
-  
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import CreateRide from "./CreateRide/CreateRide";
 
 const App = () => {
   return (
-    <>
-      {/* <Homepage></Homepage> */}
-       <BookRide></BookRide>
-    </>
-  )
+    <Router>
+      <Routes>
+        <Route path="/createRide" element={<CreateRide />} />
+      </Routes>
+    </Router>
+  );
+
 };
 
 export default App;

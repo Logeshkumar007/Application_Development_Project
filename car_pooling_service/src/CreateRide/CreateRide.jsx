@@ -1,33 +1,34 @@
-import RagPaper from "../CreateRide/RagPaper";
+import RagPaper from "./RideCard";
 import "../../src/CreateRide/CreateRide.css";
+import "../CreateRide/CardAlignment.css";
 
-const RagPosting = () => {
+const CreateRide = () => {
   return (
     <div className="outer-container">
       <div className="container">
         <div className="text-container">
           <div className="line1">
-            <h1>The Hassle Free Rag Picker Services in India</h1>
+            <h1>The Hassle Free Services in India</h1>
           </div>
           <div className="line2">
             <h1>
-              Trust Eco-Connect for efficient rag picker services in India. Our
-              reliable ragger connect based service ensures safe and timely
-              collection of your recyclable waste
+              for efficient services in India. Our reliable ragger connect based
+              service ensures safe and timely collection of your recyclable
+              waste
             </h1>
           </div>
         </div>
         <RagPaper />
       </div>
       <div className="about">
-        <div className="why-rag">
-          <h2>Why use Eco-connect ?</h2>
+        <div className="why-rag" style={{ paddingTop: "50%" }}>
+          <h2>Why use Car-pooling ?</h2>
           <div className="use">
             <div className="use1">
-              <h3>Easy Connect with Rag Pickers</h3>
+              <h3>Easy Connect with Students</h3>
               <p>
-                Our rag pickers are available around the clock to collect your
-                recyclable waste conveniently.
+                Our are available around the clock to collect your recyclable
+                waste conveniently.
               </p>
             </div>
             <div className="use2">
@@ -40,10 +41,8 @@ const RagPosting = () => {
           </div>
           <div className="use">
             <div className="use3">
-              <h3>Get Anything sell</h3>
-              <p>
-                Our rag pickers help you sell your recyclable waste at any time.
-              </p>
+              <h3>Save your precious time</h3>
+              <p>Our help you sell your recyclable waste at any time.</p>
             </div>
             <div className="use4" style={{ marginLeft: "12vh" }}>
               <h3>Negotiable Price</h3>
@@ -83,25 +82,13 @@ const RagPosting = () => {
 
       <div className="about">
         <div className="why-rag">
-          <h2>About Eco-Connect</h2>
+          <h2>About Car Pooling</h2>
           <div className="about-content">
             <h3>
-              Eco-Connect is a pioneering platform dedicated to connecting
-              ragpickers with consumers, aiming to create a sustainable and
-              inclusive waste management system. By empowering ragpickers with
-              fair wages and safe working conditions, we address the
-              often-overlooked segment of the waste management workforce and
-              promote responsible consumption. Our platform allows consumers to
-              easily schedule pickups and track the recycling journey of their
-              waste, ensuring transparency and environmental impact.
-              CleanConnect not only simplifies waste disposal for consumers but
-              also ensures that recyclable materials are efficiently processed.
-              This reduces landfill waste and promotes a circular economy.
-              Additionally, by providing fair compensation and support to
-              ragpickers, CleanConnect improves their livelihoods and working
-              conditions, addressing social inequities. Join CleanConnect to be
-              part of a community that values sustainability, supports fair
-              labor practices, and strives for a cleaner, greener future.
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              Quibusdam dicta facere numquam nihil aspernatur beatae adipisci
+              aliquam nesciunt, consequatur molestias mollitia officiis
+              doloribus ullam quod nisi eaque voluptatibus! Ipsum, corrupti.
             </h3>
           </div>
         </div>
@@ -110,4 +97,4 @@ const RagPosting = () => {
   );
 };
 
-export default RagPosting;
+export default CreateRide;
