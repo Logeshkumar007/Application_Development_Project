@@ -1,6 +1,6 @@
 import RagPaper from "./RideCard";
-import "../../src/CreateRide/CreateRide.css";
-import "../CreateRide/CardAlignment.css";
+import "./CreateRide.css";
+import "./CardAlignment.css";
 
 const CreateRide = () => {
   return (

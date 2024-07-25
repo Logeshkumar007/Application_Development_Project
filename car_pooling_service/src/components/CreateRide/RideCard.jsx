@@ -16,7 +16,7 @@ const RideCard = () => {
         justifyContent: 'center',
         height: '30%',
         position: 'relative',
-        top: '15%',
+        top: '54%',
       }}
     >
       <Paper

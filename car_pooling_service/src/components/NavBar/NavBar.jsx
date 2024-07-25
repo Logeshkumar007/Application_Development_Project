@@ -1,37 +1,57 @@
-import { AppBar, Toolbar } from "@mui/material";
+import { AppBar, Toolbar, Typography } from '@mui/material'
+import { Link } from 'react-router-dom'
 
-const NavBar=()=>{
-    return(
-        <div >
-            <AppBar position="sticky">
-        <Toolbar
-          sx={{
-            //   position:"sticky",
-              display: "flex",
-            fontSize: "0.9rem",
-            letterSpacing: "0.2vh",
-            justifyContent: "space-between",
-            backgroundColor: "white",
-            color: "black",
+const Navbar = () => {
+  return (
+    <AppBar position="sticky">
+      <Toolbar
+        sx={{
+          backgroundColor: 'white',
+          color: 'black',
+          display: 'flex',
+          justifyContent: 'space-around',
+          lineHeight: '0.5rem',
+        }}
+      >
+        <Link to="/" className="logo">
+          <img
+            src="/images/eco-ride.png"
+            style={{ width: '7rem', height: '3rem' }}
+          />
+        </Link>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-around',
+            width: '20%',
+            marginLeft: '8%',
+            marginRight: '8%',
           }}
         >
-          <h3>CAR LA SELVOM</h3>
-          <div
-            style={{
-              width: "25%",
-              display: "flex",
-              justifyContent: "space-between",
-              marginRight: "2%",
-            }}
-          >
-            <h3>About</h3>
-            <h3>Contact</h3>
-            <h3>Profile</h3>
-          </div>
-        </Toolbar>
-      </AppBar>
+          <Link to="/findRagPickers">
+            <Typography sx={{ fontWeight: '550' }}></Typography>
+          </Link>
+          <Link to="/findRags">
+            <Typography sx={{ fontWeight: '550' }}></Typography>
+          </Link>
         </div>
-    );
-
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-around',
+            width: '15%',
+          }}
+        >
+          <Link to="/signup" style={{textDecoration: 'none', color: 'black'}}>
+            <Typography sx={{ fontWeight: '550' }}>SignUp</Typography>
+          </Link>
+          <Link to="/signin" sx={{ display: 'flex' }} style={{textDecoration: 'none', color: 'black'}}>
+            <Typography sx={{ fontWeight: '550' }}>SignIn</Typography>
+          </Link>
+        </div>
+      </Toolbar>
+    </AppBar>
+  )
 }
-export default NavBar;
+
+export default Navbar

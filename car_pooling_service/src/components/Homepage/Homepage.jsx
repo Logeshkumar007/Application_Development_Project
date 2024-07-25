@@ -1,13 +1,14 @@
-import React from "react";
-import Paper from "@mui/material/Paper";
 import { AppBar, Button, Toolbar } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import React from "react";
 import "./Homepage.css";
 import png1 from './carowner.png';
 import png2 from './people.png';
 const Homepage = () => {
+  const navigate = useNavigate();
   return (
     <div>
-      <AppBar position="sticky">
+      {/* <AppBar position="sticky">
         <Toolbar
           sx={{
             //   position:"sticky",
@@ -33,14 +34,14 @@ const Homepage = () => {
             <h3>Profile</h3>
           </div>
         </Toolbar>
-      </AppBar>
+      </AppBar> */}
       <div>
         <div>
-            <div className="container">
+            <div className="container-home">
 
           <div className="text-container">
             <div className="line1">
-              <h1>Car Pooling Service For By Of Skcetians</h1>
+              <h1>Car Pooling Service For & By Skcetians</h1>
             </div>
             <div className="line2">
               <h1>
@@ -92,6 +93,7 @@ const Homepage = () => {
                     backgroundColor: "green",
                     marginTop: "1%",
                   }}
+                  onClick={() => navigate("/createRide")}
                 >
                   Create Ride
                 </Button>
@@ -136,6 +138,7 @@ const Homepage = () => {
                     backgroundColor: "green",
                     marginTop: "1%",
                   }}
+                  onClick={() => navigate("/bookRide")}
                 >
                   Book ride
                 </Button>
