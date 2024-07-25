@@ -1,6 +1,5 @@
-import React from "react";
-import Paper from "@mui/material/Paper";
 import { AppBar, Button, Toolbar } from "@mui/material";
+import React from "react";
 import "./Homepage.css";
 import png1 from './carowner.png';
 import png2 from './people.png';
@@ -36,7 +35,7 @@ const Homepage = () => {
       </AppBar>
       <div>
         <div>
-            <div className="container">
+            <div className="container-home">
 
           <div className="text-container">
             <div className="line1">
