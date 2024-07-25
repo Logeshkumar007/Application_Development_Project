@@ -1,11 +1,15 @@
-import RagPosting from "./CreateRide/CreateRide";
+import Homepage from "./components/Homepage/Homepage"
+
+function App() {
+  
 
 const App = () => {
   return (
-    <div>
-      <RagPosting />
-    </div>
-  );
+    <>
+      <Homepage></Homepage>
+       
+    </>
+  )
 };
 
 export default App;
