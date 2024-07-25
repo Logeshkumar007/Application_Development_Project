@@ -4,12 +4,13 @@ import Homepage from "./components/Homepage/Homepage"
 function App() {
   
 
+const App = () => {
   return (
     <>
       {/* <Homepage></Homepage> */}
        <BookRide></BookRide>
     </>
   )
-}
+};
 
-export default App
+export default App;
