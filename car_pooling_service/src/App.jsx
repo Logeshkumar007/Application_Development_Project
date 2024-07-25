@@ -1,3 +1,4 @@
+
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import CreateRide from "./CreateRide/CreateRide";
 
@@ -9,6 +10,7 @@ const App = () => {
       </Routes>
     </Router>
   );
+
 };
 
 export default App;
