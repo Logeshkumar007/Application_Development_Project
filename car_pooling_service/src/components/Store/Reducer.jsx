@@ -33,17 +33,17 @@ const slice=createSlice(
 
 
 
-const initialJobState = {
-  jobSelected: 0
+const initialidState = {
+  idSelected: 0
 };
 
 
 const jobSlice = createSlice({
   name: "job",
-  initialState: initialJobState,
+  initialState: initialidState,
   reducers: {
-    setJobSelected: (state, action) => {
-      state.jobSelected = action.payload;
+    setIdselected: (state, action) => {
+      state.idSelected = action.payload;
     }
   }
 });
