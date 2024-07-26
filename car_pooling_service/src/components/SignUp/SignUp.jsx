@@ -15,7 +15,8 @@ import axios from 'axios';
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Autocomplete from "@mui/material/Autocomplete";
-import { FormHelperText } from "@mui/material";
+import { FormHelperText, Modal } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 // import { dark } from "@mui/material/styles/createPalette";
 
@@ -114,6 +115,16 @@ const years = [
 
 export default function SignUp() {
   // const isValid = departments && year;
+  const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  boxShadow: '0 0 20px rgba(0, 0, 0, 0.2)',
+  p: 4,
+};
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -162,11 +173,27 @@ export default function SignUp() {
   const [emailError, setEmailError] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [phoneNumberError, setPhoneNumberError] = useState(false);
+  const [open, setopen] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [otpError, setOtpError] = useState("");
+
+  const handleSignUp = () => {
+    setopen(true);
+  }
+
+  const handleClose = () => {
+    setopen(false);
+  }
 
   const handlePhoneNumberChange = (event) => {
     setPhoneNumber(event.target.value);
     setPhoneNumberError(!/^[7-9][0-9]{9}$/.test(event.target.value));
   };
+
+  const handleOtpChange = (event) => {
+    setOtp(event.target.value);
+    setOtpError("");
+  }
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
@@ -177,6 +204,29 @@ export default function SignUp() {
     setEmail(event.target.value);
     setEmailError(!/^[A-Z0-9._%+-]+@skcet\.ac\.in$/i.test(event.target.value));
   };
+
+  const navigate = useNavigate();
+  const handleOtpVerification = async (event) => {
+    event.preventDefault();
+    handleSignUp();
+    axios.get(`http://localhost:8080/verify/${otp}`)
+      .then((Response) => {
+        console.log(Response);
+        if(Response.status === 202) {
+          setopen(false);
+          navigate('/');
+        } 
+        else {
+          setOtpError("Invalid OTP. Please try again.");
+          setopen(true);
+        }
+      })
+      .catch((error) => {
+        setOtpError("Invalid OTP. Please try again.");
+        console.error(error);
+      })
+  }
+
   return (
     <ThemeProvider theme={theme}>
       {/* <Container
@@ -184,7 +234,7 @@ export default function SignUp() {
         maxWidth="xs"
         style={{ borderColor: "black" }}
       > */}
-      <Grid container component="main" sx={{ height: "100vh" }}>
+      <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
           item
@@ -192,15 +242,14 @@ export default function SignUp() {
           sm={4}
           md={7}
           sx={{
-            backgroundImage:
-              "url(/images/signup_bg.webp)",
-            backgroundRepeat: "no-repeat",
+            backgroundImage: 'url(/images/signup_bg.webp)',
+            backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
-              t.palette.mode === "light"
+              t.palette.mode === 'light'
                 ? t.palette.grey[50]
                 : t.palette.grey[900],
-            backgroundSize: "cover",
-            backgroundPosition: "center",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
           }}
         />
         {/* <CssBaseline /> */}
@@ -208,13 +257,13 @@ export default function SignUp() {
           <Box
             sx={{
               marginTop: 7,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              padding: "10px",
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              padding: '10px',
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
@@ -233,7 +282,7 @@ export default function SignUp() {
                     name="firstName"
                     required
                     onChange={(event) => {
-                      setFirstName(event);
+                      setFirstName(event)
                     }}
                     fullWidth
                     id="firstName"
@@ -246,7 +295,7 @@ export default function SignUp() {
                     required
                     fullWidth
                     onChange={(event) => {
-                      setLastName(event);
+                      setLastName(event)
                     }}
                     id="lastName"
                     label="Last Name"
@@ -268,7 +317,7 @@ export default function SignUp() {
                     helperText={
                       emailError
                         ? "Please ensure your email address ends with '@skcet.ac.in'."
-                        : ""
+                        : ''
                     }
                   />
                 </Grid>
@@ -286,8 +335,8 @@ export default function SignUp() {
                     error={passwordError}
                     helperText={
                       passwordError
-                        ? "Password must contain at least 8 characters"
-                        : ""
+                        ? 'Password must contain at least 8 characters'
+                        : ''
                     }
                   />
                 </Grid>
@@ -305,7 +354,7 @@ export default function SignUp() {
                     error={phoneNumberError}
                   />
                   {phoneNumberError && (
-                    <FormHelperText style={{ color: "red", fontSize: "13px" }}>
+                    <FormHelperText style={{ color: 'red', fontSize: '13px' }}>
                       *Please enter a valid mobile number.
                     </FormHelperText>
                   )}
@@ -319,12 +368,14 @@ export default function SignUp() {
                     options={department}
                     onChange={(event, value) => setDepartments(value.dept)}
                     autoHighlight
-                    isOptionEqualToValue={(option, value) => {option.dept === value.dept}}
+                    isOptionEqualToValue={(option, value) => {
+                      option.dept === value.dept
+                    }}
                     getOptionLabel={(option) => option.dept}
                     renderOption={(props, option) => (
                       <Box
                         component="li"
-                        sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                        sx={{ '& > img': { mr: 2, flexShrink: 0 } }}
                         {...props}
                       >
                         {option.dept}
@@ -336,7 +387,7 @@ export default function SignUp() {
                         label="Department"
                         inputProps={{
                           ...params.inputProps,
-                          autoComplete: "new-password", // disable autocomplete and autofill
+                          autoComplete: 'new-password', // disable autocomplete and autofill
                         }}
                       />
                     )}
@@ -353,7 +404,7 @@ export default function SignUp() {
                     renderOption={(props, option) => (
                       <Box
                         component="li"
-                        sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                        sx={{ '& > img': { mr: 2, flexShrink: 0 } }}
                         {...props}
                       >
                         {option.year}
@@ -365,7 +416,7 @@ export default function SignUp() {
                         label="Year of Studying"
                         inputProps={{
                           ...params.inputProps,
-                          autoComplete: "new-password", // disable autocomplete and autofill
+                          autoComplete: 'new-password', // disable autocomplete and autofill
                         }}
                       />
                     )}
@@ -379,15 +430,15 @@ export default function SignUp() {
                     label="ID_CARD_IMG"
                     type="file"
                     onChange={(Event) => {
-                      setIdImage(Event.target.files[0]);
+                      setIdImage(Event.target.files[0])
                     }}
                     InputLabelProps={{
                       shrink: true,
-                      style: { color: "#1976d2" },
+                      style: { color: '#1976d2' },
                     }}
                   />
 
-                  <FormHelperText style={{ color: "red" }}>
+                  <FormHelperText style={{ color: 'red' }}>
                     *Upload Your College_ID Image
                   </FormHelperText>
                 </Grid>
@@ -399,7 +450,7 @@ export default function SignUp() {
                     type="file"
                     InputLabelProps={{
                       shrink: true,
-                      style: { color: "#1976d2" },
+                      style: { color: '#1976d2' },
                     }}
                     //    InputProps={{ multiline: true, type: "file" }}
                   />
@@ -420,6 +471,7 @@ export default function SignUp() {
                   passwordError ||
                   !id
                 }
+                onClick={handleSignUp}
                 sx={{ mt: 3, mb: 2 }}
               >
                 Sign Up
@@ -434,9 +486,45 @@ export default function SignUp() {
             </Box>
           </Box>
         </Grid>
+
+        <Modal
+          keepMounted
+          open={open}
+          aria-labelledby="keep-mounted-modal-title"
+          aria-describedby="keep-mounted-modal-description"
+        >
+          <Box sx={style}>
+            <Typography
+              id="keep-mounted-modal-title"
+              variant="h6"
+              component="h2"
+            >
+              Verify your email
+            </Typography>
+            <Typography id="keep-mounted-modal-description" sx={{ mt: 2 }}>
+              A verification link has been sent to your email. Please verify
+              your email to continue.
+            </Typography>
+            <br />
+            <TextField
+              type="tel"
+              label="Enter OTP"
+              onChange={handleOtpChange}
+              helperText={otpError}
+            />
+            {otpError === 'Invalid OTP. Please try again.' && (
+              <FormHelperText style={{ color: 'red', fontSize: '13px' }}>
+                {otpError}
+              </FormHelperText>
+            )}
+            <br />
+            <br />
+            <Button variant="contained" onClick={handleOtpVerification}>
+              Verify
+            </Button>
+          </Box>
+        </Modal>
       </Grid>
-      {/* <Copyright sx={{ mt: 5 }} /> */}
-      {/* </Container> */}
     </ThemeProvider>
-  );
+  )
 }

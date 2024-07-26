@@ -28,7 +28,7 @@ import com.example.car_backend.service.SignupService;
 import jakarta.mail.Multipart;
 
 @RestController
-@CrossOrigin("http://localhost:5174")
+@CrossOrigin("http://localhost:5173")
 public class SignupController {
 
     private SignupService signupService;
