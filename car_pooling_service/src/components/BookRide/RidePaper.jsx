@@ -1,10 +1,32 @@
 import { Paper, Typography } from "@mui/material";
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
-
+import './RidePaper.css';
+import { useEffect, useState } from "react";
+import { json } from "react-router-dom";
 const RidePaper=(props)=>{
-    console.log(props.value.name);
+    const [click,setClick]=useState(false);
+    const [border,setBorder]=useState("white");
+    
+    useEffect(()=>{
+        if(click)
+        {
+
+            setBorder("#1976d2");
+        }
+        else{
+            setBorder("white");
+
+        }
+    },[click])
+    
     return(
-        <Paper elevation={1} sx={{padding:"3%",backgroundColor:"white",width:"65%",position:"relative",borderRadius:"0.5vh",paddingRight:"5%",height:"15dvh",marginBottom:"2%",display:"flex",flexDirection:"column",justifyContent:"space-between"}}>
+        <Paper className="paper" elevation={1} sx={{padding:"3%",backgroundColor:"white",width:"65%",position:"relative",borderRadius:"0.5vh",paddingRight:"5%",height:"15dvh",marginBottom:"2%",display:"flex",flexDirection:"column",justifyContent:"space-between",
+            borderLeft: `3px solid ${border}`
+        }} onClick={()=>{
+            setClick(!click);
+            localStorage.setItem("clickid",props.value.id);
+            
+        }}>
                         
                         <div style={{display:"flex",gap:"5%"}}>
                         <DirectionsCarIcon color="primary"></DirectionsCarIcon>
