@@ -10,6 +10,7 @@
     flex-direction: column;
     background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5) ), url('https://gyaanarth.com/wp-content/uploads/2022/07/bd1.gif');
     background-repeat: no-repeat;
+    backdrop-filter: darken(0.5);
     background-size: cover;
     align-items: center;
     position: relative;
