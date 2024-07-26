@@ -40,15 +40,13 @@ public class MailService {
     public void otpVerifiedEmail(String email) {
         this.message = new SimpleMailMessage();
         String htmlBody = "<h1>Welcome to Eco Ride!</h1>"
-                + "<p>Your email has been successfully verified. You now have full access to all the resources available on Eco Ride.</p>"
+                + "<p>Your email has been successfully verified. You now have access to all the resources available on Eco Ride.</p>"
                 + "<p>If you have any questions, feel free to reach out to us at any time. We're here to help!</p>"
                 + "<p>Happy Riding,<br>Team Eco Ride</p>";
-
-        message.setFrom("noreply@ecoride.com");
+        message.setFrom("admin@ecoride.com");
         message.setTo(email);
         message.setSubject("Welcome to Eco Ride");
         message.setText(htmlBody);
-
         mailSender.send(message);
         System.out.println("OTP Verified Mail sent successfully");
     }
