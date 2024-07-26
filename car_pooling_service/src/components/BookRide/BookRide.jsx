@@ -2,6 +2,8 @@ import { Button, Divider, Paper, Typography } from "@mui/material";
 import NavBar from "../NavBar/NavBar";
 import "./BookRide.css";
 import routepng from "./Route2.png";
+import routepngblue from "./route-blue.png";
+import routepngred from "./route-red.png";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -33,9 +35,11 @@ useEffect(()=>{
   console.log("ride data",rideData);
 
 },[rideData])
-
+useEffect(()=>{
+  console.log("clickid is "+localStorage.getItem("clickid"));
+},[localStorage.getItem("clickid")])
   useEffect(()=>{
-    
+    localStorage.setItem("clickid",0);
       axios.get('http://localhost:8080/app/bookride/getallrides').then((res)=>{
         console.log(res.data);
       setRideData(res.data);
