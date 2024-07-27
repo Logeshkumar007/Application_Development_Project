@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-import java.util.*;;
+import java.util.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;;
 
 /**
  * BookRideController
@@ -18,6 +20,7 @@ import java.util.*;;
 public class BookRideController {
     @Autowired
     BookRideRepo repo;
+
     @GetMapping("/app/bookride/getallrides")
     public List<BookRide> getMethodName() {
         return repo.findAll();
@@ -31,4 +34,10 @@ public class BookRideController {
     
     
     
+
+    @PostMapping("/app/createride")
+    public BookRide createAnRide(@RequestBody BookRide bookRide) {
+        return repo.save(bookRide);
+    }
+
 }

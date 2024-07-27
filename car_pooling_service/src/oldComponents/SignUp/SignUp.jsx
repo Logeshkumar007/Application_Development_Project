@@ -11,7 +11,7 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-import axios from 'axios';
+import axios from "axios";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Autocomplete from "@mui/material/Autocomplete";
@@ -116,36 +116,37 @@ const years = [
 export default function SignUp() {
   // const isValid = departments && year;
   const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  boxShadow: '0 0 20px rgba(0, 0, 0, 0.2)',
-  p: 4,
-};
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    boxShadow: "0 0 20px rgba(0, 0, 0, 0.2)",
+    p: 4,
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
     let formValues = {};
-    data.append('image', id);
-    data.append('yearOfStudy', year);
-    data.append('department', departments);
+    data.append("image", id);
+    data.append("yearOfStudy", year);
+    data.append("department", departments);
 
     for (let [key, value] of data.entries()) {
       formValues[key] = value;
     }
     console.log(formValues);
 
-      await axios.post('http://localhost:8080/signup', data)
+    await axios
+      .post("http://localhost:8080/signup", data)
       .then((Response) => {
-        console.log(Response)
+        console.log(Response);
       })
       .catch((error) => {
         console.error(error);
-      })
+      });
   };
 
   const theme = createTheme({
@@ -179,11 +180,11 @@ export default function SignUp() {
 
   const handleSignUp = () => {
     setopen(true);
-  }
+  };
 
   const handleClose = () => {
     setopen(false);
-  }
+  };
 
   const handlePhoneNumberChange = (event) => {
     setPhoneNumber(event.target.value);
@@ -193,7 +194,7 @@ export default function SignUp() {
   const handleOtpChange = (event) => {
     setOtp(event.target.value);
     setOtpError("");
-  }
+  };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
@@ -209,14 +210,14 @@ export default function SignUp() {
   const handleOtpVerification = async (event) => {
     event.preventDefault();
     handleSignUp();
-    axios.get(`http://localhost:8080/verify/${otp}`)
+    axios
+      .get(`http://localhost:8080/verify/${otp}`)
       .then((Response) => {
         console.log(Response);
-        if(Response.status === 202) {
+        if (Response.status === 202) {
           setopen(false);
-          navigate('/');
-        } 
-        else {
+          navigate("/");
+        } else {
           setOtpError("Invalid OTP. Please try again.");
           setopen(true);
         }
@@ -224,8 +225,8 @@ export default function SignUp() {
       .catch((error) => {
         setOtpError("Invalid OTP. Please try again.");
         console.error(error);
-      })
-  }
+      });
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -234,7 +235,7 @@ export default function SignUp() {
         maxWidth="xs"
         style={{ borderColor: "black" }}
       > */}
-      <Grid container component="main" sx={{ height: '100vh' }}>
+      <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <Grid
           item
@@ -242,14 +243,14 @@ export default function SignUp() {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(/images/signup_bg.webp)',
-            backgroundRepeat: 'no-repeat',
+            backgroundImage: "url(/images/signup_bg.webp)",
+            backgroundRepeat: "no-repeat",
             backgroundColor: (t) =>
-              t.palette.mode === 'light'
+              t.palette.mode === "light"
                 ? t.palette.grey[50]
                 : t.palette.grey[900],
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
+            backgroundSize: "cover",
+            backgroundPosition: "center",
           }}
         />
         {/* <CssBaseline /> */}
@@ -257,13 +258,13 @@ export default function SignUp() {
           <Box
             sx={{
               marginTop: 7,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              padding: '10px',
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              padding: "10px",
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
@@ -282,7 +283,7 @@ export default function SignUp() {
                     name="firstName"
                     required
                     onChange={(event) => {
-                      setFirstName(event)
+                      setFirstName(event);
                     }}
                     fullWidth
                     id="firstName"
@@ -295,7 +296,7 @@ export default function SignUp() {
                     required
                     fullWidth
                     onChange={(event) => {
-                      setLastName(event)
+                      setLastName(event);
                     }}
                     id="lastName"
                     label="Last Name"
@@ -317,7 +318,7 @@ export default function SignUp() {
                     helperText={
                       emailError
                         ? "Please ensure your email address ends with '@skcet.ac.in'."
-                        : ''
+                        : ""
                     }
                   />
                 </Grid>
@@ -335,8 +336,8 @@ export default function SignUp() {
                     error={passwordError}
                     helperText={
                       passwordError
-                        ? 'Password must contain at least 8 characters'
-                        : ''
+                        ? "Password must contain at least 8 characters"
+                        : ""
                     }
                   />
                 </Grid>
@@ -354,7 +355,7 @@ export default function SignUp() {
                     error={phoneNumberError}
                   />
                   {phoneNumberError && (
-                    <FormHelperText style={{ color: 'red', fontSize: '13px' }}>
+                    <FormHelperText style={{ color: "red", fontSize: "13px" }}>
                       *Please enter a valid mobile number.
                     </FormHelperText>
                   )}
@@ -369,13 +370,13 @@ export default function SignUp() {
                     onChange={(event, value) => setDepartments(value.dept)}
                     autoHighlight
                     isOptionEqualToValue={(option, value) => {
-                      option.dept === value.dept
+                      option.dept === value.dept;
                     }}
                     getOptionLabel={(option) => option.dept}
                     renderOption={(props, option) => (
                       <Box
                         component="li"
-                        sx={{ '& > img': { mr: 2, flexShrink: 0 } }}
+                        sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
                         {...props}
                       >
                         {option.dept}
@@ -387,7 +388,7 @@ export default function SignUp() {
                         label="Department"
                         inputProps={{
                           ...params.inputProps,
-                          autoComplete: 'new-password', // disable autocomplete and autofill
+                          autoComplete: "new-password", // disable autocomplete and autofill
                         }}
                       />
                     )}
@@ -404,7 +405,7 @@ export default function SignUp() {
                     renderOption={(props, option) => (
                       <Box
                         component="li"
-                        sx={{ '& > img': { mr: 2, flexShrink: 0 } }}
+                        sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
                         {...props}
                       >
                         {option.year}
@@ -416,7 +417,7 @@ export default function SignUp() {
                         label="Year of Studying"
                         inputProps={{
                           ...params.inputProps,
-                          autoComplete: 'new-password', // disable autocomplete and autofill
+                          autoComplete: "new-password", // disable autocomplete and autofill
                         }}
                       />
                     )}
@@ -430,15 +431,15 @@ export default function SignUp() {
                     label="ID_CARD_IMG"
                     type="file"
                     onChange={(Event) => {
-                      setIdImage(Event.target.files[0])
+                      setIdImage(Event.target.files[0]);
                     }}
                     InputLabelProps={{
                       shrink: true,
-                      style: { color: '#1976d2' },
+                      style: { color: "#1976d2" },
                     }}
                   />
 
-                  <FormHelperText style={{ color: 'red' }}>
+                  <FormHelperText style={{ color: "red" }}>
                     *Upload Your College_ID Image
                   </FormHelperText>
                 </Grid>
@@ -450,7 +451,7 @@ export default function SignUp() {
                     type="file"
                     InputLabelProps={{
                       shrink: true,
-                      style: { color: '#1976d2' },
+                      style: { color: "#1976d2" },
                     }}
                     //    InputProps={{ multiline: true, type: "file" }}
                   />
@@ -512,8 +513,8 @@ export default function SignUp() {
               onChange={handleOtpChange}
               helperText={otpError}
             />
-            {otpError === 'Invalid OTP. Please try again.' && (
-              <FormHelperText style={{ color: 'red', fontSize: '13px' }}>
+            {otpError === "Invalid OTP. Please try again." && (
+              <FormHelperText style={{ color: "red", fontSize: "13px" }}>
                 {otpError}
               </FormHelperText>
             )}
@@ -526,5 +527,5 @@ export default function SignUp() {
         </Modal>
       </Grid>
     </ThemeProvider>
-  )
+  );
 }

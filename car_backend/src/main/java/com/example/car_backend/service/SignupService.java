@@ -34,8 +34,12 @@ public class SignupService {
     }
 
     public boolean verifyUser(String email, String otp) {
-        if (signupRepo.findById(email).get().getVerificationCode() == Integer.parseInt(otp))
+        UserDetails user = signupRepo.findById(email).get();
+        if (user.getVerificationCode() == Integer.parseInt(otp)) {
+            user.setVerified(true);
+            mailService.otpVerifiedEmail(email);
             return true;
+        }
         else
             return false;
 

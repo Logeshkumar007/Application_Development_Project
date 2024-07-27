@@ -1,122 +1,306 @@
-import { Button, Paper, TextField } from '@mui/material'
-import { useState } from 'react'
-import './RideCard.css'
-// import axios from "axios";
+import {
+  Button,
+  Paper,
+  TextField,
+  Box,
+  Autocomplete,
+  Grid,
+} from "@mui/material";
+import { useState } from "react";
+import "./RideCard.css";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+
 const RideCard = () => {
-  const [address, setAddress] = useState('')
-  const [phn, setPhn] = useState('')
-  const [name, setName] = useState('')
-  const [quantity, setQuantity] = useState('')
+  const [status, setStatus] = useState("");
+
+  const [leaving, setLeaving] = useState("");
+  const [going, setGoing] = useState("");
+  const [seats, setSeats] = useState("");
+  const [price, setPrice] = useState("");
+  const [carName, setCarName] = useState("");
+  const [date, setDate] = useState("");
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
+  const [name] = useState("Sadasivam");
+  const [email] = useState("727722euit131@skcet.ac.in");
+  const [phNo] = useState("8667455968");
+  const [errors, setErrors] = useState({});
+
+  const suggestions = [
+    { label: "Gandhipuram" },
+    { label: "Los Angeles" },
+    { label: "Chicago" },
+    { label: "Houston" },
+    { label: "Phoenix" },
+  ];
+
+  const navigate = useNavigate();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const newErrors = {};
+
+    if (!leaving) newErrors.leaving = "This field is required";
+    if (!going) newErrors.going = "This field is required";
+    if (!seats) newErrors.seats = "This field is required";
+    if (!price) newErrors.price = "This field is required";
+    if (!carName) newErrors.carName = "This field is required";
+    if (!date) newErrors.date = "This field is required";
+    if (!startTime) newErrors.startTime = "This field is required";
+    if (!endTime) newErrors.endTime = "This field is required";
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length === 0) {
+      const rideDetails = {
+        name,
+        email,
+        phNo,
+        leaving,
+        going,
+        seats,
+        price,
+        carName,
+        date,
+        startTime,
+        endTime,
+      };
+      axios
+        .post("http://localhost:8080/app/createride", rideDetails)
+        .then((response) => {
+          setStatus("success");
+
+          Swal.fire({
+            icon: "success",
+            title: "Success",
+            text: "Ride details submitted successfully!",
+          });
+        })
+        .catch((error) => {
+          console.error(
+            "There was an error submitting the ride details:",
+            error
+          );
+          setStatus("error");
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "There was an error submitting the ride details.",
+          });
+        });
+    }
+  };
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.5 }}
       style={{
-        width: '100%',
-        display: 'flex',
-        justifyContent: 'center',
-        height: '30%',
-        position: 'relative',
-        top: '54%',
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        height: "100vh",
+        position: "relative",
+        alignItems: "center",
       }}
     >
       <Paper
+        className="paper-comp"
+        elevation={5}
         sx={{
-          height: '90%',
-          width: '50%',
-          display: 'flex',
-          flexDirection: 'column',
-          flexWrap: 'wrap',
-          justifyContent: 'space-evenly',
-          padding: '40px',
-          backgroundColor: '#f5f5f5',
+          borderRadius: "20px",
+          height: "auto",
+          width: "40%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          padding: "50px",
+
+          backgroundColor: "white",
+          overflow: "auto",
+          boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <div className="input-address">
-          <TextField
-            id="standard-basic"
-            label="Leaving from"
-            variant="standard"
-            value={address}
-            onChange={(e) => {
-              setAddress(e.target.value)
-            }}
-          />
-        </div>
-        <div className="input-address">
-          <TextField
-            id="standard-basic"
-            label="Going To"
-            variant="standard"
-            value={address}
-            onChange={(e) => {
-              setAddress(e.target.value)
-            }}
-          />
-        </div>
-
-        <div className="input-address">
-          <TextField
-            id="standard-basic"
-            label="Car_Model"
-            variant="standard"
-            value={name}
-            onChange={(e) => {
-              setName(e.target.value)
-            }}
-          />
-        </div>
-        <div className="input-address">
-          <TextField
-            id="standard-basic"
-            label="Date"
-            variant="standard"
-            type="tel"
-            value={phn}
-            onChange={(e) => {
-              setPhn(e.target.value)
-            }}
-          />
-        </div>
-
-        <div className="input-address">
-          <TextField
-            id="standard-basic"
-            label="No of Passangers Available"
-            variant="standard"
-            type="number"
-            value={quantity}
-            onChange={(e) => {
-              setQuantity(e.target.value)
-            }}
-          />
-        </div>
-        <div className="input-address">
-          <TextField
-            id="standard-basic"
-            label="License Plate Number"
-            variant="standard"
-            type="number"
-            value={quantity}
-            onChange={(e) => {
-              setQuantity(e.target.value)
-            }}
-          />
-        </div>
-
-        <div className="button-get-address">
+        <Box
+          component="form"
+          sx={{ flexGrow: 1 }}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <Autocomplete
+                id="outlined-leaving"
+                options={suggestions}
+                getOptionLabel={(option) => option.label || ""}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Leaving From"
+                    variant="outlined"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    fullWidth
+                    error={!!errors.leaving}
+                    helperText={errors.leaving}
+                  />
+                )}
+                value={leaving}
+                onChange={(event, newValue) => {
+                  if (newValue && typeof newValue === "object")
+                    setLeaving(newValue.label);
+                  else {
+                    setLeaving(newValue || "");
+                  }
+                }}
+                freeSolo
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Autocomplete
+                id="outlined-going"
+                options={suggestions}
+                getOptionLabel={(option) => option.label || ""}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Going To"
+                    variant="outlined"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    fullWidth
+                    error={!!errors.going}
+                    helperText={errors.going}
+                  />
+                )}
+                value={going}
+                onChange={(event, newValue) => {
+                  setGoing(newValue ? newValue.label : "");
+                }}
+                freeSolo
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                id="outlined-seats"
+                label="Available seats"
+                type="number"
+                value={seats}
+                onChange={(e) => setSeats(e.target.value)}
+                fullWidth
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                error={!!errors.seats}
+                helperText={errors.seats}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                id="outlined-price"
+                label="Price Per Person"
+                type="text"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                fullWidth
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                error={!!errors.price}
+                helperText={errors.price}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                id="outlined-name"
+                label="Car Name"
+                type="text"
+                value={carName}
+                onChange={(e) => setCarName(e.target.value)}
+                fullWidth
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                error={!!errors.carName}
+                helperText={errors.carName}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                id="outlined-date"
+                label="Date"
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                fullWidth
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                error={!!errors.date}
+                helperText={errors.date}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                id="outlined-start-time"
+                label="Start Time"
+                type="time"
+                value={startTime}
+                onChange={(e) => setStartTime(e.target.value)}
+                fullWidth
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                error={!!errors.startTime}
+                helperText={errors.startTime}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                id="outlined-end-time"
+                label="End Time"
+                type="time"
+                value={endTime}
+                onChange={(e) => setEndTime(e.target.value)}
+                fullWidth
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                error={!!errors.endTime}
+                helperText={errors.endTime}
+              />
+            </Grid>
+          </Grid>
           <Button
-            style={{ width: '170%' }}
+            type="submit"
             variant="contained"
-            onClick={(e) => {
-              e.preventDefault()
+            fullWidth
+            style={{
+              marginTop: "20px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "centers",
             }}
           >
             Create Ride
           </Button>
-        </div>
+        </Box>
       </Paper>
-    </div>
-  )
-}
+      {status === "success" &&
+        setTimeout(() => {
+          navigate("/dummy");
+        }, 2000)}
+      ;
+    </motion.div>
+  );
+};
 
-export default RideCard
+export default RideCard;

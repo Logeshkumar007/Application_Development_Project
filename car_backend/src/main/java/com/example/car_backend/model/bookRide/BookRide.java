@@ -15,8 +15,8 @@ public class BookRide {
     String name;
     String phone;
     String email;
-    String leavingFrom;
-    String goingTo;
+    String leaving;
+    String going;
     int availableSeats;
     double price;
     String carName;
