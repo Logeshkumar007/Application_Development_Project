@@ -34,12 +34,12 @@ const slice=createSlice(
 
 
 const initialidState = {
-  idSelected: 0
+  idSelected: 1
 };
 
 
-const jobSlice = createSlice({
-  name: "job",
+const selectedIdSlice = createSlice({
+  name: "selectedid",
   initialState: initialidState,
   reducers: {
     setIdselected: (state, action) => {
@@ -49,6 +49,6 @@ const jobSlice = createSlice({
 });
 
 
-export const { setJobSelected } = jobSlice.actions;
+export const { setIdselected } = selectedIdSlice.actions;
 export const {setUser}=slice.actions
-export default { dataslice:slice.reducer,jobslice:jobSlice.reducer } ;
+export default { dataslice:slice.reducer,selectedIdslice:selectedIdSlice.reducer } ;

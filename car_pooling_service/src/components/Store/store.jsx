@@ -5,7 +5,7 @@ const store=configureStore(
 
         reducer:{
             storeReducer:Reducer.dataslice,
-            jobReducer:Reducer.jobslice
+            selectedIdReducer:Reducer.selectedIdslice
         }
     }
 );
