@@ -3,9 +3,10 @@ import BookRide from "./components/BookRide/BookRide";
 import Homepage from "./components/Homepage/Homepage";
 import SignInSide from "./components/SignIn/SignIn";
 import SignUp from "./components/SignUp/SignUp";
-import CreateRide from "./CreateRide/CreateRide";
+import CreateRide from "./components/CreateRide/CreateRide";
 import Navbar from "./components/NavBar/NavBar";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
+import Dummy from "./components/Dummy";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignInSide />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/dummy" element={<Dummy />} />
       </Routes>
     </Router>
   );

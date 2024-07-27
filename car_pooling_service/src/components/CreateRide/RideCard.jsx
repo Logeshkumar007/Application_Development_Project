@@ -1,12 +1,19 @@
-import { Button, Paper, TextField, Box } from "@mui/material";
+import {
+  Button,
+  Paper,
+  TextField,
+  Box,
+  Autocomplete,
+  Grid,
+} from "@mui/material";
 import { useState } from "react";
 import "./RideCard.css";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const RideCard = () => {
-  //SWAL ICON
-
   const [status, setStatus] = useState("");
 
   const [leaving, setLeaving] = useState("");
@@ -20,176 +27,279 @@ const RideCard = () => {
   const [name] = useState("Sadasivam");
   const [email] = useState("727722euit131@skcet.ac.in");
   const [phNo] = useState("8667455968");
+  const [errors, setErrors] = useState({});
 
-  // const swal_error = Swal.fire({
-  //   icon: "error",
-  //   title: "Oops...",
-  //   text: "Something went wrong!",
-  //   footer: '<a href="#">Why do I have this issue?</a>',
-  // });
-  // const swal_success = Swal.fire({
-  //   icon: "success",
-  //   title: "success",
-  //   text: "Ride created Successfully!",
-  //   footer: '<a h  ref="#">Why do I have this issue?</a>',
-  // });
+  const suggestions = [
+    { label: "Gandhipuram" },
+    { label: "Los Angeles" },
+    { label: "Chicago" },
+    { label: "Houston" },
+    { label: "Phoenix" },
+  ];
+
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    const newErrors = {};
 
-    const rideDetails = {
-      name,
-      email,
-      phNo,
-      leaving,
-      going,
-      seats,
-      price,
-      carName,
-      date,
-      startTime,
-      endTime,
-    };
-    axios
-      .post("http://localhost:8080/app/createride", rideDetails)
-      .then((response) => {
-        setStatus("success");
+    if (!leaving) newErrors.leaving = "This field is required";
+    if (!going) newErrors.going = "This field is required";
+    if (!seats) newErrors.seats = "This field is required";
+    if (!price) newErrors.price = "This field is required";
+    if (!carName) newErrors.carName = "This field is required";
+    if (!date) newErrors.date = "This field is required";
+    if (!startTime) newErrors.startTime = "This field is required";
+    if (!endTime) newErrors.endTime = "This field is required";
 
-        console.log(response);
-      })
-      .catch((error) => {
-        console.error("There was an error submitting the ride details:", error);
-        setStatus("error");
-      });
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length === 0) {
+      const rideDetails = {
+        name,
+        email,
+        phNo,
+        leaving,
+        going,
+        seats,
+        price,
+        carName,
+        date,
+        startTime,
+        endTime,
+      };
+      axios
+        .post("http://localhost:8080/app/createride", rideDetails)
+        .then((response) => {
+          setStatus("success");
+
+          Swal.fire({
+            icon: "success",
+            title: "Success",
+            text: "Ride details submitted successfully!",
+          });
+        })
+        .catch((error) => {
+          console.error(
+            "There was an error submitting the ride details:",
+            error
+          );
+          setStatus("error");
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "There was an error submitting the ride details.",
+          });
+        });
+    }
   };
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.5 }}
       style={{
         width: "100%",
         display: "flex",
         justifyContent: "center",
-        height: "30%",
+        height: "100vh",
         position: "relative",
+        alignItems: "center",
       }}
     >
       <Paper
+        className="paper-comp"
         elevation={5}
         sx={{
-          height: "50vh", // Reduced height
+          borderRadius: "20px",
+          height: "auto",
           width: "40%",
           display: "flex",
-          flexDirection: "column", // Stack items vertically
+          flexDirection: "column",
           justifyContent: "center",
-          padding: "50px", // Reduced padding
-          backgroundColor: "#f5f5f5",
-          overflow: "auto", // Add scrollbar if content overflows
-          top: "3%",
-          boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)", // Unique box shadow effect
+          padding: "50px",
+
+          backgroundColor: "white",
+          overflow: "auto",
+          boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
         }}
       >
         <Box
           component="form"
-          sx={{
-            "& .MuiTextField-root": { m: 1, width: "calc(50% - 16px)" },
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-          }}
+          sx={{ flexGrow: 1 }}
           noValidate
           autoComplete="off"
           onSubmit={handleSubmit}
         >
-          <TextField
-            id="outlined-leaving"
-            label="Leaving From"
-            type="text"
-            value={leaving}
-            onChange={(e) => setLeaving(e.target.value)}
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-          <TextField
-            id="outlined-going"
-            label="Going To"
-            type="text"
-            value={going}
-            onChange={(e) => setGoing(e.target.value)}
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-          <TextField
-            id="outlined-seats"
-            label="Available seats"
-            type="number"
-            value={seats}
-            onChange={(e) => setSeats(e.target.value)}
-            sx={{ border: "black", color: "black" }}
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-          <TextField
-            id="outlined-price"
-            label="Price"
-            type="text"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-          <TextField
-            id="outlined-name"
-            label="Car Name"
-            type="text"
-            value={carName}
-            onChange={(e) => setCarName(e.target.value)}
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-          <TextField
-            id="outlined-date"
-            label="Date"
-            type="text"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-          <TextField
-            id="outlined-start-time"
-            label="Start Time"
-            type="text"
-            value={startTime}
-            onChange={(e) => setStartTime(e.target.value)}
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-          <TextField
-            id="outlined-end-time"
-            label="End Time"
-            type="text"
-            value={endTime}
-            onChange={(e) => setEndTime(e.target.value)}
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <Autocomplete
+                id="outlined-leaving"
+                options={suggestions}
+                getOptionLabel={(option) => option.label || ""}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Leaving From"
+                    variant="outlined"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    fullWidth
+                    error={!!errors.leaving}
+                    helperText={errors.leaving}
+                  />
+                )}
+                value={leaving}
+                onChange={(event, newValue) => {
+                  if (newValue && typeof newValue === "object")
+                    setLeaving(newValue.label);
+                  else {
+                    setLeaving(newValue || "");
+                  }
+                }}
+                freeSolo
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Autocomplete
+                id="outlined-going"
+                options={suggestions}
+                getOptionLabel={(option) => option.label || ""}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Going To"
+                    variant="outlined"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    fullWidth
+                    error={!!errors.going}
+                    helperText={errors.going}
+                  />
+                )}
+                value={going}
+                onChange={(event, newValue) => {
+                  setGoing(newValue ? newValue.label : "");
+                }}
+                freeSolo
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                id="outlined-seats"
+                label="Available seats"
+                type="number"
+                value={seats}
+                onChange={(e) => setSeats(e.target.value)}
+                fullWidth
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                error={!!errors.seats}
+                helperText={errors.seats}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                id="outlined-price"
+                label="Price Per Person"
+                type="text"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                fullWidth
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                error={!!errors.price}
+                helperText={errors.price}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                id="outlined-name"
+                label="Car Name"
+                type="text"
+                value={carName}
+                onChange={(e) => setCarName(e.target.value)}
+                fullWidth
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                error={!!errors.carName}
+                helperText={errors.carName}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                id="outlined-date"
+                label="Date"
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                fullWidth
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                error={!!errors.date}
+                helperText={errors.date}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                id="outlined-start-time"
+                label="Start Time"
+                type="time"
+                value={startTime}
+                onChange={(e) => setStartTime(e.target.value)}
+                fullWidth
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                error={!!errors.startTime}
+                helperText={errors.startTime}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                id="outlined-end-time"
+                label="End Time"
+                type="time"
+                value={endTime}
+                onChange={(e) => setEndTime(e.target.value)}
+                fullWidth
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                error={!!errors.endTime}
+                helperText={errors.endTime}
+              />
+            </Grid>
+          </Grid>
           <Button
             type="submit"
             variant="contained"
-            sx={{ mt: 2, width: "100%" }}
+            fullWidth
+            style={{
+              marginTop: "20px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "centers",
+            }}
           >
-            s Create Ride
+            Create Ride
           </Button>
         </Box>
       </Paper>
-    </div>
+      {status === "success" &&
+        setTimeout(() => {
+          navigate("/dummy");
+        }, 2000)}
+      ;
+    </motion.div>
   );
 };
 
