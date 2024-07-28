@@ -30,6 +30,27 @@ public class BookRideController {
         return repo.findById(id);
     }
     
+    @PostMapping("/app/bookride/filter")
+    public List<BookRide> getFilters(@RequestBody List<List<String>>s) throws Exception {
+        List<String>l=s.get(0);
+        List<String>g=s.get(1);
+        if(l.size()>0&&g.size()>0)
+        {
+            return repo.filterdRides(s.get(0),s.get(1));
+        }
+        else if(l.size()>0)
+        {
+            return repo.filterdRidesLeavingFrom(l);
+        }
+        else
+        {
+            return repo.filterdRidesGoingTo(g);
+
+        }
+        
+    }
+    
+    
     
     
     
