@@ -39,9 +39,9 @@ const RidePaper=(props)=>{
                         <DirectionsCarIcon color="primary"></DirectionsCarIcon>
                         <div style={{width:"100%",display:"grid",gridTemplateColumns:"auto auto auto",justifyContent:"space-between"}}>
                             
-                        <Typography variant="h6">{props.value.leavingFrom}</Typography>
+                        <Typography variant="h6">{props.value.leaving}</Typography>
                         <Typography variant="h6">--------</Typography>
-                        <Typography variant="h6">{props.value.goingTo}</Typography>
+                        <Typography variant="h6">{props.value.going}</Typography>
                             
                         <Typography variant="h6" sx={{fontSize:"95%"}}>{props.value.startTime}</Typography>
                         <Typography variant="h6"></Typography>
