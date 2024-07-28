@@ -225,65 +225,33 @@ const Homepage = () => {
       >
         <h2>Why use Car-La-Selvom ?</h2>
         <div className="use" ref={whyUseRef} id="whyUse">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{
-              opacity: isVisible.whyUse ? 1 : 0,
-              y: isVisible.whyUse ? 0 : 50,
-            }}
-            transition={{ duration: 0.5 }}
-            className="use1"
-          >
+          <div className="use1">
             <h3>Easy Connect for Rides</h3>
             <p>
               Our rag pickers are available around the clock to collect your
               recyclable waste conveniently.
             </p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{
-              opacity: isVisible.whyUse ? 1 : 0,
-              y: isVisible.whyUse ? 0 : 50,
-            }}
-            transition={{ duration: 0.5 }}
-            className="use2"
-          >
+          </div>
+          <div className="use2">
             <h3>Comfortable Ride</h3>
             <p>
               Enjoy the convenience of our 24/7 door-to-door recyclable waste
               collection service.
             </p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{
-              opacity: isVisible.whyUse ? 1 : 0,
-              y: isVisible.whyUse ? 0 : 50,
-            }}
-            transition={{ duration: 0.5 }}
-            className="use3"
-          >
+          </div>
+          <div className="use3">
             <h3>Share Expense</h3>
             <p>
               Our rag pickers help you sell your recyclable waste at any time.
             </p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{
-              opacity: isVisible.whyUse ? 1 : 0,
-              y: isVisible.whyUse ? 0 : 50,
-            }}
-            transition={{ duration: 0.5 }}
-            className="use4"
-          >
+          </div>
+          <div className="use4">
             <h3>Eco-Friendly</h3>
             <p>
               We offer flexible pricing for your recyclable waste, ensuring the
               best deal.
             </p>
-          </motion.div>
+          </div>
         </div>
       </motion.div>
 
