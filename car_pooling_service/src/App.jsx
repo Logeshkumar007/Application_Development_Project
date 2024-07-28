@@ -7,6 +7,7 @@ import CreateRide from "./components/CreateRide/CreateRide";
 import Navbar from "./components/NavBar/NavBar";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
 import Dummy from "./components/Dummy";
+import SuccessSignIn from './components/SignIn/SuccessSignin'
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/signin" element={<SignInSide />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/dummy" element={<Dummy />} />
+        <Route path='/loginSuccess' element={<SuccessSignIn />} />
       </Routes>
     </Router>
   );
