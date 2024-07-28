@@ -28,11 +28,9 @@
     width: 55%;
     
 }
-.line1 h1{
-    font-size: 2.25rem;
-    font-weight: 550;
-
-
+.line1 h1 {
+  font-size: 2.25rem;
+  font-weight: 550;
 }
 .main-content h1{
     font-size: 1.1rem;
@@ -40,9 +38,8 @@
     line-height: 3.5vh;
     
 }
-.line1{
-    line-height: 5vh;
-    
+.line1 {
+  line-height: 5vh;
 }
 .main-content{
     font-weight: 100;
@@ -50,44 +47,92 @@
     position: relative;
     top: 4%;
 }
-.about{
-    width: 100%;
-    height: max-content;
-    
-    align-content: center;
-    text-align: center;
-    margin-bottom: 5dvh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    margin-top: 3%;
-    
+.about {
+  width: 100%;
+  height: max-content;
+
+  align-content: center;
+  text-align: center;
+  margin-bottom: 5dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 3%;
 }
-.use{
-    width: 100%;
-    display: grid;
-    grid-template-columns: auto auto ;
-    margin-top: 1%;
-    font-size: 1.06rem;
-    column-gap: 6%;
-    margin-left: 10%;
-    
+.use {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto auto;
+  margin-top: 1%;
+  font-size: 1.06rem;
+  column-gap: 6%;
+  margin-left: 10%;
 }
-.use1{
-    width: 90%;
-    text-align: left;
+.use1 {
+  width: 90%;
+  text-align: left;
 }
-.use2{
-    width: 90%;
-    text-align: left;
+.use2 {
+  width: 90%;
+  text-align: left;
 }
-.use3{
-    width: 90%;
-    text-align: left;
+.use3 {
+  width: 90%;
+  text-align: left;
 }
-.use
-{
-    width: 90%;
-    text-align: left;
+.use {
+  width: 90%;
+  text-align: left;
+}
+
+.homepage {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.about {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.use {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.use1,
+.use2,
+.use3,
+.use4 {
+  background: #f9f9f9;
+  border-radius: 10px;
+  padding: 20px;
+  width: 45%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.use1:hover,
+.use2:hover,
+.use3:hover,
+.use4:hover {
+  transform: translateY(-10px);
+}
+
+h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 1em;
+  color: #555;
 }

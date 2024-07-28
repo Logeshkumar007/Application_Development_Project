@@ -12,39 +12,78 @@ import car from './car.png';
 import man from './man.png';
 import { useEffect, useState } from "react";
 import axios  from 'axios';
+import { useDispatch, useSelector } from "react-redux";
+import { setIdselected } from "../Store/Reducer";
 const BookRide = () => {
-  const arr = ["1", "2", , "2", "3", "4", "5", "6"];
- 
+  const dispatch=useDispatch();
+ const selectedid=useSelector(state=>state.selectedIdReducer);
 
 const [rideData, setRideData] = useState([{
-    id: null,
-    name: '',
-    phone: '',
-    email: '',
-    leavingFrom: '',
-    goingTo: '',
+  id: null,
+  name: '',
+  phone: '',
+  email: '',
+  leavingFrom: '',
+  goingTo: '',
+  availableSeats: 0,
+  price: 0.0,
+  carName: '',
+  carNumber: '',
+  date: '',
+  startTime: '',
+  endTime: ''
+}]);
+const [selectedRideData, setSelectedRideData] = useState({
+  id: null,
+    name: 'log',
+    phone: '8610528048',
+    email: '727722euit096',
+    leavingFrom: 'Bk pudur',
+    goingTo: 'adnkcjhnsd',
     availableSeats: 0,
     price: 0.0,
-    carName: '',
-    carNumber: '',
-    date: '',
-    startTime: '',
-    endTime: ''
-}]);
+    carName: 'ducsd',
+    carNumber: 'djdj',
+    date: 'djdjd',
+    startTime: 'jdjd',
+    endTime: 'jdj'
+    
+});
+useEffect(()=>{
+  console.log("The selecetd data is ",selectedRideData);
+},[selectedRideData])
+useEffect(()=>{
+  console.log("the store selected id is ",selectedid.idSelected);
+  try{
+
+    const response=axios.get(`http://localhost:8080/app/bookride/selectedValue/${selectedid.idSelected}`);
+    response.then((res)=>{
+      console.log(res.data);
+      setSelectedRideData(res.data);
+    })
+  }
+  catch(err)
+  {
+    console.log("error in fetching selected value",err);
+  }
+  },[selectedid.idSelected]);
+
+
+
+
+
 useEffect(()=>{
   console.log("ride data",rideData);
 
 },[rideData])
-useEffect(()=>{
-  console.log("clickid is "+localStorage.getItem("clickid"));
-},[localStorage.getItem("clickid")])
+
   useEffect(()=>{
-    localStorage.setItem("clickid",0);
+  
       axios.get('http://localhost:8080/app/bookride/getallrides').then((res)=>{
         console.log(res.data);
       setRideData(res.data);
-
-   
+        dispatch(setIdselected(1));
+        
       
      })
   },[])
@@ -112,6 +151,9 @@ useEffect(()=>{
 
 
         <div className="ride-content" style={{display:"flex",justifyContent:"space-around"}}>
+          
+          {selectedRideData?
+          
           <div style={{display:"flex",flexDirection:"column",width:"60%"}}>
            
             <h1 style={{ fontSize: "5vh",textAlign:"center" }}>Mon 23 JUL</h1>
@@ -133,8 +175,8 @@ useEffect(()=>{
                     
                   }}
                 >
-                  <Typography variant="h5">Coimbatore</Typography>
-                  <Typography variant="h5">SKCET</Typography>
+                  <Typography variant="h5">{selectedRideData.leavingFrom}</Typography>
+                  <Typography variant="h5">{selectedRideData.goingTo}</Typography>
                 </div>
                 <div
                   style={{
@@ -145,10 +187,10 @@ useEffect(()=>{
                   }}
                 >
                   <Typography color="primary" variant="h6" sx={{fontSize:"110%"}}>
-                    8.00 AM
+                    {selectedRideData.startTime}
                   </Typography>
                   <Typography color="primary" variant="h6" sx={{fontSize:"110%"}}>
-                    9.00 AM
+                    {selectedRideData.endTime}
                   </Typography>
                 </div>
               </div>
@@ -157,7 +199,7 @@ useEffect(()=>{
                   <div style={{display:"flex",justifyContent:"space-between",paddingTop:"0vh"}}>
 
                   <Typography sx={{padding:"2%",fontSize:"115%",alignContent:"center"}}>Price per person </Typography>
-                  <Typography sx={{padding:"2%",fontSize:"4vh",alignContent:"center"}}>Rs.800 </Typography>
+                  <Typography sx={{padding:"2%",fontSize:"4vh",alignContent:"center"}}>Rs.{selectedRideData.price} </Typography>
                   </div>
                   <Divider sx={{paddingTop:"3%"}}></Divider>
                 </div>
@@ -166,9 +208,9 @@ useEffect(()=>{
                     <div style={{display:"flex",justifyContent:"space-between",alignContent:"center"}}>
                         <img style={{height:"18dvh"}}src={car}></img>
                         <div>
-                            <Typography variant="h4">TN 38 L 9247</Typography>
-                            <Typography variant="h6">Tata Tiago</Typography>
-                            <Typography color="primary" variant="h6" sx={{fontSize:"110%"}}>4 seats available</Typography>
+                            <Typography variant="h4">{selectedRideData.carNumber}</Typography>
+                            <Typography variant="h6">{selectedRideData.carName}</Typography>
+                            <Typography color="primary" variant="h6" sx={{fontSize:"110%"}}>{selectedRideData.availableSeats} seats available</Typography>
                         </div>
                     </div>
                   <Divider sx={{paddingTop:"3%"}}></Divider>
@@ -194,6 +236,7 @@ useEffect(()=>{
                 
 
             </div>
+  :<div></div>}
           </div>
         </div>
       </div>

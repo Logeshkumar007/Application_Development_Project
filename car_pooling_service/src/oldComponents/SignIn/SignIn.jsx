@@ -1,36 +1,24 @@
-import Box from "@mui/material/Box";
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Checkbox from "@mui/material/Checkbox";
 import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import Grid from "@mui/material/Grid";
+import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
-import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import axios from "axios";
-import * as React from "react";
-import { useNavigate } from "react-router-dom";
 import bg from "../Homepage/carowner.png";
-import { Alert, Snackbar } from "@mui/material";
 
+// TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
 export default function SignInSide() {
-  const navigate = useNavigate();
-  const [open, setOpen] = React.useState(false);
-  const vertical = 'top';
-  const horizontal = 'right'
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return
-    }
-
-    setOpen(false)
-  }
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -38,25 +26,11 @@ export default function SignInSide() {
       email: data.get("email"),
       password: data.get("password"),
     });
-    axios.get("http://localhost:8080/api/ecoride/login", {
-      params: {
-        email: data.get("email"),
-        password: data.get("password")
-      }
-    })
-      .then((Response) => {
-        console.log(Response.status)
-        navigate("/")
-      })
-      .catch((error) => {
-        console.error("There is an error in API ",error)
-        setOpen(true)
-      })
   };
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Grid container component="main" sx={{ height: '91.8vh' }}>
+      <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <Grid
           item
@@ -84,27 +58,11 @@ export default function SignInSide() {
               alignItems: "center",
             }}
           >
-            <Snackbar
-              anchorOrigin={{ vertical, horizontal }}
-              open={open}
-              autoHideDuration={3000}
-              onClose={handleClose}
-            >
-              <Alert
-                onClose={handleClose}
-                severity="error"
-                variant="filled"
-                sx={{ width: '100%' }}
-              >
-                Error Invalid crendentials. Please try again!
-              </Alert>
-            </Snackbar>
-            <img
-              src="/images/eco-ride-high-resolution-logo-black-transparent.png"
-              style={{ margin: '1rem', width: '4.5rem', height: '4.5rem' }}
-            />
+            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+              <LockOutlinedIcon />
+            </Avatar>
             <Typography component="h1" variant="h5">
-              Happy, You&apos;re again here Buddy!
+              Sign in
             </Typography>
             <Box
               component="form"
@@ -140,29 +98,18 @@ export default function SignInSide() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{
-                  mt: 3,
-                  mb: 2,
-                  bgcolor: '#1a2e35',
-                  color: 'white',
-                  fontSize: '1.2rem',
-                  ':hover': {
-                    color: 'black',
-                    bgcolor: '#ffc903',
-                    transition: '',
-                  },
-                }}
+                sx={{ mt: 3, mb: 2 }}
               >
                 Sign In
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2" sx={{color: 'black'}}>
+                  <Link href="#" variant="body2">
                     Forgot password?
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="/signup" variant="body2" sx={{color: 'black'}}>
+                  <Link href="#" variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
