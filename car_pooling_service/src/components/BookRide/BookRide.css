@@ -40,3 +40,22 @@
     overflow-y: scroll;
     
 }
+
+.filterButton{
+            padding: "0.7vh";
+            padding-left: 1%;
+            padding-right: 1%;
+            border-radius: 10vh;
+            font-size: 75%;
+            background-color: white;
+            display: flex;
+            border: 1.5px solid lightgrey;
+            align-items: center;
+              
+}
+.filterButton:hover{
+    padding-left: 1.05%;
+    padding-right: 1.05%;
+    padding-top: 1.01;
+    transition: 0.3s;
+}

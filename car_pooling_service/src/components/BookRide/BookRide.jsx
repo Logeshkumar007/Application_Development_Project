@@ -1,4 +1,4 @@
-import { Button, Divider, Paper, Typography } from "@mui/material";
+import { Button, Dialog, Divider, Paper, Typography,Checkbox } from "@mui/material";
 import NavBar from "../NavBar/NavBar";
 import "./BookRide.css";
 import routepng from "./Route2.png";
@@ -17,8 +17,46 @@ import { setIdselected } from "../Store/Reducer";
 const BookRide = () => {
   const dispatch = useDispatch();
   const selectedid = useSelector((state) => state.selectedIdReducer);
+  const [opendilog,setOpendilog]=useState(false);
 
+
+  const [leavingFromFilters, setLeavingFromFilters] = useState([]);
+  const [goingToFilters, setGoingToFilters] = useState([]);
+
+ 
+  const handleLeavingFromcheckbox = (event) => {
+    const value = event.target.value;
+    setLeavingFromFilters((prev) =>
+      prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
+    );
+  };
+  
+  const handleGoingTocheckbox = (event) => {
+    const value = event.target.value;
+    setGoingToFilters((prev) =>
+      prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
+    );
+    
+    
+  };
   const [rideData, setRideData] = useState([
+    {
+      id: null,
+      name: "",
+      phone: "",
+      email: "",
+      leaving: "",
+      going: "",
+      availableSeats: 0,
+      price: 0.0,
+      carName: "",
+      carNumber: "",
+      date: "",
+      startTime: "",
+      endTime: "",
+    },
+  ]);
+  const [AllrideData, setAllRideData] = useState([
     {
       id: null,
       name: "",
@@ -50,6 +88,36 @@ const BookRide = () => {
     startTime: "jdjd",
     endTime: "jdj",
   });
+  
+  const handleFilterChanges=(e)=>{
+    console.log("hello this is filter handle func");
+    try{
+      if(leavingFromFilters.length==0&&goingToFilters.length==0)
+      {
+
+      }
+      else
+      {
+
+        const res=axios.post("http://localhost:8080/app/bookride/filter",[leavingFromFilters,goingToFilters]);
+        res.then(res=>
+          {
+            setRideData(res.data);
+            console.log("react data",res.data);
+          }
+        )
+      }
+    }
+    catch(err)
+    {
+      console.log(err);
+    }
+  }
+
+
+
+
+
   useEffect(() => {
     console.log("The selecetd data is ", selectedRideData);
   }, [selectedRideData]);
@@ -68,14 +136,14 @@ const BookRide = () => {
     }
   }, [selectedid.idSelected]);
 
-  useEffect(() => {
-    console.log("ride data", rideData);
-  }, [rideData]);
+  
 
   useEffect(() => {
+    
     axios.get("http://localhost:8080/app/bookride/getallrides").then((res) => {
-      console.log(res.data);
+      
       setRideData(res.data);
+      setAllRideData(res.data);
       dispatch(setIdselected(1));
     });
   }, []);
@@ -98,19 +166,78 @@ const BookRide = () => {
             <Typography>Sort by</Typography>
             <KeyboardArrowDownIcon></KeyboardArrowDownIcon>
           </button>
-          <button
+          <button className="filterButton"
             style={{
-              padding: "0.7vh",
-              paddingLeft: "1%",
-              paddingRight: "1%",
-              borderRadius: "10vh",
-              fontSize: "75%",
-              backgroundColor: "white",
-              display: "flex",
-              border: "1.5px solid lightgrey",
+              
             }}
           >
-            <Typography>Filter</Typography>
+            <Typography onClick={()=>{
+              setOpendilog(!opendilog);
+            }}>Filter</Typography>
+            <Dialog open={opendilog} sx={{}}>
+                  <div style={{ padding: "1vh" }}>
+                    <label>Leaving From : </label>
+                    <div
+                      style={{
+                        display: "grid",
+                        justifyContent: "center",
+                        padding: "3vh",
+                        gap: "1vh",
+                        gridTemplateColumns: "auto auto auto",
+                        width: "max-content",
+                      }}
+                    >
+                      {AllrideData.map((data) => {
+                        return (
+                          <div>
+                            <Checkbox
+                              value={data.leaving}
+                              checked={leavingFromFilters.includes(data.leaving)}
+                              onChange={handleLeavingFromcheckbox}
+                              ></Checkbox>
+                            <label>{data.leaving}</label>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    <label>Going To : </label>
+                    <div
+                      style={{
+                        display: "grid",
+                        justifyContent: "center",
+                        padding: "3vh",
+                        gap: "1vh",
+                        gridTemplateColumns: "auto auto auto",
+                        width: "max-content",
+                      }}
+                    >
+                      {AllrideData.map((data) => {
+                        return (
+                          <div>
+                            <Checkbox
+                              value={data.going}
+                              checked={goingToFilters.includes(data.going)}
+
+                              onChange={handleGoingTocheckbox}
+                              
+                              ></Checkbox>
+                            <label>{data.going}</label>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    <Button variant="contained" sx={{margin:"2vh"}}
+                      onClick={() => {
+                        setOpendilog(false);
+                        console.log(goingToFilters);
+                        console.log(leavingFromFilters);
+                        handleFilterChanges();
+                      }}
+                    >
+                      Apply filters
+                    </Button>
+                  </div>
+                </Dialog>
             <FilterListIcon style={{ paddingLeft: "4%" }}></FilterListIcon>
           </button>
           <button
@@ -131,7 +258,7 @@ const BookRide = () => {
         </div>
         <Divider></Divider>
       </div>
-      <div className="content">
+      <div className="content" style={{color:"black"}}>
         <div className="ride-papers">
           {rideData.map((data) => {
             return <RidePaper value={data} />;
@@ -240,7 +367,7 @@ const BookRide = () => {
                     alignContent: "center",
                   }}
                 >
-                  <img style={{ height: "18dvh" }} src={car}></img>
+                  <img style={{ height: "18dvh" }} src={car} ></img>
                   <div>
                     <Typography variant="h4">
                       {selectedRideData.carNumber}
