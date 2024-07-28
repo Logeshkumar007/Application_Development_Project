@@ -4,8 +4,8 @@ const store=configureStore(
     {
 
         reducer:{
-            storeReducer:Reducer.dataslice,
-            jobReducer:Reducer.jobslice
+            loginReducer:Reducer.Loginslice,
+            selectedIdReducer:Reducer.selectedIdslice
         }
     }
 );

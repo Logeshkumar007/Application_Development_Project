@@ -18,7 +18,7 @@ const RideCard = () => {
 
   const [leaving, setLeaving] = useState("");
   const [going, setGoing] = useState("");
-  const [seats, setSeats] = useState("");
+  const [availableSeats, setSeats] = useState("");
   const [price, setPrice] = useState("");
   const [carName, setCarName] = useState("");
   const [date, setDate] = useState("");
@@ -45,7 +45,7 @@ const RideCard = () => {
 
     if (!leaving) newErrors.leaving = "This field is required";
     if (!going) newErrors.going = "This field is required";
-    if (!seats) newErrors.seats = "This field is required";
+    if (!availableSeats) newErrors.availableSeats = "This field is required";
     if (!price) newErrors.price = "This field is required";
     if (!carName) newErrors.carName = "This field is required";
     if (!date) newErrors.date = "This field is required";
@@ -61,7 +61,7 @@ const RideCard = () => {
         phNo,
         leaving,
         going,
-        seats,
+        availableSeats,
         price,
         carName,
         date,
@@ -190,17 +190,17 @@ const RideCard = () => {
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                id="outlined-seats"
-                label="Available seats"
+                id="outlined-availableSeats"
+                label="Available availableSeats"
                 type="number"
-                value={seats}
+                value={availableSeats}
                 onChange={(e) => setSeats(e.target.value)}
                 fullWidth
                 InputLabelProps={{
                   shrink: true,
                 }}
-                error={!!errors.seats}
-                helperText={errors.seats}
+                error={!!errors.availableSeats}
+                helperText={errors.availableSeats}
               />
             </Grid>
             <Grid item xs={12} sm={6}>

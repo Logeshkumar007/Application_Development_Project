@@ -234,7 +234,7 @@ export default function SignUp() {
         maxWidth="xs"
         style={{ borderColor: "black" }}
       > */}
-      <Grid container component="main" sx={{ height: '100vh' }}>
+      <Grid container component="main" sx={{ height: '91.4vh' }}>
         <CssBaseline />
         <Grid
           item
@@ -256,18 +256,16 @@ export default function SignUp() {
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
-              marginTop: 7,
+              marginTop: '2rem',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
               padding: '10px',
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Sign up
+            <img src="/images/eco-ride-high-resolution-logo-black-transparent.png" style={{width: '5rem', height: '5rem', marginBottom: 5}}/>
+            <Typography component="h2" variant="h5">
+              Happy to see you, Be a part of Eco Ride! 
             </Typography>
             <Box
               component="form"
@@ -423,11 +421,11 @@ export default function SignUp() {
                   />
                 </Grid>
 
-                <Grid item xs={12}>
+                <Grid item xs={6}>
                   <TextField
                     required
                     id="ID_IMG"
-                    label="ID_CARD_IMG"
+                    label="ID CARD"
                     type="file"
                     onChange={(Event) => {
                       setIdImage(Event.target.files[0])
@@ -439,11 +437,11 @@ export default function SignUp() {
                   />
 
                   <FormHelperText style={{ color: 'red' }}>
-                    *Upload Your College_ID Image
+                    *Upload Your College_ID Card Image
                   </FormHelperText>
                 </Grid>
 
-                <Grid item xs={12}>
+                <Grid item xs={6}>
                   <TextField
                     id="ID_IMG"
                     label="Upload Your License"
@@ -478,7 +476,7 @@ export default function SignUp() {
               </Button>
               <Grid container justifyContent="flex-end">
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <Link href="/signin" variant="body2">
                     Already have an account? Sign in
                   </Link>
                 </Grid>

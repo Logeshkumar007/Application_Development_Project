@@ -8,9 +8,11 @@ import com.example.car_backend.service.LoginService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
+@RequestMapping("/api/ecoride")
 public class LoginController {
     LoginService loginService;
 
@@ -18,8 +20,8 @@ public class LoginController {
         this.loginService = loginService;
     }
 
-    @GetMapping("/login/{email}/{password}")
-    public ResponseEntity<String> login(@PathVariable String email, @PathVariable String password) {
+    @GetMapping("/login")
+    public ResponseEntity<String> login(@RequestParam("email") String email, @RequestParam("password") String password) {
         if (loginService.checkLoginCredentials(email, password)) {
             return ResponseEntity.ok("Login successful");
         } else {

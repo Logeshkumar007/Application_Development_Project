@@ -7,6 +7,7 @@ import com.example.car_backend.repository.bookRide.BookRideRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.util.*;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +25,15 @@ public class BookRideController {
     public List<BookRide> getMethodName() {
         return repo.findAll();
     }
+    @GetMapping("/app/bookride/selectedValue/{id}")
+    public Optional<BookRide> getSelectedRideDetails(@PathVariable("id") int id) {
+        return repo.findById(id);
+    }
+    
+    
+    
+    
+    
 
     @PostMapping("/app/createride")
     public BookRide createAnRide(@RequestBody BookRide bookRide) {

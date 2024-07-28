@@ -12,8 +12,8 @@ const initialState={
 }
 const slice=createSlice(
     {
-        name:"bookride",initialState,reducers:{
-            setUser:(state,action)=>{
+        name:"login",initialState,reducers:{
+            setLogin:(state,action)=>{
                 state.email=action.payload.email;
                 state.password=action.payload.password;
                 state.firstname=action.payload.firstname;
@@ -34,12 +34,12 @@ const slice=createSlice(
 
 
 const initialidState = {
-  idSelected: 0
+  idSelected: 1
 };
 
 
-const jobSlice = createSlice({
-  name: "job",
+const selectedIdSlice = createSlice({
+  name: "selectedid",
   initialState: initialidState,
   reducers: {
     setIdselected: (state, action) => {
@@ -49,6 +49,6 @@ const jobSlice = createSlice({
 });
 
 
-export const { setJobSelected } = jobSlice.actions;
-export const {setUser}=slice.actions
-export default { dataslice:slice.reducer,jobslice:jobSlice.reducer } ;
+export const { setIdselected } = selectedIdSlice.actions;
+export const {setLogin}=slice.actions
+export default { Loginslice:slice.reducer,selectedIdslice:selectedIdSlice.reducer } ;
