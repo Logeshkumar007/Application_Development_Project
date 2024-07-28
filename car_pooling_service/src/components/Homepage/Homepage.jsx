@@ -29,17 +29,20 @@ const Homepage = () => {
                   display: 'flex',
                   flexDirection: 'row',
                   justifyContent: 'space-around',
+                  wordSpacing: '2vh',
                 }}
               >
-                <h1 style={{fontSize: '3rem'}}>Car Pooling Service </h1>&nbsp;&nbsp;
-                <h1 style={{fontSize: '3rem'}}>
+                <h1 style={{ fontSize: '3rem' }}>
+                  Car Pooling Service 
+                </h1>
+                <h1 style={{ fontSize: '3rem', margin: '0rem 1rem' }}>
                   <TextTransition springConfig={presets.wobbly}>
                     {TEXTS[index % TEXTS.length]}
                   </TextTransition>
-                </h1>&nbsp;&nbsp;
-                <h1 style={{fontSize: '3rem'}}> Skcetians</h1>
+                </h1>
+                <h1 style={{ fontSize: '3rem' }}> Skcetians</h1>
               </div>
-              <div className="line2">
+              <div className="main-content">
                 <h1>
                   The Car Pooling Service for SKCETians is a convenient platform
                   designed to connect students and staff of SKCET for shared
