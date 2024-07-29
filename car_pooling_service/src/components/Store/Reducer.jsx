@@ -12,8 +12,8 @@ const initialState={
 }
 const slice=createSlice(
     {
-        name:"bookride",initialState,reducers:{
-            setUser:(state,action)=>{
+        name:"login",initialState,reducers:{
+            setLogin:(state,action)=>{
                 state.email=action.payload.email;
                 state.password=action.payload.password;
                 state.firstname=action.payload.firstname;
@@ -50,5 +50,5 @@ const selectedIdSlice = createSlice({
 
 
 export const { setIdselected } = selectedIdSlice.actions;
-export const {setUser}=slice.actions
-export default { dataslice:slice.reducer,selectedIdslice:selectedIdSlice.reducer } ;
+export const {setLogin}=slice.actions
+export default { Loginslice:slice.reducer,selectedIdslice:selectedIdSlice.reducer } ;

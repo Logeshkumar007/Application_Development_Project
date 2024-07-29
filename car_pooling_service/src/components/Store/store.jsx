@@ -4,7 +4,7 @@ const store=configureStore(
     {
 
         reducer:{
-            storeReducer:Reducer.dataslice,
+            loginReducer:Reducer.Loginslice,
             selectedIdReducer:Reducer.selectedIdslice
         }
     }

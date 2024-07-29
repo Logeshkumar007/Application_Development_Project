@@ -66,7 +66,7 @@ const CreateRide = () => {
   }, []);
 
   return (
-    <div className="outer-container">
+    <div className="outer-container" id="top">
       <motion.div
         ref={containerRef}
         data-id="container"
