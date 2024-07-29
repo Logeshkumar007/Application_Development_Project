@@ -3,6 +3,7 @@ package com.example.car_backend.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.car_backend.model.UserDetails;
 import com.example.car_backend.service.LoginService;
 
 import org.springframework.http.HttpStatus;
@@ -21,11 +22,13 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public ResponseEntity<String> login(@RequestParam("email") String email, @RequestParam("password") String password) {
-        if (loginService.checkLoginCredentials(email, password)) {
-            return ResponseEntity.ok("Login successful");
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
+    public ResponseEntity<UserDetails> login(@RequestParam String email, @RequestParam String password) {
+        UserDetails user = loginService.checkLoginCredentials(email);
+        if(user != null && password != null && password.equals(user.getPassword())) {
+            return ResponseEntity.ok(user);
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
     }
 
