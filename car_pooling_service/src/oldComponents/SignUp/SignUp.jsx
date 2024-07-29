@@ -128,7 +128,7 @@ export default function SignUp() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-
+    console.log(data);
     let formValues = {};
     data.append("image", id);
     data.append("yearOfStudy", year);
@@ -188,6 +188,7 @@ export default function SignUp() {
 
   const handlePhoneNumberChange = (event) => {
     setPhoneNumber(event.target.value);
+    console.log(event.target.value);
     setPhoneNumberError(!/^[7-9][0-9]{9}$/.test(event.target.value));
   };
 
@@ -345,10 +346,10 @@ export default function SignUp() {
                   <TextField
                     required
                     fullWidth
-                    name="Phone Number"
+                    name="phoneNumber"
                     label="Phone Number"
                     type="number"
-                    id="Phone Number"
+                    id="phoneNumber"
                     autoComplete="number"
                     value={phoneNumber}
                     onChange={handlePhoneNumberChange}
@@ -511,7 +512,6 @@ export default function SignUp() {
               type="tel"
               label="Enter OTP"
               onChange={handleOtpChange}
-              helperText={otpError}
             />
             {otpError === "Invalid OTP. Please try again." && (
               <FormHelperText style={{ color: "red", fontSize: "13px" }}>

@@ -1,229 +1,231 @@
 // import * as React from "react";
-import Avatar from "@mui/material/Avatar";
+import Avatar from '@mui/material/Avatar'
 
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import { useState } from "react";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
-import axios from 'axios';
+import Button from '@mui/material/Button'
+import CssBaseline from '@mui/material/CssBaseline'
+import TextField from '@mui/material/TextField'
+import { useState } from 'react'
+import Link from '@mui/material/Link'
+import Grid from '@mui/material/Grid'
+import Box from '@mui/material/Box'
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
+import Typography from '@mui/material/Typography'
+import Paper from '@mui/material/Paper'
+import axios from 'axios'
 
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Autocomplete from "@mui/material/Autocomplete";
-import { FormHelperText, Modal } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+import Autocomplete from '@mui/material/Autocomplete'
+import { FormHelperText, Modal } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 
 // import { dark } from "@mui/material/styles/createPalette";
 
 const department = [
   {
-    dept: "Computer Science and Engineering",
+    dept: 'Computer Science and Engineering',
   },
   {
-    dept: "Electronics and Communication Engineering",
+    dept: 'Electronics and Communication Engineering',
   },
   {
-    dept: "Electrical and Electronics Engineering",
+    dept: 'Electrical and Electronics Engineering',
   },
   {
-    dept: "Mechanical Engineering",
+    dept: 'Mechanical Engineering',
   },
   {
-    dept: "Civil Engineering",
+    dept: 'Civil Engineering',
   },
   {
-    dept: "Information Technology",
+    dept: 'Information Technology',
   },
   {
-    dept: "Automobile Engineering",
+    dept: 'Automobile Engineering',
   },
   {
-    dept: "Aeronautical Engineering",
+    dept: 'Aeronautical Engineering',
   },
   {
-    dept: "Artificial Intelligence and Data Science",
+    dept: 'Artificial Intelligence and Data Science',
   },
   {
-    dept: "Robotics and Automation Engineering",
+    dept: 'Robotics and Automation Engineering',
   },
   {
-    dept: "Biotechnology Engineering",
+    dept: 'Biotechnology Engineering',
   },
   {
-    dept: "Chemical Engineering",
+    dept: 'Chemical Engineering',
   },
   {
-    dept: "Environmental Engineering",
+    dept: 'Environmental Engineering',
   },
   {
-    dept: "English Literature",
+    dept: 'English Literature',
   },
   {
-    dept: "History",
+    dept: 'History',
   },
   {
-    dept: "Economics",
+    dept: 'Economics',
   },
   {
-    dept: "Political Science",
+    dept: 'Political Science',
   },
   {
-    dept: "Psychology",
+    dept: 'Psychology',
   },
   {
-    dept: "Sociology",
+    dept: 'Sociology',
   },
   {
-    dept: "Journalism and Mass Communication",
+    dept: 'Journalism and Mass Communication',
   },
   {
-    dept: "Visual Communication",
+    dept: 'Visual Communication',
   },
   {
-    dept: "Performing Arts (Music, Dance, Drama)",
+    dept: 'Performing Arts (Music, Dance, Drama)',
   },
   {
-    dept: "Philosophy",
+    dept: 'Philosophy',
   },
   {
-    dept: "Linguistics and Languages (Tamil, Hindi, etc.)",
+    dept: 'Linguistics and Languages (Tamil, Hindi, etc.)',
   },
   {
-    dept: "Fine Arts",
+    dept: 'Fine Arts',
   },
-];
+]
 
 const years = [
   {
-    year: "I YEAR",
+    year: 'I YEAR',
   },
   {
-    year: "II YEAR",
+    year: 'II YEAR',
   },
   {
-    year: "III YEAR",
+    year: 'III YEAR',
   },
   {
-    year: "IV YEAR",
+    year: 'IV YEAR',
   },
-];
+]
 
 export default function SignUp() {
   // const isValid = departments && year;
   const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  boxShadow: '0 0 20px rgba(0, 0, 0, 0.2)',
-  p: 4,
-};
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    boxShadow: '0 0 20px rgba(0, 0, 0, 0.2)',
+    p: 4,
+  }
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-
-    let formValues = {};
-    data.append('image', id);
-    data.append('yearOfStudy', year);
-    data.append('department', departments);
+    event.preventDefault()
+    const data = new FormData(event.currentTarget)
+    console.log(data)
+    let formValues = {}
+    data.append('image', id)
+    data.append('yearOfStudy', year)
+    data.append('department', departments)
 
     for (let [key, value] of data.entries()) {
-      formValues[key] = value;
+      formValues[key] = value
     }
-    console.log(formValues);
+    console.log(formValues)
 
-      await axios.post('http://localhost:8080/signup', data)
+    await axios
+      .post('http://localhost:8080/signup', data)
       .then((Response) => {
         console.log(Response)
       })
       .catch((error) => {
-        console.error(error);
+        console.error(error)
       })
-  };
+  }
 
   const theme = createTheme({
     palette: {
       background: {
-        default: "#f5f5f5", // Light grey background
+        default: '#f5f5f5', // Light grey background
       },
       primary: {
-        main: "#000000", // Blue for primary actions and highlights
+        main: '#000000', // Blue for primary actions and highlights
       },
       secondary: {
-        main: "#000000", // Pink for secondary actions and highlights
+        main: '#000000', // Pink for secondary actions and highlights
       },
     },
-  });
+  })
 
-  const [id, setIdImage] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [year, setYear] = useState("");
-  const [departments, setDepartments] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordError, setPasswordError] = useState(false);
-  const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [phoneNumberError, setPhoneNumberError] = useState(false);
-  const [open, setopen] = useState(false);
-  const [otp, setOtp] = useState("");
-  const [otpError, setOtpError] = useState("");
+  const [id, setIdImage] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [year, setYear] = useState('')
+  const [departments, setDepartments] = useState('')
+  const [password, setPassword] = useState('')
+  const [passwordError, setPasswordError] = useState(false)
+  const [email, setEmail] = useState('')
+  const [emailError, setEmailError] = useState(false)
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const [phoneNumberError, setPhoneNumberError] = useState(false)
+  const [open, setopen] = useState(false)
+  const [otp, setOtp] = useState('')
+  const [otpError, setOtpError] = useState('')
 
   const handleSignUp = () => {
-    setopen(true);
+    setopen(true)
   }
 
   const handleClose = () => {
-    setopen(false);
+    setopen(false)
   }
 
   const handlePhoneNumberChange = (event) => {
-    setPhoneNumber(event.target.value);
-    setPhoneNumberError(!/^[7-9][0-9]{9}$/.test(event.target.value));
-  };
+    setPhoneNumber(event.target.value)
+    console.log(event.target.value)
+    setPhoneNumberError(!/^[7-9][0-9]{9}$/.test(event.target.value))
+  }
 
   const handleOtpChange = (event) => {
-    setOtp(event.target.value);
-    setOtpError("");
+    setOtp(event.target.value)
+    setOtpError('')
   }
 
   const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-    setPasswordError(event.target.value.length < 8);
-  };
+    setPassword(event.target.value)
+    setPasswordError(event.target.value.length < 8)
+  }
 
   const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-    setEmailError(!/^[A-Z0-9._%+-]+@skcet\.ac\.in$/i.test(event.target.value));
-  };
+    setEmail(event.target.value)
+    setEmailError(!/^[A-Z0-9._%+-]+@skcet\.ac\.in$/i.test(event.target.value))
+  }
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const handleOtpVerification = async (event) => {
-    event.preventDefault();
-    handleSignUp();
-    axios.get(`http://localhost:8080/verify/${otp}`)
+    event.preventDefault()
+    handleSignUp()
+    axios
+      .get(`http://localhost:8080/verify/${otp}`)
       .then((Response) => {
-        console.log(Response);
-        if(Response.status === 202) {
-          setopen(false);
-          navigate('/');
-        } 
-        else {
-          setOtpError("Invalid OTP. Please try again.");
-          setopen(true);
+        console.log(Response)
+        if (Response.status === 202) {
+          setopen(false)
+          navigate('/')
+        } else {
+          setOtpError('Invalid OTP. Please try again.')
+          setopen(true)
         }
       })
       .catch((error) => {
-        setOtpError("Invalid OTP. Please try again.");
-        console.error(error);
+        setOtpError('Invalid OTP. Please try again.')
+        console.error(error)
       })
   }
 
@@ -234,7 +236,7 @@ export default function SignUp() {
         maxWidth="xs"
         style={{ borderColor: "black" }}
       > */}
-      <Grid container component="main" sx={{ height: '91.4vh' }}>
+      <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
           item
@@ -256,16 +258,18 @@ export default function SignUp() {
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
-              marginTop: '2rem',
+              marginTop: 7,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
               padding: '10px',
             }}
           >
-            <img src="/images/eco-ride-high-resolution-logo-black-transparent.png" style={{width: '5rem', height: '5rem', marginBottom: 5}}/>
-            <Typography component="h2" variant="h5">
-              Happy to see you, Be a part of Eco Ride! 
+            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign up
             </Typography>
             <Box
               component="form"
@@ -342,10 +346,10 @@ export default function SignUp() {
                   <TextField
                     required
                     fullWidth
-                    name="Phone Number"
+                    name="phoneNumber"
                     label="Phone Number"
                     type="number"
-                    id="Phone Number"
+                    id="phoneNumber"
                     autoComplete="number"
                     value={phoneNumber}
                     onChange={handlePhoneNumberChange}
@@ -421,11 +425,11 @@ export default function SignUp() {
                   />
                 </Grid>
 
-                <Grid item xs={6}>
+                <Grid item xs={12}>
                   <TextField
                     required
                     id="ID_IMG"
-                    label="ID CARD"
+                    label="ID_CARD_IMG"
                     type="file"
                     onChange={(Event) => {
                       setIdImage(Event.target.files[0])
@@ -437,11 +441,11 @@ export default function SignUp() {
                   />
 
                   <FormHelperText style={{ color: 'red' }}>
-                    *Upload Your College_ID Card Image
+                    *Upload Your College_ID Image
                   </FormHelperText>
                 </Grid>
 
-                <Grid item xs={6}>
+                <Grid item xs={12}>
                   <TextField
                     id="ID_IMG"
                     label="Upload Your License"
@@ -476,7 +480,7 @@ export default function SignUp() {
               </Button>
               <Grid container justifyContent="flex-end">
                 <Grid item>
-                  <Link href="/signin" variant="body2">
+                  <Link href="#" variant="body2">
                     Already have an account? Sign in
                   </Link>
                 </Grid>
@@ -508,7 +512,6 @@ export default function SignUp() {
               type="tel"
               label="Enter OTP"
               onChange={handleOtpChange}
-              helperText={otpError}
             />
             {otpError === 'Invalid OTP. Please try again.' && (
               <FormHelperText style={{ color: 'red', fontSize: '13px' }}>

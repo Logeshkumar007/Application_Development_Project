@@ -31,6 +31,7 @@ export default function SignInSide() {
 
     setOpen(false)
   }
+  const [userDetails, setUserDetails] = React.useState({})
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -46,7 +47,8 @@ export default function SignInSide() {
     })
       .then((Response) => {
         console.log(Response.status)
-        navigate("/")
+        setUserDetails(Response.data)
+        navigate("/loginSuccess")
       })
       .catch((error) => {
         console.error("There is an error in API ",error)
