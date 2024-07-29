@@ -224,7 +224,7 @@ const Homepage = () => {
         style={{ marginTop: "5%" }}
       >
         <h2>Why use Car-La-Selvom ?</h2>
-        <div className="use" ref={whyUseRef} id="whyUse">
+        <div className="useService" ref={whyUseRef} id="whyUse">
           <div className="use1">
             <h3>Easy Connect for Rides</h3>
             <p>

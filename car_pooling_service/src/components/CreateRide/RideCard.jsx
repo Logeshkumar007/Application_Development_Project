@@ -29,13 +29,12 @@ const RideCard = () => {
   const [phNo] = useState("8667455968");
   const [errors, setErrors] = useState({});
 
-  const suggestions = [
-    { label: "Gandhipuram" },
+  const [suggestions, setSuggestions] = useState([
+    { label: "New York" },
     { label: "Los Angeles" },
     { label: "Chicago" },
-    { label: "Houston" },
-    { label: "Phoenix" },
-  ];
+    // Add more default suggestions as needed
+  ]);
 
   const navigate = useNavigate();
 
@@ -152,15 +151,31 @@ const RideCard = () => {
                     helperText={errors.leaving}
                   />
                 )}
-                value={leaving}
+                value={leaving ? { label: leaving } : null}
                 onChange={(event, newValue) => {
-                  if (newValue && typeof newValue === "object")
+                  if (newValue && typeof newValue === "object") {
                     setLeaving(newValue.label);
-                  else {
-                    setLeaving(newValue || "");
+                  } else {
+                    const newLabel = newValue || "";
+                    setLeaving(newLabel);
+                    if (
+                      !suggestions.some((option) => option.label === newLabel)
+                    ) {
+                      setSuggestions([...suggestions, { label: newLabel }]);
+                    }
                   }
                 }}
                 freeSolo
+                onInputChange={(event, newInputValue) => {
+                  if (
+                    newInputValue &&
+                    !suggestions.some(
+                      (option) => option.label === newInputValue
+                    )
+                  ) {
+                    setSuggestions([...suggestions, { label: newInputValue }]);
+                  }
+                }}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -181,11 +196,31 @@ const RideCard = () => {
                     helperText={errors.going}
                   />
                 )}
-                value={going}
+                value={going ? { label: going } : null}
                 onChange={(event, newValue) => {
-                  setGoing(newValue ? newValue.label : "");
+                  if (newValue && typeof newValue === "object") {
+                    setGoing(newValue.label);
+                  } else {
+                    const newLabel = newValue || "";
+                    setGoing(newLabel);
+                    if (
+                      !suggestions.some((option) => option.label === newLabel)
+                    ) {
+                      setSuggestions([...suggestions, { label: newLabel }]);
+                    }
+                  }
                 }}
                 freeSolo
+                onInputChange={(event, newInputValue) => {
+                  if (
+                    newInputValue &&
+                    !suggestions.some(
+                      (option) => option.label === newInputValue
+                    )
+                  ) {
+                    setSuggestions([...suggestions, { label: newInputValue }]);
+                  }
+                }}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
