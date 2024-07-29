@@ -11,7 +11,6 @@ import "./RideCard.css";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
 
 const RideCard = () => {
   const [status, setStatus] = useState("");
@@ -94,11 +93,7 @@ const RideCard = () => {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.5 }}
+    <div
       style={{
         width: "100%",
         display: "flex",
@@ -334,7 +329,7 @@ const RideCard = () => {
           navigate("/dummy");
         }, 2000)}
       ;
-    </motion.div>
+    </div>
   );
 };
 

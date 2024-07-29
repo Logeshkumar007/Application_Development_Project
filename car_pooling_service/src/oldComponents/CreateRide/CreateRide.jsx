@@ -1,10 +1,72 @@
 import RagPaper from "./RideCard";
-import "./CreateRide.css";
-import "./CardAlignment.css";
+import "../CreateRide/CreateRide.css";
+import "../CreateRide/RideCard.css";
+import { useRef } from "react";
+import { Button } from "@mui/material";
+import image from "../../assets/images/scamDetective.png";
+
+import { useState, useEffect } from "react";
 
 const CreateRide = () => {
+  const [isVisible, setIsVisible] = useState({
+    container: false,
+    about: false,
+    learnMore: false,
+    service1: false,
+    service2: false,
+    service3: false,
+  });
+
+  const containerRef = useRef(null);
+  const aboutRef = useRef(null);
+  const learnMoreRef = useRef(null);
+  const service1Ref = useRef(null);
+  const service2Ref = useRef(null);
+  const service3Ref = useRef(null);
+
+  useEffect(() => {
+    const handleIntersection = (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setIsVisible((prevState) => ({
+            ...prevState,
+            [entry.target.dataset.id]: true,
+          }));
+          observer.unobserve(entry.target);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(handleIntersection, {
+      threshold: 0.1,
+    });
+
+    const sections = [
+      containerRef.current,
+      aboutRef.current,
+      learnMoreRef.current,
+      service1Ref.current,
+      service2Ref.current,
+      service3Ref.current,
+    ];
+
+    sections.forEach((section) => {
+      if (section) {
+        observer.observe(section);
+      }
+    });
+
+    return () => {
+      sections.forEach((section) => {
+        if (section) {
+          observer.unobserve(section);
+        }
+      });
+    };
+  }, []);
+
   return (
-    <div className="outer-container">
+    <div className="outer-container" id="top">
       <div className="container">
         <div className="text-container">
           <div className="line1">
@@ -21,78 +83,69 @@ const CreateRide = () => {
         <RagPaper />
       </div>
       <div className="about">
-        <div className="why-rag" style={{ paddingTop: "50%" }}>
+        <div className="why-rag">
           <h2>Why use Car-pooling ?</h2>
-          <div className="use">
-            <div className="use1">
-              <h3>Easy Connect with Students</h3>
-              <p>
-                Our are available around the clock to collect your recyclable
-                waste conveniently.
+          <div
+            className="service"
+            style={{ display: "flex", justifyContent: "space-evenly" }}
+          >
+            <div className="use">
+              <i className="icon">🚗</i>
+              <h3 className="title">Book a Ride</h3>
+              <p className="content">
+                Choose from our fleet of comfortable and reliable vehicles.
+                Whether you need a quick ride to the airport or a day-long trip,
+                we&apos;ve got you covered!
               </p>
             </div>
-            <div className="use2">
-              <h3>Door to Door Services</h3>
-              <p>
-                Enjoy the convenience of our 24/7 door-to-door recyclable waste
-                collection service.
-              </p>
-            </div>
-          </div>
-          <div className="use">
-            <div className="use3">
-              <h3>Save your precious time</h3>
-              <p>Our help you sell your recyclable waste at any time.</p>
-            </div>
-            <div className="use4" style={{ marginLeft: "12vh" }}>
-              <h3>Negotiable Price</h3>
-              <p>
-                We offer flexible pricing for your recyclable waste,ensuring the
-                best deal.{" "}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="area2">
-        <div className="why-rag">
-          <h2>Areas we provide service</h2>
-          <div className="all-area">
-            <h3>Mumbai</h3>
-            <h3>Coimbatore</h3>
-            <h3>Delhi</h3>
-            <h3>Bangalore</h3>
-            <h3>Kolkata</h3>
-            <h3>Chennai</h3>
-            <h3>Hyderabad</h3>
-            <h3>Pune</h3>
-            <h3>Ahmedabad</h3>
-            <h3>Jaipur</h3>
-            <h3>Surat</h3>
-            <h3>Lucknow</h3>
-            <h3>Kanpur</h3>
-            <h3>Nagpur</h3>
-            <h3>Indore</h3>
-            <h3>Bhopal</h3>
-            <h3>Visakhapatnam</h3>
-            <h3>Patna</h3>
-          </div>
-        </div>
-      </div>
 
-      <div className="about">
-        <div className="why-rag">
-          <h2>About Car Pooling</h2>
-          <div className="about-content">
-            <h3>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Quibusdam dicta facere numquam nihil aspernatur beatae adipisci
-              aliquam nesciunt, consequatur molestias mollitia officiis
-              doloribus ullam quod nisi eaque voluptatibus! Ipsum, corrupti.
-            </h3>
+            <div className="use">
+              <i className="icon">🌟</i>
+              <h3 className="title">Premium Service</h3>
+              <p className="content">
+                Experience top-notch service with our professional drivers.
+                Enjoy a smooth and safe ride to your destination.
+              </p>
+            </div>
+
+            <div className="use">
+              <i className="icon">📅</i>
+              <h3 className="title">Flexible Scheduling</h3>
+              <p className="content">
+                Book in advance or request a ride on the spot. Our flexible
+                scheduling ensures you get where you need to go, when you need
+                to be there.
+              </p>
+            </div>
           </div>
         </div>
       </div>
+      <div className="learnMore">
+        <div>
+          <img src={image} alt="" />
+        </div>
+        <div className="learnMore-content">
+          <h2>Help us keep you safe from scams</h2>
+          <div className="learnMore-text">
+            At College_Rapido, we&apos;re working hard to make our platform as
+            secure as it can be. But when scams do happen, we want you to know
+            exactly how to avoid and report them. Follow our tips to help us
+            keep you safe.
+          </div>
+          <Button
+            variant="contained"
+            style={{
+              backgroundColor: "white",
+              color: "black",
+              fontWeight: "bold",
+              borderRadius: "10px",
+            }}
+          >
+            Learn More
+          </Button>
+        </div>
+      </div>
+      {/* footer should be placed here */}.
     </div>
   );
 };

@@ -1,13 +1,13 @@
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
-import BookRide from './components/BookRide/BookRide'
-import Homepage from './components/Homepage/Homepage'
-import SignInSide from './components/SignIn/SignIn'
-import SignUp from './components/SignUp/SignUp'
-import CreateRide from './components/CreateRide/CreateRide'
-import Navbar from './components/NavBar/NavBar'
-import ProfilePage from './components/ProfilePage/ProfilePage'
-import Dummy from './components/Dummy'
-import SuccessSignIn from './components/SignIn/SuccessSignin'
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import BookRide from "../components/BookRide/BookRide";
+import Homepage from "../oldComponents/HomePage/HomePage";
+import SignInSide from "../oldComponents/SignIn/SignIn";
+import SignUp from "../oldComponents/SignUp/SignUp";
+import CreateRide from "../oldComponents/CreateRide/CreateRide";
+import ProfilePage from "../components/ProfilePage/ProfilePage";
+import Navbar from "../oldComponents/Navbar/Navbar";
+import Dummy from "../components/Dummy";
+import SuccessSignIn from "../oldComponents/SignIn/SuccessSignin";
 
 const App = () => {
   return (
@@ -24,7 +24,7 @@ const App = () => {
         <Route path="/loginSuccess" element={<SuccessSignIn />} />
       </Routes>
     </Router>
-  )
-}
+  );
+};
 
-export default App
+export default App;
