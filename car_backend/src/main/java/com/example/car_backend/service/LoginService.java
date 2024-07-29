@@ -1,5 +1,7 @@
 package com.example.car_backend.service;
 
+import java.sql.SQLException;
+
 import org.springframework.stereotype.Service;
 
 import com.example.car_backend.model.UserDetails;
@@ -13,8 +15,13 @@ public class LoginService {
         this.loginRepo = loginRepo;
     }
 
-    public boolean checkLoginCredentials(String email, String password) {
+    public UserDetails checkLoginCredentials(String email) {
         UserDetails user = loginRepo.findByEmail(email);
-        return user != null && user.getPassword().equals(password);
+        if(user != null) {
+            return user;
+        }
+        else {
+            return new UserDetails();
+        }
     }
 }

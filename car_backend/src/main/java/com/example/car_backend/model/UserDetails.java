@@ -1,6 +1,12 @@
 package com.example.car_backend.model;
 
 import java.sql.Blob;
+import java.sql.SQLException;
+import java.util.Base64;
+
+import org.springframework.boot.context.properties.bind.DefaultValue;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -21,27 +27,32 @@ public class UserDetails {
     private String licenceId;
     private String registerNumber;
     private int verificationCode;
-    private boolean isVerified;
+    private boolean isVerified = false;
+    @JsonIgnore
     @Lob
     private Blob idCard;
+    private transient String encodedImage;
 
     // Constructors, getters, and setters
     public UserDetails() {
     }
 
     public UserDetails(String firstName, String lastName, String email, String password, String phoneNumber,
-            String department, String licenceId, String registerNumber, int verificationCode, Blob idCard) {
+    String department, String yearOfStudy, String licenceId, String registerNumber, int verificationCode,
+    boolean isVerified, Blob idCard, String encodedImage) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.department = department;
+        this.yearOfStudy = yearOfStudy;
         this.licenceId = licenceId;
         this.registerNumber = registerNumber;
         this.verificationCode = verificationCode;
+        this.isVerified = isVerified;
         this.idCard = idCard;
-        this.isVerified = false;
+        this.encodedImage = encodedImage;
     }
 
     public String getFirstName() {
@@ -140,5 +151,23 @@ public class UserDetails {
         this.isVerified = isVerified;
     }
 
+    public String encodedImage() {
+        if(idCard != null) {
+            try {
+                byte[] bytes = idCard.getBytes(1, (int) idCard.length());
+                return Base64.getEncoder().encodeToString(bytes);
+            } catch(SQLException e) {
+                e.printStackTrace();
+            } 
+        }
+        return null;
+    }
+
+    public String getEncodedImage() {
+        return encodedImage;
+    }
+    public void setEncodedImage(String encodedImage) {
+        this.encodedImage = encodedImage;
+    }
     
 }
