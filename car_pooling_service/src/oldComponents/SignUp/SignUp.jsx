@@ -152,7 +152,7 @@ export default function SignUp() {
   const theme = createTheme({
     palette: {
       background: {
-        default: "#f5f5f5", // Light grey background
+        default: "#000000", // Light grey background
       },
       primary: {
         main: "#000000", // Blue for primary actions and highlights
@@ -236,7 +236,13 @@ export default function SignUp() {
         maxWidth="xs"
         style={{ borderColor: "black" }}
       > */}
-      <Grid container component="main" sx={{ height: "100vh" }}>
+      <Grid
+        container
+        component="main"
+        sx={{
+          height: "100vh",
+        }}
+      >
         <CssBaseline />
         <Grid
           item
@@ -244,6 +250,7 @@ export default function SignUp() {
           sm={4}
           md={7}
           sx={{
+            // background: "linear-gradient(144deg, #af40ff, black 30%, #1852f4)",
             backgroundImage: "url(/images/signup_bg.webp)",
             backgroundRepeat: "no-repeat",
             backgroundColor: (t) =>
@@ -290,6 +297,25 @@ export default function SignUp() {
                     id="firstName"
                     label="First Name"
                     autoFocus
+                    InputLabelProps={{
+                      style: { color: "black" },
+                    }}
+                    InputProps={{
+                      style: { color: "white" },
+                      sx: {
+                        "& .MuiOutlinedInput-root": {
+                          "& fieldset": {
+                            borderColor: "#f4f4f4",
+                          },
+                          "&:hover fieldset": {
+                            borderColor: "white",
+                          },
+                          "&.Mui-focused fieldset": {
+                            borderColor: "white",
+                          },
+                        },
+                      },
+                    }}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -303,6 +329,25 @@ export default function SignUp() {
                     label="Last Name"
                     name="lastName"
                     autoComplete="family-name"
+                    InputLabelProps={{
+                      style: { color: "black" },
+                    }}
+                    InputProps={{
+                      style: { color: "white" },
+                      sx: {
+                        "& .MuiOutlinedInput-root": {
+                          "& fieldset": {
+                            borderColor: "#f4f4f4",
+                          },
+                          "&:hover fieldset": {
+                            borderColor: "white",
+                          },
+                          "&.Mui-focused fieldset": {
+                            borderColor: "white",
+                          },
+                        },
+                      },
+                    }}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -321,6 +366,25 @@ export default function SignUp() {
                         ? "Please ensure your email address ends with '@skcet.ac.in'."
                         : ""
                     }
+                    InputLabelProps={{
+                      style: { color: "black" },
+                    }}
+                    InputProps={{
+                      style: { color: "white" },
+                      sx: {
+                        "& .MuiOutlinedInput-root": {
+                          "& fieldset": {
+                            borderColor: "white",
+                          },
+                          "&:hover fieldset": {
+                            borderColor: "white",
+                          },
+                          "&.Mui-focused fieldset": {
+                            borderColor: "white",
+                          },
+                        },
+                      },
+                    }}
                   />
                 </Grid>
                 <Grid item xs={12} sm={7}>
@@ -340,6 +404,25 @@ export default function SignUp() {
                         ? "Password must contain at least 8 characters"
                         : ""
                     }
+                    InputLabelProps={{
+                      style: { color: "black" },
+                    }}
+                    InputProps={{
+                      style: { color: "white" },
+                      sx: {
+                        "& .MuiOutlinedInput-root": {
+                          "& fieldset": {
+                            borderColor: "white",
+                          },
+                          "&:hover fieldset": {
+                            borderColor: "white",
+                          },
+                          "&.Mui-focused fieldset": {
+                            borderColor: "white",
+                          },
+                        },
+                      },
+                    }}
                   />
                 </Grid>
                 <Grid item xs={12} sm={5}>
@@ -354,6 +437,26 @@ export default function SignUp() {
                     value={phoneNumber}
                     onChange={handlePhoneNumberChange}
                     error={phoneNumberError}
+                    InputLabelProps={{
+                      style: { color: "black" },
+                    }}
+                    InputProps={{
+                      style: { color: "white", borderBlockColor: "white" },
+
+                      sx: {
+                        "& .MuiOutlinedInput-root": {
+                          "& fieldset": {
+                            borderColor: "white",
+                          },
+                          "&:hover fieldset": {
+                            borderColor: "white",
+                          },
+                          "&.Mui-focused fieldset": {
+                            borderColor: "white",
+                          },
+                        },
+                      },
+                    }}
                   />
                   {phoneNumberError && (
                     <FormHelperText style={{ color: "red", fontSize: "13px" }}>
@@ -366,7 +469,6 @@ export default function SignUp() {
                   <Autocomplete
                     required
                     id="dept"
-                    // sx={{ width: 300 }}
                     options={department}
                     onChange={(event, value) => setDepartments(value.dept)}
                     autoHighlight
@@ -391,6 +493,26 @@ export default function SignUp() {
                           ...params.inputProps,
                           autoComplete: "new-password", // disable autocomplete and autofill
                         }}
+                        InputLabelProps={{
+                          style: { color: "black" },
+                        }}
+                        InputProps={{
+                          ...params.InputProps,
+                          style: { color: "black" },
+                          sx: {
+                            "& .MuiOutlinedInput-root": {
+                              "& fieldset": {
+                                borderColor: "black",
+                              },
+                              "&:hover fieldset": {
+                                borderColor: "white",
+                              },
+                              "&.Mui-focused fieldset": {
+                                borderColor: "white",
+                              },
+                            },
+                          },
+                        }}
                       />
                     )}
                   />
@@ -398,7 +520,6 @@ export default function SignUp() {
                 <Grid item xs={12} sm={5}>
                   <Autocomplete
                     id="year"
-                    // sx={{ width: 300 }}
                     options={years}
                     autoHighlight
                     getOptionLabel={(option) => option.year}
@@ -420,6 +541,26 @@ export default function SignUp() {
                           ...params.inputProps,
                           autoComplete: "new-password", // disable autocomplete and autofill
                         }}
+                        InputLabelProps={{
+                          style: { color: "black" },
+                        }}
+                        InputProps={{
+                          ...params.InputProps,
+                          style: { color: "white" },
+                          sx: {
+                            "& .MuiOutlinedInput-root": {
+                              "& fieldset": {
+                                borderColor: "white",
+                              },
+                              "&:hover fieldset": {
+                                borderColor: "white",
+                              },
+                              "&.Mui-focused fieldset": {
+                                borderColor: "white",
+                              },
+                            },
+                          },
+                        }}
                       />
                     )}
                   />
@@ -436,11 +577,11 @@ export default function SignUp() {
                     }}
                     InputLabelProps={{
                       shrink: true,
-                      style: { color: "#1976d2" },
+                      style: { color: "#f4f4f4" },
                     }}
                   />
 
-                  <FormHelperText style={{ color: "red" }}>
+                  <FormHelperText style={{ color: "#7bfcf9" }}>
                     *Upload Your College_ID Image
                   </FormHelperText>
                 </Grid>
@@ -454,7 +595,6 @@ export default function SignUp() {
                       shrink: true,
                       style: { color: "#1976d2" },
                     }}
-                    //    InputProps={{ multiline: true, type: "file" }}
                   />
                 </Grid>
               </Grid>
@@ -474,7 +614,7 @@ export default function SignUp() {
                   !id
                 }
                 onClick={handleSignUp}
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mt: 3, mb: 2, backgroundColor: "white" }}
               >
                 Sign Up
               </Button>
@@ -488,7 +628,6 @@ export default function SignUp() {
             </Box>
           </Box>
         </Grid>
-
         <Modal
           keepMounted
           open={open}
