@@ -1,4 +1,4 @@
-import { AppBar, Button, Toolbar } from "@mui/material";
+import { AppBar, Button, Card, CardActions, CardContent, CardMedia, Toolbar, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState, useRef } from "react";
 import "./Homepage.css";
@@ -133,15 +133,17 @@ const Homepage = () => {
                 display: "flex",
                 fontSize: "1.3rem",
                 padding: "0rem",
+                
               }}
             >
               <h2>For </h2>
               <h1 style={{ color: "green" }}>Co-Rider</h1>
             </div>
-            <h3>
-              hey this is logesh ,i am currently developing this component,as i
-              dont have content i am typing this
-            </h3>
+            <h4 style={{fontWeight:"500",fontSize:"125%",paddingBottom:"6%"}}>
+              Join rides with car-owning students, enjoy a comfortable journey,
+              and share petrol costs. Experience convenient and cost-effective
+              commuting.
+            </h4>
             <Button
               variant="contained"
               sx={{
@@ -179,6 +181,7 @@ const Homepage = () => {
               display: "flex",
               flexDirection: "column",
               marginRight: "5%",
+              
             }}
           >
             <div
@@ -192,10 +195,10 @@ const Homepage = () => {
               <h2>For </h2>
               <h1 style={{ color: "green" }}>Owner</h1>
             </div>
-            <h3>
-              hey this is logesh ,i am currently developing this component,as i
-              dont have content i am typing this
-            </h3>
+            <h4 style={{fontWeight:"500",fontSize:"125%",paddingBottom:"6%"}}>
+            Publish your ride and let fellow students join you. Share the
+            journey and petrol costs, making commuting more affordable.
+            </h4>
             <Button
               variant="contained"
               sx={{
@@ -221,36 +224,87 @@ const Homepage = () => {
         }}
         transition={{ duration: 0.5 }}
         className="about"
-        style={{ marginTop: "5%" }}
+        style={{ marginTop: "5%",paddingLeft:"5%" }}
       >
         <h2>Why use Car-La-Selvom ?</h2>
-        <div className="useService" ref={whyUseRef} id="whyUse">
+        <div className="useService" ref={whyUseRef} id="whyUse" style={{paddingTop:"5%"}}>
           <div className="use1">
-            <h3>Easy Connect for Rides</h3>
-            <p>
-              Our rag pickers are available around the clock to collect your
-              recyclable waste conveniently.
-            </p>
+
+          <Card sx={{ maxWidth: 345 }}>
+      <CardMedia
+        sx={{ height: 140 }}
+        image="https://static3.bigstockphoto.com/3/3/8/large1500/83345828.jpg"
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+            Easy Connect for Rides
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+        Connect easily with other students for shared rides.
+        </Typography>
+      </CardContent>
+      
+    </Card>
+
+
+
+    
           </div>
           <div className="use2">
-            <h3>Comfortable Ride</h3>
-            <p>
-              Enjoy the convenience of our 24/7 door-to-door recyclable waste
-              collection service.
-            </p>
+          <Card sx={{ maxWidth: 345 }}>
+      <CardMedia
+        sx={{ height: 140 }}
+        image="https://www.shutterstock.com/shutterstock/photos/2167027755/display_1500/stock-vector-autonomous-car-highway-traffic-top-view-comfortable-automobile-with-driver-assistance-system-2167027755.jpg"
+        title="green iguana"
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+        Comfortable Ride
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+        Enjoy a comfortable ride with fellow students.
+        </Typography>
+      </CardContent>
+      
+    </Card>
           </div>
           <div className="use3">
-            <h3>Share Expense</h3>
-            <p>
-              Our rag pickers help you sell your recyclable waste at any time.
-            </p>
+          <Card sx={{ maxWidth: 345 }}>
+      <CardMedia
+        sx={{ height: 140 }}
+        image="https://static.vecteezy.com/system/resources/previews/002/239/926/original/businessman-trying-to-push-cost-to-minimum-position-illustration-cost-reduction-strategy-concept-vector.jpg"
+        title="green iguana"
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+        Share Expense
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+        Reduce travel costs by sharing the petrol expense with co riders.
+        </Typography>
+      </CardContent>
+      
+    </Card>
+            
           </div>
           <div className="use4">
-            <h3>Eco-Friendly</h3>
-            <p>
-              We offer flexible pricing for your recyclable waste, ensuring the
-              best deal.
-            </p>
+          <Card sx={{ maxWidth: 345 }}>
+      <CardMedia
+        sx={{ height: 140 }}
+        image="https://media.licdn.com/dms/image/C4E12AQEg_B8_wDHn7w/article-cover_image-shrink_600_2000/0/1520180391036?e=2147483647&v=beta&t=ECARxfTLTPC2zKZDMADXg_KQtPKTYiu4SFYp_OsS4FE"
+        title="green iguana"
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+        Eco-Friendly
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+        Promote eco-friendly commuting by carpooling.
+        </Typography>
+      </CardContent>
+      
+    </Card>
+            
           </div>
         </div>
       </motion.div>

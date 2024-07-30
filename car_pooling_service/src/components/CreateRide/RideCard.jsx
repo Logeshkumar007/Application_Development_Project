@@ -12,6 +12,10 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
+import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
+
+
 const RideCard = () => {
   const [status, setStatus] = useState("");
 
@@ -23,24 +27,35 @@ const RideCard = () => {
   const [date, setDate] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
-  const [name] = useState("Sadasivam");
-  const [email] = useState("727722euit131@skcet.ac.in");
-  const [phNo] = useState("8667455968");
+  const [name,setName] = useState("");
+  const [email,setEmail] = useState("");
+  const [phone,setPhone] = useState("");
+  const [carNumber] = useState("TN 43 PN 2004");
   const [errors, setErrors] = useState({});
 
   const [suggestions, setSuggestions] = useState([
-    { label: "New York" },
-    { label: "Los Angeles" },
-    { label: "Chicago" },
-    // Add more default suggestions as needed
+    { label: "Marudhamalai Temple" },
+    { label: "VOC Park and Zoo" },
+    { label: "Siruvani Waterfalls" },
+    { label: "Gedee Car Museum" },
+    { label: "Perur Pateeswarar Temple" },
+    { label: "Adiyogi Shiva Statue" },
+    { label: "TNAU Botanical Garden" },
+    { label: "Brookefields Mall" },
+    { label: "Kovai Kondattam Amusement Park" },
+    { label: "Black Thunder Water Park" },
   ]);
 
   const navigate = useNavigate();
-
+  const logindata=useSelector(state=>state.loginReducer);
+  console.log("login data from ride card",logindata);
   const handleSubmit = (event) => {
+    setName(logindata.firstName+" "+logindata.lastName);
+    setEmail(logindata.email);
+    setPhone(logindata.phoneNumber);
     event.preventDefault();
     const newErrors = {};
-
+    
     if (!leaving) newErrors.leaving = "This field is required";
     if (!going) newErrors.going = "This field is required";
     if (!availableSeats) newErrors.availableSeats = "This field is required";
@@ -56,8 +71,9 @@ const RideCard = () => {
       const rideDetails = {
         name,
         email,
-        phNo,
+        phone,
         leaving,
+        carNumber,
         going,
         availableSeats,
         price,
@@ -326,7 +342,7 @@ const RideCard = () => {
       </Paper>
       {status === "success" &&
         setTimeout(() => {
-          navigate("/dummy");
+          navigate("/bookRide");
         }, 2000)}
       ;
     </div>
