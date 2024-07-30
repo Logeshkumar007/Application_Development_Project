@@ -1,0 +1,116 @@
+.container-home {
+  background-color: rgb(0, 0, 0);
+  height: 40dvh;
+  position: relative;
+  background-image: url("");
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-family: Titillium Web, sans-serif;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(rgba(0, 0, 0, 0.249), rgba(0, 0, 0, 0.5)),
+    url("/images/bg1.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  align-items: center;
+  position: relative;
+}
+.text-container {
+  color: white;
+  display: flex;
+
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  top: 15%;
+  height: 35vh;
+  width: 55%;
+}
+.line1 h1 {
+  font-size: 2.25rem;
+  font-weight: 550;
+}
+.main-content h1 {
+  font-size: 1.1rem;
+  font-weight: 200;
+  line-height: 3.5vh;
+}
+.line1 {
+  line-height: 5vh;
+}
+.main-content {
+  font-weight: 100;
+  font-size: 0.6rem;
+  position: relative;
+  top: 4%;
+}
+.about {
+  width: 100%;
+  height: max-content;
+
+  align-content: center;
+  text-align: center;
+  margin-bottom: 5dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 3%;
+}
+
+.homepage {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.about {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.useService {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 20px;
+  text-align: left;
+}
+
+.use1,
+.use2,
+.use3,
+.use4 {
+  background: #f9f9f9;
+  border-radius: 10px;
+  padding: 10px;
+  width: 40%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.use1:hover,
+.use2:hover,
+.use3:hover,
+.use4:hover {
+  transform: translateY(-10px);
+}
+
+h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 1em;
+  color: #555;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+}

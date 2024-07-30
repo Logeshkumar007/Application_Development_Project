@@ -12,7 +12,7 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import bg from "../Homepage/carowner.png";
+import bg from "../../components/Homepage/carowner.png";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
