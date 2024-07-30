@@ -54,6 +54,14 @@ const AnimatedRoutes = () => {
           }
         />
         <Route
+          path="/loginSuccess"
+          element={
+            <PageWrapper>
+              <SuccessSignIn />
+            </PageWrapper>
+          }
+        />
+        <Route
           path="/signup"
           element={
             <PageWrapper>
@@ -91,6 +99,7 @@ const AnimatedRoutes = () => {
 };
 
 import PropTypes from "prop-types";
+import SuccessSignIn from "./components/SignIn/SuccessSignin";
 
 const PageWrapper = ({ children }) => (
   <motion.div

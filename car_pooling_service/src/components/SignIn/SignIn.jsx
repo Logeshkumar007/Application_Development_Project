@@ -14,11 +14,14 @@ import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import bg from "../Homepage/carowner.png";
 import { Alert, Snackbar } from "@mui/material";
+import { useDispatch } from 'react-redux';
+import { setLogin } from "../Store/Reducer";
 
 
 const defaultTheme = createTheme();
 
 export default function SignInSide() {
+  const dispatch=useDispatch();
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const vertical = 'top';
@@ -48,6 +51,7 @@ export default function SignInSide() {
       .then((Response) => {
         console.log(Response.status)
         setUserDetails(Response.data)
+        dispatch(setLogin(Response.data));
         navigate("/loginSuccess")
       })
       .catch((error) => {
