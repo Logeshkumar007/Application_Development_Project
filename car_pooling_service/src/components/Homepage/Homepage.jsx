@@ -4,7 +4,7 @@ import React, { useEffect, useState, useRef } from "react";
 import "./Homepage.css";
 import TextTransition, { presets } from "react-text-transition";
 import png1 from "./carowner.png";
-import png2 from "./people.png";
+// import png2 from "./people.png";
 import { motion } from "framer-motion";
 
 const TEXTS = ["For", "By", "Of"];

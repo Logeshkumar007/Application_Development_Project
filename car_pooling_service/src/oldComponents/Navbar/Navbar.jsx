@@ -48,9 +48,9 @@ const Navbar = () => {
           <Link
             to="/signin"
             sx={{ display: "flex" }}
-            style={{ textDecoration: "none", color: "black" }}
+            style={{ textDecoration: "none", color: "#33333" }}
           >
-            <Typography sx={{ fontWeight: "550" }}>SignIn</Typography>
+            <Typography className="nav-sign-in" sx={{ fontWeight: "550", }}>SignIn</Typography>
           </Link>
         </div>
       </Toolbar>

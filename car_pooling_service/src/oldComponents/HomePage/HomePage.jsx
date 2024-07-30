@@ -118,7 +118,7 @@ const Homepage = () => {
               }}
             >
               <h2>For </h2>
-              <h1 style={{ color: "green" }}>Co-Rider</h1>
+              <h1 style={{ color: "#843dc5" }}>Co-Rider</h1>
             </div>
             <h3>
               hey this is logesh ,i am currently developing this component,as i
@@ -128,7 +128,7 @@ const Homepage = () => {
               variant="contained"
               sx={{
                 width: "25%",
-                backgroundColor: "green",
+                backgroundColor: "#843dc5",
                 marginTop: "1%",
               }}
               onClick={() => navigate("/createRide")}
@@ -140,7 +140,7 @@ const Homepage = () => {
 
         <div
           style={{
-            backgroundColor: "rgba(178, 243, 178,0.3)",
+            background: "linear-gradient(223deg, white 11%, #79fef9 100%)",
             height: "70dvh",
             width: "50dvw",
             alignItems: "center",
@@ -164,9 +164,9 @@ const Homepage = () => {
               }}
             >
               <h2>For </h2>
-              <h1 style={{ color: "green" }}>Owner</h1>
+              <h1 style={{ color: "#843dc5" }}>Owner</h1>
             </div>
-            <h3>
+            <h3 style={{ color: "#333333" }}>
               hey this is logesh ,i am currently developing this component,as i
               dont have content i am typing this
             </h3>
@@ -174,7 +174,7 @@ const Homepage = () => {
               variant="contained"
               sx={{
                 width: "25%",
-                backgroundColor: "green",
+                backgroundColor: "#843dc5",
                 marginTop: "1%",
               }}
               onClick={() => navigate("/bookRide")}
@@ -185,46 +185,24 @@ const Homepage = () => {
         </div>
       </div>
 
-      <div
-        ref={aboutRef}
-        id="about"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{
-          opacity: isVisible.about ? 1 : 0,
-          y: isVisible.about ? 0 : 50,
-        }}
-        transition={{ duration: 0.5 }}
-        className="about"
-        style={{ marginTop: "5%" }}
-      >
+      <div className="about" style={{ marginTop: "5%" }}>
         <h2>Why use Car-La-Selvom ?</h2>
         <div className="useService" ref={whyUseRef} id="whyUse">
           <div className="use1">
             <h3>Easy Connect for Rides</h3>
-            <p>
-              Our rag pickers are available around the clock to collect your
-              recyclable waste conveniently.
-            </p>
           </div>
           <div className="use2">
             <h3>Comfortable Ride</h3>
-            <p>
+            {/* <p>
               Enjoy the convenience of our 24/7 door-to-door recyclable waste
               collection service.
-            </p>
+            </p> */}
           </div>
           <div className="use3">
-            <h3>Share Expense</h3>
-            <p>
-              Our rag pickers help you sell your recyclable waste at any time.
-            </p>
+            <h3>Share Expense With Passangers</h3>
           </div>
           <div className="use4">
             <h3>Eco-Friendly</h3>
-            <p>
-              We offer flexible pricing for your recyclable waste, ensuring the
-              best deal.
-            </p>
           </div>
         </div>
       </div>
