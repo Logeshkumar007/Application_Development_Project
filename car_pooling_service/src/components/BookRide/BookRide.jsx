@@ -417,7 +417,10 @@ const BookRide = () => {
                   paddingBottom: "5dvh",
                 }}
               >
-                <Button variant="contained">Book Ride</Button>
+                <Button variant="contained" onClick={()=>{
+                  const f=alert(`Confirm your ride with ${selectedRideData.name}`);
+                  
+                }}>Book Ride</Button>
               </div>
             </div>
           ) : (
