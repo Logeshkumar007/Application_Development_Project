@@ -240,21 +240,7 @@ const BookRide = () => {
                 </Dialog>
             <FilterListIcon style={{ paddingLeft: "4%" }}></FilterListIcon>
           </button>
-          <button
-            style={{
-              padding: "0.7vh",
-              borderRadius: "10vh",
-              fontSize: "75%",
-              backgroundColor: "white",
-              display: "flex",
-              border: "1.5px solid lightgrey",
-              paddingLeft: "1%",
-              paddingRight: "1%",
-            }}
-          >
-            <Typography>Sort by</Typography>
-            <KeyboardArrowDownIcon></KeyboardArrowDownIcon>
-          </button>
+        
         </div>
         <Divider></Divider>
       </div>
@@ -413,11 +399,11 @@ const BookRide = () => {
                     <img src={man} style={{ height: "22vh" }}></img>
                   </div>
                   <div>
-                    <Typography variant="h4">LogeshKumar</Typography>
+                    <Typography variant="h4">{selectedRideData.name}</Typography>
                     <Typography variant="h6">Male</Typography>
                     <Typography variant="h6">Btech IT</Typography>
                     <Typography variant="h6" sx={{ fontSize: "115%" }}>
-                      727722euit096@skcet.ac.in
+                      {selectedRideData.email}
                     </Typography>
                   </div>
                 </div>
