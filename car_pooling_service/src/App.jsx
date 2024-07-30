@@ -89,7 +89,7 @@ const AnimatedRoutes = () => {
           path="/dummy"
           element={
             <PageWrapper>
-              <Dummy />
+              <PublishedRideHistory />
             </PageWrapper>
           }
         />
@@ -100,6 +100,7 @@ const AnimatedRoutes = () => {
 
 import PropTypes from "prop-types";
 import SuccessSignIn from "./components/SignIn/SuccessSignin";
+import PublishedRideHistory from "./components/PublishedRideHistory/PublishedRideHistory";
 
 const PageWrapper = ({ children }) => (
   <motion.div

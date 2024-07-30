@@ -3,14 +3,17 @@ import { Link } from 'react-router-dom'
 
 const Navbar = () => {
   return (
-    <AppBar position="sticky">
+    <AppBar position="sticky" elevation={1}>
       <Toolbar
+      
         sx={{
+          
           backgroundColor: 'white',
           color: 'black',
           display: 'flex',
           justifyContent: 'space-around',
           lineHeight: '0.5rem',
+         
         }}
       >
         <Link to="/" className="logo">
