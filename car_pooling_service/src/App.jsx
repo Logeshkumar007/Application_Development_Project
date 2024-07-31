@@ -11,7 +11,7 @@ import SignUp from "./components/SignUp/SignUp";
 import CreateRide from "./components/CreateRide/CreateRide";
 import Navbar from "./components/NavBar/NavBar";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
-import Dummy from "./components/Dummy";
+
 import { AnimatePresence, motion } from "framer-motion";
 
 const App = () => {
@@ -37,6 +37,23 @@ const AnimatedRoutes = () => {
             </PageWrapper>
           }
         />
+        <Route
+          path="/passangerSignUp"
+          element={
+            <PageWrapper>
+              <PassangerSignUp />
+            </PageWrapper>
+          }
+        />
+        <Route
+          path="/passangerSignIn"
+          element={
+            <PageWrapper>
+              <PassangerSignIn />
+            </PageWrapper>
+          }
+        />
+
         <Route
           path="/createRide"
           element={
@@ -101,6 +118,8 @@ const AnimatedRoutes = () => {
 import PropTypes from "prop-types";
 import SuccessSignIn from "./components/SignIn/SuccessSignin";
 import PublishedRideHistory from "./components/PublishedRideHistory/PublishedRideHistory";
+import PassangerSignIn from "./components/PassangerAuthorization/PassangerSignIn";
+import PassangerSignUp from "./components/PassangerAuthorization/PassangerSignUp";
 
 const PageWrapper = ({ children }) => (
   <motion.div
