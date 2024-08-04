@@ -58,3 +58,48 @@
     --chart-5: 340 75% 55%;
   }
 }
+
+/* Define keyframes for animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromCorner {
+  from {
+    transform: translate(-100%, -100%);
+    background-color: var(--chart-4);
+  }
+  to {
+    transform: translate(0, 0);
+    background-color: var(--chart-5);
+  }
+}
+
+@keyframes slideInFromBottomRight {
+  from {
+    transform: translate(100%, 100%);
+    background-color: var(--chart-6);
+  }
+  to {
+    transform: translate(0, 0);
+    background-color: var(--chart-7);
+  }
+}
+
+/* Apply animations to classes */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.slide-in-from-corner {
+  animation: slideInFromCorner 0.5s ease-in-out;
+}
+
+.slide-in-from-bottom-right {
+  animation: slideInFromBottomRight 0.5s ease-in-out;
+}

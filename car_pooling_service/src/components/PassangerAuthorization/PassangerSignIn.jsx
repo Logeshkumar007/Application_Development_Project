@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import SignInImage from "../../assets/images/Mediamodifier-Design-Template.png";
+import SignInImage from "../../assets/images/interview_svg.png";
 import {
   Card,
   CardContent,
@@ -24,12 +24,12 @@ export default function PassangerSignIn() {
   };
 
   return (
-    <div className="h-screen w-screen flex items-center justify-center">
-      <div className="mx-auto flex justify-evenly items-center p-4">
+    <div className="slide-in-from-corner h-[80vh] w-screen flex items-center justify-center">
+      <div className="mx-auto flex justify-evenly items-center p-4 gap-28">
         <div className="">
           <img className="w-[25rem] h-[27rem]" src={SignInImage} alt="" />
         </div>
-        <Card className="max-w-sm shadow-2xl">
+        <Card className="">
           <CardHeader>
             <CardTitle className="text-2xl">Login</CardTitle>
             <CardDescription>
@@ -67,7 +67,7 @@ export default function PassangerSignIn() {
                   required
                 />
               </div>
-              <Button type="submit" className="w-full">
+              <Button type="submit" className="w-full bg-primary">
                 Login
               </Button>
               <Button variant="outline" className="w-full">

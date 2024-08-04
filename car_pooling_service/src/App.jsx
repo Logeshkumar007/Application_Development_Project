@@ -19,6 +19,10 @@ const App = () => {
     <Router>
       <Navbar />
       <AnimatedRoutes />
+      <Routes>
+        <Route path="/passangerSignUp" element={<PassangerSignUp />} />
+        <Route path="/passangerSignIn" element={<PassangerSignIn />} />
+      </Routes>
     </Router>
   );
 };
@@ -38,18 +42,10 @@ const AnimatedRoutes = () => {
           }
         />
         <Route
-          path="/passangerSignUp"
+          path="/RiderSignIn"
           element={
             <PageWrapper>
-              <PassangerSignUp />
-            </PageWrapper>
-          }
-        />
-        <Route
-          path="/passangerSignIn"
-          element={
-            <PageWrapper>
-              <PassangerSignIn />
+              <RiderSignUp />
             </PageWrapper>
           }
         />
@@ -120,6 +116,7 @@ import SuccessSignIn from "./components/SignIn/SuccessSignin";
 import PublishedRideHistory from "./components/PublishedRideHistory/PublishedRideHistory";
 import PassangerSignIn from "./components/PassangerAuthorization/PassangerSignIn";
 import PassangerSignUp from "./components/PassangerAuthorization/PassangerSignUp";
+import RiderSignUp from "./components/RiderAuthorization/RiderSignUp";
 
 const PageWrapper = ({ children }) => (
   <motion.div

@@ -120,6 +120,7 @@ const Homepage = () => {
             y: isVisible.section1 ? 0 : 50,
           }}
           transition={{ duration: 0.5 }}
+          className="w-[50dvw]"
           style={{
             backgroundColor: "rgba(178, 243, 178,0)",
             height: "70dvh",
@@ -144,12 +145,15 @@ const Homepage = () => {
               }}
             >
               <h2>For </h2>
-              <h1 style={{ color: "green" }}>Co-Rider</h1>
+              <h1 className="bg-background font-bold text-4xl">Co-Rider</h1>
             </div>
             <h4
+              className="text-2xl"
               style={{
                 fontWeight: "500",
                 fontSize: "125%",
+                alignContent: "center",
+                alignItems: "center",
                 paddingBottom: "6%",
               }}
             >
@@ -158,11 +162,11 @@ const Homepage = () => {
               commuting.
             </h4>
             <Button
-              variant="contained"
+              id="btn-donate"
+              // variant="contained"
               sx={{
+                // backgroundColor: "black",
                 width: "25%",
-                backgroundColor: "green",
-                marginTop: "1%",
               }}
               onClick={() => navigate("/createRide")}
             >
@@ -180,13 +184,7 @@ const Homepage = () => {
             y: isVisible.section2 ? 0 : 50,
           }}
           transition={{ duration: 0.5 }}
-          style={{
-            backgroundColor: "rgba(178, 243, 178,0.3)",
-            height: "70dvh",
-            width: "50dvw",
-            alignItems: "center",
-            alignContent: "center",
-          }}
+          className="bg bg-gradient-to-tr from-white to-black w-[50dvw] h-[70dvh] items-center content-center"
         >
           <div
             style={{
@@ -204,24 +202,19 @@ const Homepage = () => {
                 padding: "0rem",
               }}
             >
-              <h2>For </h2>
-              <h1 style={{ color: "green" }}>Owner</h1>
+              <h2 className="font-bold">For </h2>
+              <div className=" font-bold text-4xl text-background">Owner</div>
             </div>
-            <h4
-              style={{
-                fontWeight: "500",
-                fontSize: "125%",
-                paddingBottom: "6%",
-              }}
-            >
+            <div className="text-background text-2xl pb-8">
               Publish your ride and let fellow students join you. Share the
               journey and petrol costs, making commuting more affordable.
-            </h4>
+            </div>
+
             <Button
               variant="contained"
               sx={{
                 width: "25%",
-                backgroundColor: "green",
+                backgroundColor: "black",
                 marginTop: "1%",
               }}
               onClick={() => navigate("/bookRide")}
