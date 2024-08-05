@@ -5,7 +5,7 @@ import Confetti from 'react-confetti'
 import { useNavigate } from 'react-router-dom';
 
 export default function SuccessSignIn () {
-  const [time, setTime] = React.useState(5)
+  const [time, setTime] = React.useState(2)
   const navigate = useNavigate();
   useEffect(()=>{
     if(time === 0){

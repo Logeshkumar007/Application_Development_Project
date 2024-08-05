@@ -9,7 +9,7 @@ import lombok.Data;
 @Entity
 @Data
 public class BookRide {
-       @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     String name;
@@ -21,7 +21,7 @@ public class BookRide {
     double price;
     String carName;
     String carNumber;
-    String date; 
-    String startTime; 
-    String endTime; 
+    String date;
+    String startTime;
+
 }

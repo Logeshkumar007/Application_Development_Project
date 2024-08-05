@@ -90,7 +90,9 @@ const Homepage = () => {
               justifyContent: "space-around",
             }}
           >
-            <h1 style={{ fontSize: "3rem" }}>Car Pooling Service </h1>
+            <h1 style={{ fontSize: "3rem" }} onClick={()=>{
+              navigate('/profile')
+            }}>Car Pooling Service </h1>
             &nbsp;&nbsp;
             <h1 style={{ fontSize: "3rem" }}>
               <TextTransition springConfig={presets.wobbly}>
