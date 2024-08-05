@@ -31,20 +31,21 @@ const Navbar = () => {
             marginRight: '8%',
           }}
         >
-          <Link to="/findRagPickers">
-            <Typography sx={{ fontWeight: '550' }}></Typography>
-          </Link>
-          <Link to="/findRags">
-            <Typography sx={{ fontWeight: '550' }}></Typography>
-          </Link>
+          
         </div>
         <div
           style={{
             display: 'flex',
             justifyContent: 'space-around',
-            width: '15%',
+            width: '45%',
           }}
         >
+          <Link to="/PilotsRideHistory">
+            <Typography sx={{ fontWeight: '550' }}>Pilot Rides</Typography>
+          </Link>
+          <Link to="/dummy">
+            <Typography sx={{ fontWeight: '550' }}>Passenger Rides</Typography>
+          </Link>
           <Link to="/signup" style={{textDecoration: 'none', color: 'black'}}>
             <Typography sx={{ fontWeight: '550' }}>SignUp</Typography>
           </Link>
