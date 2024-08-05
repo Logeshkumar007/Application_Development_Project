@@ -379,7 +379,12 @@ p {
   justify-content: center;
   font-size: 25px;
   font-weight: bold;
-  background-color: lightblue;
+  padding: 10px;
+
+  color: #333333;
+  background-color: white;
+  text-align: center;
+  font-size: large;
   transition: all 0.5s;
 }
 
