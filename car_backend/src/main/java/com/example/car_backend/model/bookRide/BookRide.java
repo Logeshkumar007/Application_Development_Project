@@ -16,7 +16,7 @@ import java.util.*;
 @Entity
 @Data
 public class BookRide {
-       @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     String name;

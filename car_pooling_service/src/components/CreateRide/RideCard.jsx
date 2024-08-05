@@ -15,7 +15,6 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 
-
 const RideCard = () => {
   const [status, setStatus] = useState("");
 
@@ -26,11 +25,11 @@ const RideCard = () => {
   const [carName, setCarName] = useState("");
   const [date, setDate] = useState("");
   const [startTime, setStartTime] = useState("");
-  const [endTime, setEndTime] = useState("");
-  const [name,setName] = useState("");
-  const [email,setEmail] = useState("");
-  const [phone,setPhone] = useState("");
-  const [carNumber] = useState("TN 43 PN 2004");
+  const [carNumber, setCarNumber] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+
   const [errors, setErrors] = useState({});
 
   const [suggestions, setSuggestions] = useState([
@@ -47,15 +46,15 @@ const RideCard = () => {
   ]);
 
   const navigate = useNavigate();
-  const logindata=useSelector(state=>state.loginReducer);
-  console.log("login data from ride card",logindata);
+  const logindata = useSelector((state) => state.loginReducer);
+  console.log("login data from ride card", logindata);
   const handleSubmit = (event) => {
-    setName(logindata.firstName+" "+logindata.lastName);
+    setName(logindata.firstName + " " + logindata.lastName);
     setEmail(logindata.email);
     setPhone(logindata.phoneNumber);
     event.preventDefault();
     const newErrors = {};
-    
+
     if (!leaving) newErrors.leaving = "This field is required";
     if (!going) newErrors.going = "This field is required";
     if (!availableSeats) newErrors.availableSeats = "This field is required";
@@ -63,7 +62,7 @@ const RideCard = () => {
     if (!carName) newErrors.carName = "This field is required";
     if (!date) newErrors.date = "This field is required";
     if (!startTime) newErrors.startTime = "This field is required";
-    if (!endTime) newErrors.endTime = "This field is required";
+    if (!carNumber) newErrors.carNumber = "This field is required";
 
     setErrors(newErrors);
 
@@ -80,8 +79,8 @@ const RideCard = () => {
         carName,
         date,
         startTime,
-        endTime,
       };
+      console.log(rideDetails);
       axios
         .post("http://localhost:8080/app/createride", rideDetails)
         .then((response) => {
@@ -312,16 +311,16 @@ const RideCard = () => {
             <Grid item xs={12} sm={6}>
               <TextField
                 id="outlined-end-time"
-                label="End Time"
-                type="time"
-                value={endTime}
-                onChange={(e) => setEndTime(e.target.value)}
+                label="Car Number"
+                type="text"
+                value={carNumber}
+                onChange={(e) => setCarNumber(e.target.value)}
                 fullWidth
                 InputLabelProps={{
                   shrink: true,
                 }}
-                error={!!errors.endTime}
-                helperText={errors.endTime}
+                error={!!errors.carNumber}
+                helperText={errors.carNumber}
               />
             </Grid>
           </Grid>
