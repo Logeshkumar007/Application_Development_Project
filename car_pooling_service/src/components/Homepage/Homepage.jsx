@@ -162,10 +162,10 @@ const Homepage = () => {
               commuting.
             </h4>
             <Button
-              id="btn-donate"
-              // variant="contained"
+              // id="btn-donate"
+              variant="contained"
               sx={{
-                // backgroundColor: "black",
+                backgroundColor: "black",
                 width: "25%",
               }}
               onClick={() => navigate("/createRide")}
@@ -184,7 +184,13 @@ const Homepage = () => {
             y: isVisible.section2 ? 0 : 50,
           }}
           transition={{ duration: 0.5 }}
-          className="bg bg-gradient-to-tr from-white to-black w-[50dvw] h-[70dvh] items-center content-center"
+          style={{
+            alignContent: "center",
+            width: "50dvw",
+            height: "70dvh",
+            backgroundColor: "rgba(178, 243, 178,0.3)",
+          }}
+          // className="bg bg-gradient-to-tr from-white to-green-500 w-[50dvw] h-[70dvh] items-center content-center"
         >
           <div
             style={{
@@ -203,9 +209,9 @@ const Homepage = () => {
               }}
             >
               <h2 className="font-bold">For </h2>
-              <div className=" font-bold text-4xl text-background">Owner</div>
+              <div className=" font-bold text-4xl text-foreground">Owner</div>
             </div>
-            <div className="text-background text-2xl pb-8">
+            <div className="text-foreg text-2xl pb-8">
               Publish your ride and let fellow students join you. Share the
               journey and petrol costs, making commuting more affordable.
             </div>
@@ -237,7 +243,9 @@ const Homepage = () => {
         className="about"
         style={{ marginTop: "5%", paddingLeft: "5%" }}
       >
-        <h2>Why use Car-La-Selvom ?</h2>
+        <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+          Why use Car-La-Selvom ?
+        </h2>
         <div
           className="useService"
           ref={whyUseRef}

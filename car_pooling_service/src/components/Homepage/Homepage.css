@@ -132,9 +132,9 @@ p {
     var(--btn-bg-1) 55%,
     var(--btn-bg-2) 90%
   );
-  border: none;
+  border: 2px solid white; /* White border */
   border-radius: var(--radii);
-  color: var(--btn-bg-color);
+  color: var(--btn-bg-color); /* White text color */
   box-shadow: 0px 0px 20px rgba(71, 184, 255, 0.5),
     0px 5px 5px -1px rgba(58, 125, 233, 0.25),
     inset 4px 4px 8px rgba(175, 230, 255, 0.5),
