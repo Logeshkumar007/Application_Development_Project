@@ -14,11 +14,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setIdselected } from "../Store/Reducer";
+import { useNavigate } from "react-router-dom";
 const BookRide = () => {
   const dispatch = useDispatch();
   const selectedid = useSelector((state) => state.selectedIdReducer);
   const [opendilog,setOpendilog]=useState(false);
-
+  const nav=useNavigate();
 
   const [leavingFromFilters, setLeavingFromFilters] = useState([]);
   const [goingToFilters, setGoingToFilters] = useState([]);
@@ -39,6 +40,27 @@ const BookRide = () => {
     
     
   };
+  const logindata=useSelector(state=>state.loginReducer);
+  const handleBookRide=()=>{
+    if(logindata.email==="")
+      {
+        alert("please login first");
+      }
+      else
+      {
+        axios.post(`http://localhost:8080/app/userRideHistory/${logindata.email}/${selectedRideData.id}`)
+        .then(response=>{
+          console.log(response);
+        })
+        .catch(error=>{
+          console.log("error occured in posting a booking ride",error);
+          })
+        console.log("Ride Booked with Driver Id : ",selectedRideData.id);
+        console.log("Ride Booked By ",logindata.email);
+        nav("/dummy");
+    }
+
+  }
   const [rideData, setRideData] = useState([
     {
       id: null,
@@ -418,7 +440,8 @@ const BookRide = () => {
                 }}
               >
                 <Button variant="contained" onClick={()=>{
-                  const f=alert(`Confirm your ride with ${selectedRideData.name}`);
+                  
+                  handleBookRide();
                   
                 }}>Book Ride</Button>
               </div>

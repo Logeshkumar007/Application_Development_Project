@@ -3,14 +3,21 @@ package com.example.car_backend.model;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Base64;
+import java.util.*;
 
 import org.springframework.boot.context.properties.bind.DefaultValue;
 
+import com.example.car_backend.model.userRideHistory.UserRideHistory;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class UserDetails {
@@ -33,6 +40,10 @@ public class UserDetails {
     private Blob idCard;
     private transient String encodedImage;
 
+    @JsonBackReference
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "userDetails")
+    private List<UserRideHistory> userRideHistory;
+    
     // Constructors, getters, and setters
     public UserDetails() {
     }
