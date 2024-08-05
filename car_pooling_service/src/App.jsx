@@ -5,20 +5,29 @@ import {
   useLocation,
 } from "react-router-dom";
 import BookRide from "./components/BookRide/BookRide";
+
 import Homepage from "./components/Homepage/Homepage";
 import SignInSide from "./components/SignIn/SignIn";
 import SignUp from "./components/SignUp/SignUp";
 import CreateRide from "./components/CreateRide/CreateRide";
 import Navbar from "./components/NavBar/NavBar";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
-import Dummy from "./components/Dummy";
+
 import { AnimatePresence, motion } from "framer-motion";
+import PropTypes from "prop-types";
+import SuccessSignIn from "./components/SignIn/SuccessSignin";
+import PublishedRideHistory from "./components/PublishedRideHistory/PublishedRideHistory";
+import PilotsRideHistory from "./components/PilotsRideHistory/PilotsRideHistory.jsx";
 
 const App = () => {
   return (
     <Router>
       <Navbar />
       <AnimatedRoutes />
+      <Routes>
+        <Route path="/passangerSignUp" element={<PassangerSignUp />} />
+        <Route path="/passangerSignIn" element={<PassangerSignIn />} />
+      </Routes>
     </Router>
   );
 };
@@ -38,6 +47,15 @@ const AnimatedRoutes = () => {
           }
         />
         <Route
+          path="/RiderSignIn"
+          element={
+            <PageWrapper>
+              <RiderSignUp />
+            </PageWrapper>
+          }
+        />
+
+        <Route
           path="/createRide"
           element={
             <PageWrapper>
@@ -49,7 +67,7 @@ const AnimatedRoutes = () => {
           path="/bookRide"
           element={
             <PageWrapper>
-              <BookRide />
+              <BookRide/>
             </PageWrapper>
           }
         />
@@ -89,7 +107,15 @@ const AnimatedRoutes = () => {
           path="/dummy"
           element={
             <PageWrapper>
-              <Dummy />
+              <PublishedRideHistory />
+            </PageWrapper>
+          }
+        />
+        <Route
+          path="/PilotsRideHistory"
+          element={
+            <PageWrapper>
+              <PilotsRideHistory />
             </PageWrapper>
           }
         />
@@ -98,8 +124,11 @@ const AnimatedRoutes = () => {
   );
 };
 
-import PropTypes from "prop-types";
-import SuccessSignIn from "./components/SignIn/SuccessSignin";
+
+
+import PassangerSignIn from "./components/PassangerAuthorization/PassangerSignIn";
+import PassangerSignUp from "./components/PassangerAuthorization/PassangerSignUp";
+import RiderSignUp from "./components/RiderAuthorization/RiderSignUp";
 
 const PageWrapper = ({ children }) => (
   <motion.div

@@ -25,7 +25,7 @@ const RidePaper=(props)=>{
     },[selectedid])
     
     return(
-        <Paper className="paper" elevation={1} sx={{padding:"3%",backgroundColor:"white",width:"65%",position:"relative",borderRadius:"0.5vh",paddingRight:"5%",height:"15dvh",marginBottom:"2%",display:"flex",flexDirection:"column",justifyContent:"space-between",
+        <Paper className="paper" elevation={1} sx={{padding:"3%",backgroundColor:"white",width:"75%",position:"relative",borderRadius:"0.5vh",paddingRight:"5%",height:"25dvh",marginBottom:"2%",display:"flex",flexDirection:"column",justifyContent:"space-between",
             borderLeft: `3px solid ${border}`
         }} onClick={()=>{
             setClick(!click);
