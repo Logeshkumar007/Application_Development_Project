@@ -218,10 +218,19 @@ const Homepage = () => {
               <h2 className="font-bold">For </h2>
               <div className=" font-bold text-4xl text-foreground">Owner</div>
             </div>
-            <div className="text-foreg text-2xl pb-8">
+            <h4
+              className="text-2xl"
+              style={{
+                fontWeight: "500",
+                fontSize: "125%",
+                alignContent: "center",
+                alignItems: "center",
+                paddingBottom: "6%",
+              }}
+            >
               Publish your ride and let fellow students join you. Share the
               journey and petrol costs, making commuting more affordable.
-            </div>
+            </h4>
 
             <Button
               variant="contained"
