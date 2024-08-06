@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Alert, Snackbar } from '@mui/material'
 import SignInImage from "../../assets/images/interview_svg.png";
 import {
   Card,
@@ -12,19 +13,66 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import "../../../src/index.css";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setLogin } from "../Store/Reducer";
+import { useNavigate } from "react-router-dom";
 
 export default function PassangerSignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
+  const [userDetails, setUserDetails] = React.useState({})
+  const vertical = 'top';
+  const horizontal = 'right';
 
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return
+    }
+
+    setOpen(false)
+  }
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Email:", email);
-    console.log("Password:", password);
+    axios
+      .get('http://localhost:8080/api/ecoride/login', {
+        params: {
+          email: email,
+          password: password,
+        },
+      })
+      .then((Response) => {
+        console.log(Response.status)
+        setUserDetails(Response.data)
+        dispatch(setLogin(Response.data))
+        navigate('/loginSuccess')
+      })
+      .catch((error) => {
+        console.error('There is an error in Singin ', error)
+        setOpen(true)
+      })
   };
 
   return (
     <div className="slide-in-from-corner h-[80vh] w-screen flex items-center justify-center">
+      <Snackbar
+        anchorOrigin={{ vertical, horizontal }}
+        open={open}
+        autoHideDuration={3000}
+        onClose={handleClose}
+      >
+        <Alert
+          onClose={handleClose}
+          severity="error"
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+          Error Invalid crendentials. Please try again!
+        </Alert>
+      </Snackbar>
       <div className="mx-auto flex justify-evenly items-center p-4 gap-28">
         <div className="">
           <img className="w-[25rem] h-[27rem]" src={SignInImage} alt="" />
@@ -75,7 +123,7 @@ export default function PassangerSignIn() {
               </Button>
             </form>
             <div className="mt-4 text-center text-sm">
-              Don&apos;t have an account?{" "}
+              Don&apos;t have an account?{' '}
               <Link to="/passangerSignUp" className="underline">
                 Sign up
               </Link>
@@ -84,5 +132,5 @@ export default function PassangerSignIn() {
         </Card>
       </div>
     </div>
-  );
+  )
 }
