@@ -119,7 +119,7 @@ export default function PassangerSignUp() {
       .then((Response) => {
         if (Response.status === 202) {
           setopen(false)
-          navigate('/')
+          navigate('/passangerSignin')
         } else {
           setOtpError('Invalid OTP. Please try again.')
           setopen(true)
