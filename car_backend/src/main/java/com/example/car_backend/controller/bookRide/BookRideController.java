@@ -29,6 +29,10 @@ public class BookRideController {
     public Optional<BookRide> getSelectedRideDetails(@PathVariable("id") int id) {
         return repo.findById(id);
     }
+    @GetMapping("/app/bookride/Driver/{email}")
+    public List<BookRide> getSelectedRideDetails(@PathVariable String email) {
+        return repo.findByEmail(email);
+    }
     
     @PostMapping("/app/bookride/filter")
     public List<BookRide> getFilters(@RequestBody List<List<String>>s) throws Exception {

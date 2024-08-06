@@ -15,10 +15,12 @@ public interface UserRideHistoryRepo extends JpaRepository<UserRideHistory,Integ
     UserRideHistory findDriverVyId(int id,String status);
     @Query("select e from UserRideHistory e where e.userDetails.email=?1 and e.status=?2")
     List<UserRideHistory> findUserRideHistoryByEmail(String email,String status);
-    @Query("select e from UserRideHistory e where e.bookRide.Id=?1 and e.userDetails.email=?2")
-    UserRideHistory findRides(int id,String email);
+    @Query("select e from UserRideHistory e where e.bookRide.email=?1 and e.status=?2")
+    List<UserRideHistory> findDriverRideHistoryByEmail(String email,String status);
+    @Query("select e from UserRideHistory e where e.bookRide.Id=?1")
+    List<UserRideHistory> findRides(int id);
     @Transactional
-@Modifying
+    @Modifying
     @Query("delete from UserRideHistory e where e.userDetails.email=?1 and e.bookRide.Id=?2")
     void cancelRide(String email,int id);
 } 

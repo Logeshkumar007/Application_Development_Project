@@ -39,6 +39,11 @@ public class UserRideHistoryController {
     public List<UserRideHistory> getByUserUpcoming(@PathVariable("email") String email,@PathVariable("status")String status) {
         return repo.findUserRideHistoryByEmail(email,status);
     }
+    @GetMapping("/app/userRideHistory/getDriverByemail/{email}/{status}")
+    public List<UserRideHistory> getByDriver(@PathVariable("email") String email,@PathVariable("status")String status) {
+        System.out.println("kjdkdkd");
+        return repo.findDriverRideHistoryByEmail(email,status);
+    }
     @PostMapping("/app/userRideHistory/{email}/{id}")
     public UserRideHistory postMethodName(@PathVariable("email") String email,@PathVariable("id") int id) {
         UserRideHistory m=new UserRideHistory();
@@ -58,16 +63,20 @@ public class UserRideHistoryController {
         repo.cancelRide(email,id);
     }
     // http://localhost:8080/app/updateRide/727722euit096@skcet.ac.in/5/completed
-    @PutMapping("/app/updateRide/{email}/{id}/{status}")
-    public UserRideHistory putToCompletedOrOngoing(@PathVariable("id") int id, @PathVariable("email") String email,@PathVariable("status")String status) {
+    
+    @PutMapping("/app/updateRide/ById/{id}/{status}")
+    public UserRideHistory putToCompletedOrOngoing(@PathVariable("id") int id,@PathVariable("status")String status) {
         //TODO: process PUT request
-        UserRideHistory u=repo.findRides(id, email);
+        List<UserRideHistory> u=repo.findRides(id);
         
+        for(UserRideHistory k:u)
+        {
+            k.setStatus(status);
+            repo.save(k);
+
+        }
         
-        u.setStatus(status);
-        
-        repo.save(u);
-        return u;
+        return u.get(0);
         
         
     }
