@@ -41,13 +41,13 @@ const Navbar = () => {
           style={{
             display: "flex",
             justifyContent: "space-around",
-            width: "45%",
+            width: "15%",
           }}
         >
           <HoverCard>
             <HoverCardTrigger asChild>
               <Button className="  text-white font-bold py-2 px-4 rounded">
-                History
+                Your Rides
               </Button>
             </HoverCardTrigger>
             <HoverCardContent className="w-40 bg-white p-4 rounded-lg shadow-lg">
@@ -59,18 +59,44 @@ const Navbar = () => {
                   sx={{ fontWeight: "550" }}
                   className="text-primary mb-4"
                 >
-                  Pilot Rides
+                  Pilot
                 </Typography>
               </Link>
               <div className="border-t border-primary my-2"></div>
               <Link to="/dummy" className="block hover:bg-blue-100 p-2 rounded">
                 <Typography sx={{ fontWeight: "550" }} className="text-primary">
-                  Passenger Rides
+                  Passenger
                 </Typography>
               </Link>
             </HoverCardContent>
           </HoverCard>
-          <Link to="/signup" style={{ textDecoration: "none", color: "black" }}>
+          <HoverCard>
+            <HoverCardTrigger asChild>
+              <Button className="  text-white font-bold py-2 px-4 rounded">
+                Get Started
+              </Button>
+            </HoverCardTrigger>
+            <HoverCardContent className="w-40 bg-white p-4 rounded-lg shadow-lg">
+              <Link
+                to="/passangerSignin"
+                className="block mb-2 hover:bg-blue-100 p-2  rounded"
+              >
+                <Typography
+                  sx={{ fontWeight: "550" }}
+                  className="text-primary mb-4"
+                >
+                  SignIn
+                </Typography>
+              </Link>
+              <div className="border-t border-primary my-2"></div>
+              <Link to="/passangerSignup" className="block hover:bg-blue-100 p-2 rounded">
+                <Typography sx={{ fontWeight: "550" }} className="text-primary">
+                  SignUp
+                </Typography>
+              </Link>
+            </HoverCardContent>
+          </HoverCard>
+          {/* <Link to="/signup" style={{ textDecoration: "none", color: "black" }}>
             <Typography sx={{ fontWeight: "550" }}>SignUp</Typography>
           </Link>
           <Link
@@ -79,7 +105,7 @@ const Navbar = () => {
             style={{ textDecoration: "none", color: "black" }}
           >
             <Typography sx={{ fontWeight: "550" }}>SignIn</Typography>
-          </Link>
+          </Link> */}
         </div>
       </Toolbar>
     </AppBar>
