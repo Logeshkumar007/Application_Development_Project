@@ -1,14 +1,14 @@
-import { useSelector } from 'react-redux'
-import { Separator } from '../ui/separator'
-import { useEffect } from 'react'
-import VerifiedIcon from '@mui/icons-material/Verified'
-import NewReleasesIcon from '@mui/icons-material/NewReleases'
-import SportsMotorsportsIcon from '@mui/icons-material/SportsMotorsports'
-import { Rating } from '@mui/material'
-import PersonIcon from '@mui/icons-material/Person'
-import TimelineIcon from '@mui/icons-material/Timeline'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs'
-import { Button, buttonVariants } from '../ui/button'
+import { useSelector } from "react-redux";
+import { Separator } from "../ui/separator";
+import { useEffect } from "react";
+import VerifiedIcon from "@mui/icons-material/Verified";
+import NewReleasesIcon from "@mui/icons-material/NewReleases";
+import SportsMotorsportsIcon from "@mui/icons-material/SportsMotorsports";
+import { Rating } from "@mui/material";
+import PersonIcon from "@mui/icons-material/Person";
+import TimelineIcon from "@mui/icons-material/Timeline";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import { Button, buttonVariants } from "../ui/button";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,19 +19,19 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog'
-import './profilePage.css'
+} from "@/components/ui/alert-dialog";
+// import './profilePage.css'
 
 export default function ProfilePage() {
-  const data = useSelector((state) => state.loginReducer)
+  const data = useSelector((state) => state.loginReducer);
   useEffect(() => {
-    console.log('the store data in profile is ', data)
-  }, [data])
-  console.log(data)
+    console.log("the store data in profile is ", data);
+  }, [data]);
+  console.log(data);
 
   const handleClick = () => {
-    console.log('clicked')
-  }
+    console.log("clicked");
+  };
   return (
     <>
       <section className="w-screen h-[91.3vh] flex flex-row">
@@ -72,16 +72,17 @@ export default function ProfilePage() {
                     <AlertDialogTitle>
                       Edit your profile information
                     </AlertDialogTitle>
-                    <form>
-                      
-                    </form>
+                    <form></form>
                     <AlertDialogDescription>
-                      This action cannot be undone. This will permanently update your data from our servers.
+                      This action cannot be undone. This will permanently update
+                      your data from our servers.
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={handleClick}>Update</AlertDialogAction>
+                    <AlertDialogAction onClick={handleClick}>
+                      Update
+                    </AlertDialogAction>
                   </AlertDialogFooter>
                 </AlertDialogContent>
               </AlertDialog>
@@ -152,7 +153,7 @@ export default function ProfilePage() {
               <section className="grid grid-cols-3 w-1/3 items-center justify-items-start">
                 <h1 className="font-bold">License: </h1>
                 <h1 className="font-medium col-span-2 italic">
-                  {data.licenseId ? data.licenseId : 'License Not Yet Uploaded'}
+                  {data.licenseId ? data.licenseId : "License Not Yet Uploaded"}
                 </h1>
               </section>
             </TabsContent>
@@ -160,5 +161,5 @@ export default function ProfilePage() {
         </section>
       </section>
     </>
-  )
+  );
 }

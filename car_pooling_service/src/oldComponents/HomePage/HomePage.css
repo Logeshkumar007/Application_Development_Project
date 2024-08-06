@@ -357,8 +357,10 @@ p {
   position: relative;
   width: 250px;
   height: 320px;
-  color: #333333;
-  background: mediumturquoise;
+
+  color: #f9f9f9;
+  background: #000000;
+  border: solid black 2px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -379,7 +381,12 @@ p {
   justify-content: center;
   font-size: 25px;
   font-weight: bold;
-  background-color: lightblue;
+  padding: 10px;
+
+  color: #333333;
+  background-color: white;
+  text-align: center;
+  font-size: large;
   transition: all 0.5s;
 }
 
