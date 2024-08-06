@@ -19,6 +19,11 @@ import SuccessSignIn from "./components/SignIn/SuccessSignin";
 import PublishedRideHistory from "./components/PublishedRideHistory/PublishedRideHistory";
 import PilotsRideHistory from "./components/PilotsRideHistory/PilotsRideHistory.jsx";
 
+import PassangerSignIn from "./components/PassangerAuthorization/PassangerSignIn";
+import PassangerSignUp from "./components/PassangerAuthorization/PassangerSignUp";
+import RiderSignUp from "./components/RiderAuthorization/RiderSignUp";
+import Footer from "./components/Footer/Footer.jsx";
+
 const App = () => {
   return (
     <Router>
@@ -67,7 +72,7 @@ const AnimatedRoutes = () => {
           path="/bookRide"
           element={
             <PageWrapper>
-              <BookRide/>
+              <BookRide />
             </PageWrapper>
           }
         />
@@ -104,6 +109,14 @@ const AnimatedRoutes = () => {
           }
         />
         <Route
+          path="/footer"
+          element={
+            <PageWrapper>
+              <Footer />
+            </PageWrapper>
+          }
+        />
+        <Route
           path="/dummy"
           element={
             <PageWrapper>
@@ -123,12 +136,6 @@ const AnimatedRoutes = () => {
     </AnimatePresence>
   );
 };
-
-
-
-import PassangerSignIn from "./components/PassangerAuthorization/PassangerSignIn";
-import PassangerSignUp from "./components/PassangerAuthorization/PassangerSignUp";
-import RiderSignUp from "./components/RiderAuthorization/RiderSignUp";
 
 const PageWrapper = ({ children }) => (
   <motion.div

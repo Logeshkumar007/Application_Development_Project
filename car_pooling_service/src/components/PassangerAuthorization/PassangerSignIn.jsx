@@ -12,15 +12,47 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import "../../../src/index.css";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setLogin } from "../Store/Reducer";
+import { useNavigate } from "react-router-dom";
 
 export default function PassangerSignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [open, setOpen] = React.useState(false);
 
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const [userDetails, setUserDetails] = React.useState({});
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Email:", email);
-    console.log("Password:", password);
+
+    axios
+      .get("http://localhost:8080/api/ecoride/login", {
+        params: {
+          email: email,
+          password: password,
+        },
+      })
+      .then((Response) => {
+        console.log(Response.status);
+        setUserDetails(Response.data);
+        dispatch(setLogin(Response.data));
+        navigate("/loginSuccess");
+      })
+      .catch((error) => {
+        console.error("There is an error in API ", error);
+        setOpen(true);
+      });
   };
 
   return (
