@@ -132,9 +132,9 @@ p {
     var(--btn-bg-1) 55%,
     var(--btn-bg-2) 90%
   );
-  border: none;
+  border: 2px solid white; /* White border */
   border-radius: var(--radii);
-  color: var(--btn-bg-color);
+  color: var(--btn-bg-color); /* White text color */
   box-shadow: 0px 0px 20px rgba(71, 184, 255, 0.5),
     0px 5px 5px -1px rgba(58, 125, 233, 0.25),
     inset 4px 4px 8px rgba(175, 230, 255, 0.5),
@@ -154,4 +154,362 @@ p {
   #btn-donate {
     transition: linear;
   }
+}
+
+.use4 {
+  position: relative;
+  width: 250px;
+  height: 320px;
+
+  color: #f9f9f9;
+  background: #000000;
+  border: solid black 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: bold;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.use4::before,
+.use4::after {
+  position: absolute;
+  content: "";
+  width: 30%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: bold;
+  padding: 10px;
+
+  color: #333333;
+  background-color: white;
+  text-align: center;
+  font-size: large;
+  transition: all 0.5s;
+}
+
+.use4::before {
+  top: 0;
+  right: 0;
+  border-radius: 0 15px 0 100%;
+}
+
+.use4::after {
+  bottom: 0;
+  left: 0;
+  border-radius: 0 100% 0 15px;
+}
+
+.use4:hover::before,
+.use4:hover:after {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  transition: all 0.5s;
+}
+
+.use4 {
+  position: relative;
+  width: 250px;
+  height: 320px;
+
+  color: #f9f9f9;
+  background: #000000;
+  border: solid black 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: bold;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.use4::before,
+.use4::after {
+  position: absolute;
+  content: "";
+  width: 30%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: bold;
+  padding: 10px;
+
+  color: #333333;
+  background-color: white;
+  text-align: center;
+  font-size: large;
+  transition: all 0.5s;
+}
+
+.use4::before {
+  top: 0;
+  right: 0;
+  border-radius: 0 15px 0 100%;
+}
+
+.use4::after {
+  bottom: 0;
+  left: 0;
+  border-radius: 0 100% 0 15px;
+}
+
+.use4:hover::before,
+.use4:hover:after {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  transition: all 0.5s;
+}
+
+.use4:hover:after {
+  content: "   Promote eco-friendly commuting by carpooling.";
+}
+.use3 {
+  position: relative;
+  width: 250px;
+  height: 320px;
+
+  color: #f9f9f9;
+  background: #000000;
+  border: solid black 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: bold;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.use3::before,
+.use3::after {
+  position: absolute;
+  content: "";
+  width: 30%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: bold;
+  padding: 10px;
+
+  color: #333333;
+  background-color: white;
+  text-align: center;
+  font-size: large;
+  transition: all 0.5s;
+}
+
+.use3::before {
+  top: 0;
+  right: 0;
+  border-radius: 0 15px 0 100%;
+}
+
+.use3::after {
+  bottom: 0;
+  left: 0;
+  border-radius: 0 100% 0 15px;
+}
+
+.use3:hover::before,
+.use3:hover:after {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  transition: all 0.5s;
+}
+
+.use3 {
+  position: relative;
+  width: 250px;
+  height: 320px;
+
+  color: #f9f9f9;
+  background: #000000;
+  border: solid black 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: bold;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.use3::before,
+.use3::after {
+  position: absolute;
+  content: "";
+  width: 30%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: bold;
+  padding: 10px;
+
+  color: #333333;
+  background-color: white;
+  text-align: center;
+  font-size: large;
+  transition: all 0.5s;
+}
+
+.use3::before {
+  top: 0;
+  right: 0;
+  border-radius: 0 15px 0 100%;
+}
+
+.use3::after {
+  bottom: 0;
+  left: 0;
+  border-radius: 0 100% 0 15px;
+}
+
+.use3:hover::before,
+.use3:hover:after {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  transition: all 0.5s;
+}
+
+.use3:hover:after {
+  content: " Reduce travel costs by sharing the petrol expense with co-riders.";
+}
+
+.use2 {
+  position: relative;
+  width: 250px;
+  height: 320px;
+
+  color: #f9f9f9;
+  background: #000000;
+  border: solid black 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: bold;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.use2::before,
+.use2::after {
+  position: absolute;
+  content: "";
+  width: 30%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: bold;
+  padding: 10px;
+
+  color: #333333;
+  background-color: white;
+  text-align: center;
+  font-size: large;
+  transition: all 0.5s;
+}
+
+.use2::before {
+  top: 0;
+  right: 0;
+  border-radius: 0 15px 0 100%;
+}
+
+.use2::after {
+  bottom: 0;
+  left: 0;
+  border-radius: 0 100% 0 15px;
+}
+
+.use2:hover::before,
+.use2:hover:after {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  transition: all 0.5s;
+}
+
+.use2:hover:after {
+  content: "Enjoy a comfortable ride with fellow students.you";
+}
+
+.use1 {
+  position: relative;
+  width: 250px;
+  height: 320px;
+
+  color: #f9f9f9;
+  background: #000000;
+  border: solid black 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: bold;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.use1::before,
+.use1::after {
+  position: absolute;
+  content: "";
+  width: 30%;
+  text-align: center;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: bold;
+  padding: 10px;
+
+  color: #333333;
+  background-color: white;
+  text-align: center;
+  font-size: large;
+  transition: all 0.5s;
+}
+
+.use1::before {
+  top: 0;
+  right: 0;
+  border-radius: 0 15px 0 100%;
+}
+
+.use1::after {
+  bottom: 0;
+  left: 0;
+  border-radius: 0 100% 0 15px;
+}
+
+.use1:hover::before,
+.use1:hover:after {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  transition: all 0.5s;
+}
+
+.use1:hover:after {
+  content: "  Connect easily with other students for shared rides.";
 }

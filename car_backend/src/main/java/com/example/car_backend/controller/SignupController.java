@@ -24,7 +24,6 @@ import com.example.car_backend.model.UserDetails;
 import com.example.car_backend.service.SignupService;
 
 @RestController
-@CrossOrigin("http://localhost:5174")
 public class SignupController {
 
     private SignupService signupService;

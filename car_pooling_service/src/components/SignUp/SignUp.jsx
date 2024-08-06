@@ -142,7 +142,11 @@ export default function SignUp() {
     await axios
       .post('http://localhost:8080/signup', data)
       .then((Response) => {
-        console.log(Response)
+        console.log(Response.status)
+        if (Response.status === 201) {
+          console.log(Response)
+          setopen(true)
+        }
       })
       .catch((error) => {
         console.error(error)
@@ -178,9 +182,9 @@ export default function SignUp() {
   const [otp, setOtp] = useState('')
   const [otpError, setOtpError] = useState('')
 
-  const handleSignUp = () => {
-    setopen(true)
-  }
+  // const handleSignUp = () => {
+  //   setopen(true)
+  // }
 
   const handleClose = () => {
     setopen(false)
@@ -210,11 +214,9 @@ export default function SignUp() {
   const navigate = useNavigate()
   const handleOtpVerification = async (event) => {
     event.preventDefault()
-    handleSignUp()
     axios
       .get(`http://localhost:8080/verify/${otp}`)
       .then((Response) => {
-        console.log(Response)
         if (Response.status === 202) {
           setopen(false)
           navigate('/')
@@ -473,7 +475,7 @@ export default function SignUp() {
                   passwordError ||
                   !id
                 }
-                onClick={handleSignUp}
+                // onClick={handleSignUp}
                 sx={{ mt: 3, mb: 2 }}
               >
                 Sign Up
