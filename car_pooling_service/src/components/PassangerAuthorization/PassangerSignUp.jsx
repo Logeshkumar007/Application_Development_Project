@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import Swal from "sweetalert2";
-import image from "../../assets/images/Hero.png";
+import React, { useState } from 'react'
+import Swal from 'sweetalert2'
+import image from '../../assets/images/Hero.png'
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+} from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import {
   Select,
   SelectTrigger,
@@ -17,31 +17,51 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-} from "@/components/ui/select";
-import { Link } from "react-router-dom";
+} from '@/components/ui/select'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 export default function PassangerSignUp() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [idCard, setIdCard] = useState(null);
-  const [department, setDepartment] = useState("");
-  const [year, setYear] = useState("");
-  const [step, setStep] = useState(1);
-  const [emailError, setEmailError] = useState(false);
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [idCard, setIdCard] = useState(null)
+  const [department, setDepartment] = useState('')
+  const [year, setYear] = useState('')
+  const [step, setStep] = useState(1)
+  const [open, setopen] = useState(false)
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const [otp, setOtp] = useState('')
+  const [emailError, setEmailError] = useState(false)
+
+  const navigate = useNavigate()
 
   const handleNext = () => {
-    setStep(step + 1);
-  };
+    setStep(step + 1)
+  }
 
   const handlePrevious = () => {
-    setStep(step - 1);
-  };
+    setStep(step - 1)
+  }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    console.log(e);
+    
+    const data = new FormData(e.currentTarget)
+    
     if (
       !firstName ||
       !lastName ||
@@ -52,35 +72,64 @@ export default function PassangerSignUp() {
       !year
     ) {
       Swal.fire({
-        icon: "error",
-        title: "oops",
-        text: "Enter all the details",
-        timer: "2000",
-      });
-    } else if (!email.includes("@skcet.ac.in")) {
-      setEmailError(true);
+        icon: 'error',
+        title: 'oops',
+        text: 'Enter all the details',
+        timer: '2000',
+      })
+    } else if (!email.includes('@skcet.ac.in')) {
+      setEmailError(true)
       Swal.fire({
-        icon: "error",
-        title: "oops",
-        text: "Enter valid email",
-        timer: "2000",
-      });
-    } else {
-      Swal.fire({
-        icon: "success",
-        title: "success",
-        text: "Data received successfully",
-        timer: "2000",
-      });
-      console.log("First Name:", firstName);
-      console.log("Last Name:", lastName);
-      console.log("Email:", email);
-      console.log("Password:", password);
-      console.log("Id Card:", idCard);
-      console.log(department);
-      console.log(year);
+        icon: 'error',
+        title: 'oops',
+        text: 'Enter valid email',
+        timer: '2000',
+      })
     }
-  };
+    data.append('firstName', firstName)
+    data.append('lastName', lastName)
+    data.append('email', email)
+    data.append('password', password)
+    data.append('image', idCard)
+    data.append('department', department)
+    data.append('yearOfStudy', year)
+    data.append('phoneNumber', phoneNumber)
+
+    let formValues = {}
+    for (let [key, value] of data.entries()) {
+      formValues[key] = value
+    }
+    console.log(formValues)
+    await axios
+      .post('http://localhost:8080/signup', data)
+      .then((Response) => {
+        if (Response.status === 201) {
+          console.log(Response)
+        }
+      })
+      .catch((error) => {
+        console.error("Axios error in Backend => ",error)
+      })
+  }
+
+  const handleOtpVerification = async (event) => {
+    event.preventDefault()
+    axios
+      .get(`http://localhost:8080/verify/${otp}`)
+      .then((Response) => {
+        if (Response.status === 202) {
+          setopen(false)
+          navigate('/')
+        } else {
+          setOtpError('Invalid OTP. Please try again.')
+          setopen(true)
+        }
+      })
+      .catch((error) => {
+        setOtpError('Invalid OTP. Please try again.')
+        console.error(error)
+      })
+  }
 
   return (
     <div className=" slide-in-from-corner h-[80vh]  flex justify-center items-center  ">
@@ -129,7 +178,7 @@ export default function PassangerSignUp() {
                       placeholder="must contain @skcet.ac.in"
                       onChange={(e) => setEmail(e.target.value)}
                       className={`w-full px-3 py-1 border rounded ${
-                        emailError ? "border-red-500" : ""
+                        emailError ? 'border-red-500' : ''
                       } `}
                     />
                   </div>
@@ -155,6 +204,16 @@ export default function PassangerSignUp() {
               {step === 2 && (
                 <>
                   <div className="mb-4">
+                    <label className="block text-foreground">
+                      Mobile Number
+                    </label>
+                    <input
+                      type="tel"
+                      onChange={(e) => setPhoneNumber(e.target.value)}
+                      className="w-full px-3 py-1 border rounded"
+                    />
+                  </div>
+                  <div className="mb-4">
                     <label className="block text-foreground">ID Card</label>
                     <input
                       type="file"
@@ -167,66 +226,71 @@ export default function PassangerSignUp() {
                     <Select
                       value={department}
                       onValueChange={(value) => setDepartment(value)}
+                      className="w-full"
                     >
-                      <SelectTrigger className="w-[180px]">
+                      <SelectTrigger className="">
                         <SelectValue placeholder="Department" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup>
-                          <SelectItem value="CSE">
-                            &quot;Computer Science and Engineering&quot;
+                          <SelectItem value="Computer Science and Engineering">
+                            Computer Science and Engineering
                           </SelectItem>
-                          <SelectItem value="CSD">
-                            &quot;Computer Science and Design&quot;
+                          <SelectItem value="Computer Science and Design">
+                            Computer Science and Design
                           </SelectItem>
-                          <SelectItem value="CSE_CYBER">
-                            &quot;Computer Science and Engineering (Cyber
-                            Security)&quot;
+                          <SelectItem
+                            value="Computer Science and Engineering (Cyber
+                            Security)"
+                          >
+                            Computer Science and Engineering (Cyber Security)
                           </SelectItem>
-                          <SelectItem value="IT">
-                            &quot;Information Technology&quot;
+                          <SelectItem value="Information Technology">
+                            Information Technology
                           </SelectItem>
-                          <SelectItem value="AI_DS">
-                            &quot;Artificial Intelligence and Data Science&quot;
+                          <SelectItem value="Artificial Intelligence and Data Science">
+                            Artificial Intelligence and Data Science
                           </SelectItem>
-                          <SelectItem value="CSBS">
-                            &quot;Computer Science and Business Systems&quot;
+                          <SelectItem value="Computer Science and Business Systems">
+                            Computer Science and Business Systems
                           </SelectItem>
-                          <SelectItem value="ECE">
-                            &quot;Electronics and Communication
-                            Engineering&quot;
+                          <SelectItem
+                            value="Electronics and Communication
+                            Engineering"
+                          >
+                            Electronics and Communication Engineering
                           </SelectItem>
-                          <SelectItem value="EEE">
-                            &quot;Electrical and Electronics Engineering&quot;
+                          <SelectItem value="Electrical and Electronics Engineering">
+                            Electrical and Electronics Engineering
                           </SelectItem>
-                          <SelectItem value="MECH">
-                            &quot;Mechanical Engineering&quot;
+                          <SelectItem value="Mechanical Engineering">
+                            Mechanical Engineering
                           </SelectItem>
-                          <SelectItem value="MECHATRONICS">
-                            &quot;Mechatronics Engineering&quot;
+                          <SelectItem value="Mechatronics Engineering">
+                            Mechatronics Engineering
                           </SelectItem>
-                          <SelectItem value="CIVIL">
-                            &quot;Civil Engineering&quot;
+                          <SelectItem value="Civil Engineering">
+                            Civil Engineering
                           </SelectItem>
 
-                          <SelectItem value="ME_AE">
-                            &quot;M.E. Applied Electronics&quot;
+                          <SelectItem value="M.E. Applied Electronics">
+                            M.E. Applied Electronics
                           </SelectItem>
-                          <SelectItem value="ME_CSE">
-                            &quot;M.E. Computer Science and Engineering&quot;
+                          <SelectItem value="M.E. Computer Science and Engineering">
+                            M.E. Computer Science and Engineering
                           </SelectItem>
-                          <SelectItem value="ME_ED">
-                            &quot;M.E. Engineering Design&quot;
+                          <SelectItem value="M.E. Engineering Design">
+                            M.E. Engineering Design
                           </SelectItem>
-                          <SelectItem value="MTECH_CSE">
-                            &quot;M.Tech. Computer Science and Engineering&quot;
+                          <SelectItem value="M.Tech. Computer Science and Engineering">
+                            M.Tech. Computer Science and Engineering
                           </SelectItem>
-                          <SelectItem value="MBA">
-                            &quot;Master of Business Administration&quot;
+                          <SelectItem value="Master of Business Administration">
+                            Master of Business Administration
                           </SelectItem>
 
                           <SelectItem value="INTEGRATED_MTECH">
-                            &quot;Integrated M.Tech.&quot;
+                            Integrated M.Tech.
                           </SelectItem>
                         </SelectGroup>
                       </SelectContent>
@@ -243,11 +307,11 @@ export default function PassangerSignUp() {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup>
-                          <SelectItem value="I">I Year</SelectItem>
-                          <SelectItem value="II">II Year</SelectItem>
-                          <SelectItem value="III">III Year</SelectItem>
-                          <SelectItem value="IV">IV Year</SelectItem>
-                          <SelectItem value="V">V Year</SelectItem>
+                          <SelectItem value="I Year">I Year</SelectItem>
+                          <SelectItem value="II Year">II Year</SelectItem>
+                          <SelectItem value="III Year">III Year</SelectItem>
+                          <SelectItem value="IV Year">IV Year</SelectItem>
+                          <SelectItem value="V Year">V Year</SelectItem>
                         </SelectGroup>
                       </SelectContent>
                     </Select>
@@ -260,18 +324,43 @@ export default function PassangerSignUp() {
                     >
                       Previous
                     </button>
-                    <button
-                      type="submit"
-                      className="px-4 py-1 bg-foreground text-white rounded"
-                    >
-                      Submit
-                    </button>
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <button
+                          type="submit"
+                          className="px-4 py-1 bg-foreground text-white rounded"
+                        >
+                          Submit
+                        </button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>OPT Verification</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            You're at the final step. Enter the OTP sent to your
+                            mail <b>{email}</b> to complete the registration.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <input
+                          type="text"
+                          value={otp}
+                          onChange={(e) => setOtp(e.target.value)}
+                          className="w-full px-3 py-1 border rounded"
+                        />
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction onClick={handleOtpVerification}>
+                            Continue
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
                   </div>
                 </>
               )}
-            </form>{" "}
+            </form>{' '}
             <div className="mt-4 text-center text-sm">
-              Already have an account?{" "}
+              Already have an account?{' '}
               <Link to="/passangerSignIn" className="underline">
                 Sign In
               </Link>
@@ -283,5 +372,5 @@ export default function PassangerSignUp() {
         </div>
       </div>
     </div>
-  );
+  )
 }
