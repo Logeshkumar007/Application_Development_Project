@@ -19,6 +19,9 @@ public interface UserRideHistoryRepo extends JpaRepository<UserRideHistory,Integ
     List<UserRideHistory> findDriverRideHistoryByEmail(String email,String status);
     @Query("select e from UserRideHistory e where e.bookRide.Id=?1")
     List<UserRideHistory> findRides(int id);
+
+    @Query("select distinct e.bookRide.Id from UserRideHistory e where e.status=\'completed\' and e.bookRide.email=?1")
+    List<Integer> findAllCompletedRideId(String email);
     @Transactional
     @Modifying
     @Query("delete from UserRideHistory e where e.userDetails.email=?1 and e.bookRide.Id=?2")

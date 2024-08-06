@@ -44,6 +44,15 @@ public class UserRideHistoryController {
         System.out.println("kjdkdkd");
         return repo.findDriverRideHistoryByEmail(email,status);
     }
+
+    @GetMapping("/app/userRideHistory/getAllRideID/completed/{email}")
+    public List<Integer> getALLRideID(@PathVariable("email") String email) {
+        return repo.findAllCompletedRideId(email);
+    }
+    
+    
+
+
     @PostMapping("/app/userRideHistory/{email}/{id}")
     public UserRideHistory postMethodName(@PathVariable("email") String email,@PathVariable("id") int id) {
         UserRideHistory m=new UserRideHistory();

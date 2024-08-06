@@ -33,6 +33,24 @@ public class BookRideController {
     public List<BookRide> getSelectedRideDetails(@PathVariable String email) {
         return repo.findByEmail(email);
     }
+
+    
+    @PostMapping("/app/bookRide/getALLRide/Byid")
+    public List<BookRide> getMethodName(@RequestBody List<String>allId) {
+        System.out.println(allId);
+        System.out.println(allId);
+        System.out.println(allId);
+        System.out.println(allId);
+        System.out.println(allId);
+        System.out.println(allId);
+        List<Integer> allIdInt = new ArrayList<>();
+
+        for (String id : allId) {
+      allIdInt.add(Integer.parseInt(id));
+}
+return repo.findByRideIds(allIdInt);
+}
+    
     
     @PostMapping("/app/bookride/filter")
     public List<BookRide> getFilters(@RequestBody List<List<String>>s) throws Exception {

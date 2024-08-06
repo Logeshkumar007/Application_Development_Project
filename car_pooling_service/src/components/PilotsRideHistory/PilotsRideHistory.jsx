@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import Navbar from "../NavBar/NavBar";
 import route from "./Route2.png";
+import routedot from "./routedot.png";
 import car from "./Car.jpg";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -77,11 +78,15 @@ const PilotsRideHistory = () => {
       });
       axios
       .get(
-        `http://localhost:8080/app/userRideHistory/getDriverByemail/${logindata.email}/completed`
+        `http://localhost:8080/app/userRideHistory/getAllRideID/completed/${logindata.email}`
       )
       .then((res) => {
-        
-        setCompletedRideHistory(res.data);
+        axios.post( `http://localhost:8080/app/bookRide/getALLRide/Byid`,res.data).then((response)=>{
+          
+          console.log("rwstyaujklskdjhgeeyujhneduj",response.data);
+          setCompletedRideHistory(response.data);
+
+        })
       })
       .catch((err) => {
         console.log(err);
@@ -155,15 +160,15 @@ const PilotsRideHistory = () => {
                         }}
                       >
                         <Typography variant="h5" sx={{ fontSize: "0.8rem" }}>
-                          {ride.bookRide.leaving}
+                          {ride.leaving}
                         </Typography>
                         <img
-                          src={route}
-                          style={{ height: "48%", alignContent: "center" }}
+                          src={routedot}
+                          style={{ height: "48%", alignContent: "center" ,padding:"1%"}}
                           alt="Route"
                         />
                         <Typography variant="h5" sx={{ fontSize: "0.8rem" }}>
-                          {ride.bookRide.going}
+                          {ride.going}
                         </Typography>
                       </div>
 
@@ -186,7 +191,7 @@ const PilotsRideHistory = () => {
                             variant="h4"
                             sx={{ fontSize: "1.3rem", fontWeight: "600" }}
                           >
-                            {ride.bookRide.name}
+                            {ride.name}
                           </Typography>
                           <Typography
                             sx={{
@@ -200,12 +205,12 @@ const PilotsRideHistory = () => {
                           <Typography
                             sx={{ lineHeight: "2rem", fontSize: "0.9rem" }}
                           >
-                            {ride.bookRide.email}
+                            {ride.email}
                           </Typography>
                           <Typography
                             sx={{ lineHeight: "2rem", fontSize: "0.9rem" }}
                           >
-                            {ride.bookRide.phone}
+                            {ride.phone}
                           </Typography>
                         </div>
                       </div>
@@ -238,7 +243,7 @@ const PilotsRideHistory = () => {
                               fontWeight: "500",
                             }}
                           >
-                            {ride.bookRide.carNumber}
+                            {ride.carNumber}
                           </Typography>
                         </div>
                       </div>

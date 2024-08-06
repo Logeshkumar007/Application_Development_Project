@@ -23,6 +23,9 @@ public interface BookRideRepo extends JpaRepository<BookRide,Integer> {
     @Query("select e from BookRide e where e.email = :email")
     List<BookRide> findByEmail(@Param("email")String email);    
     
+    @Query("select e from BookRide e where e.Id in :allId")
+    List<BookRide> findByRideIds(@Param("allId")List<Integer> allId);    
+    
     @Query("select e from BookRide e where e.leaving in :leaving OR e.going in :going")
     List<BookRide>filterdRides(@Param("leaving")List<String>leaving,@Param("going")List<String>going);    
 }
