@@ -18,10 +18,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-
 @Entity
 public class UserDetails {
-
     private String firstName;
     private String lastName;
 
@@ -35,13 +33,14 @@ public class UserDetails {
     private String registerNumber;
     private int verificationCode;
     private boolean isVerified = false;
+    
     @JsonIgnore
     @Lob
     private Blob idCard;
     private transient String encodedImage;
 
-    @JsonBackReference
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "userDetails")
+    @OneToMany(mappedBy = "userDetails", cascade = CascadeType.ALL)
+    @JsonBackReference("userDetails-userRideHistory")
     private List<UserRideHistory> userRideHistory;
     
     // Constructors, getters, and setters
@@ -180,5 +179,4 @@ public class UserDetails {
     public void setEncodedImage(String encodedImage) {
         this.encodedImage = encodedImage;
     }
-    
 }

@@ -6,7 +6,7 @@ import {
   Autocomplete,
   Grid,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./RideCard.css";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -25,6 +25,7 @@ const RideCard = () => {
   const [carName, setCarName] = useState("");
   const [date, setDate] = useState("");
   const [startTime, setStartTime] = useState("");
+  const [endTime, setendTime] = useState("");
   const [carNumber, setCarNumber] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -47,6 +48,21 @@ const RideCard = () => {
 
   const navigate = useNavigate();
   const logindata = useSelector((state) => state.loginReducer);
+  useEffect(()=>{
+    console.log(".");
+    console.log(".");
+    console.log(".");
+    console.log(".");
+    console.log(".");
+    console.log(".");
+    console.log("the login data from ride card",logindata.email,logindata.firstName);
+    console.log(".");
+    console.log(".");
+    console.log(".");
+    console.log(".");
+    console.log(".");
+    console.log(".");
+  })
   console.log("login data from ride card", logindata);
   const handleSubmit = (event) => {
     setName(logindata.firstName + " " + logindata.lastName);
@@ -68,9 +84,9 @@ const RideCard = () => {
 
     if (Object.keys(newErrors).length === 0) {
       const rideDetails = {
-        name,
-        email,
-        phone,
+        name:logindata.firstName + " " + logindata.lastName,
+        email:logindata.email,
+        phone:logindata.phoneNumber,
         leaving,
         carNumber,
         going,
@@ -79,8 +95,9 @@ const RideCard = () => {
         carName,
         date,
         startTime,
+        endTime
       };
-      console.log(rideDetails);
+      console.log("Ride details are ",rideDetails);
       axios
         .post("http://localhost:8080/app/createride", rideDetails)
         .then((response) => {

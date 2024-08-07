@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import java.util.*;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;;
@@ -30,13 +32,13 @@ public class BookRideController {
         return repo.findById(id);
     }
     @GetMapping("/app/bookride/Driver/{email}")
-    public List<BookRide> getSelectedRideDetails(@PathVariable String email) {
+    public List<BookRide> getSelectedRideDetailsby(@PathVariable String email) {
         return repo.findByEmail(email);
     }
 
     
     @PostMapping("/app/bookRide/getALLRide/Byid")
-    public List<BookRide> getMethodName(@RequestBody List<String>allId) {
+    public List<BookRide> getMethodNam(@RequestBody List<String>allId) {
         System.out.println(allId);
         System.out.println(allId);
         System.out.println(allId);
@@ -80,6 +82,8 @@ return repo.findByRideIds(allIdInt);
 
     @PostMapping("/app/createride")
     public BookRide createAnRide(@RequestBody BookRide bookRide) {
+        
+
         return repo.save(bookRide);
     }
 
