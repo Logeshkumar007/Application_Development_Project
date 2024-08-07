@@ -1,7 +1,5 @@
 package com.example.car_backend.model.bookRide;
 
-
-
 import com.example.car_backend.model.userRideHistory.UserRideHistory;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -17,6 +15,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.*;
+
 @Entity
 @Data
 @NoArgsConstructor

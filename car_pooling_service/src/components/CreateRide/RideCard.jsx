@@ -30,6 +30,7 @@ const RideCard = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [endTime, setEndTime] = useState("2:30 PM");
 
   const [errors, setErrors] = useState({});
 
