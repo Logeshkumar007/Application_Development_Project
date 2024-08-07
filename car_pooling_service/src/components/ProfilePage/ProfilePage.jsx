@@ -37,7 +37,7 @@ export default function ProfilePage() {
       <section className="w-screen h-[91.3vh] flex flex-row">
         <section className="w-1/3 flex flex-col p-10 items-center shadow-lg rounded-lg shadow-accent-foreground m-4">
           <img
-            src="/images/eco-ride-high-resolution-logo-transparent.png"
+            src="/images/eco-ride-high-resolution-logo-black-transparent.png"
             className="m-4 w-56 h-56"
           />
           <Separator className="border" />

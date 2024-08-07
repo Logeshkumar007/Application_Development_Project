@@ -16,20 +16,22 @@ import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+@Entity
 @Setter
 @Getter
 @NoArgsConstructor
-@Entity
 public class UserRideHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
-    String status;
-    @ManyToOne
-    @JsonManagedReference
-    public UserDetails userDetails;
-    @ManyToOne
-    @JsonManagedReference
-    public BookRide bookRide;
+    private int id;
+    private String status;
 
+    @ManyToOne
+    @JsonManagedReference("userDetails-userRideHistory")
+    private UserDetails userDetails;
+
+    @ManyToOne
+    // @JsonManagedReference("bookRide-userRideHistory")
+    private BookRide bookRide;
 }
