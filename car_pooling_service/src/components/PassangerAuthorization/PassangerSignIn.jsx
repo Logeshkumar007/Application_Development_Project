@@ -16,10 +16,7 @@ import "../../../src/index.css";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setLogin } from "../Store/Reducer";
-<<<<<<< HEAD
 // import { useNavigate } from "react-router-dom";
-=======
->>>>>>> b7e2f98ba88f753105f04f674b23a39d96dca54c
 
 export default function PassangerSignIn() {
   const [email, setEmail] = useState("");
