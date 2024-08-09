@@ -205,7 +205,7 @@ const CreateRide = () => {
           </Button>
         </div>
       </motion.div>
-      {/* footer should be placed here */}.
+      {/* footer should be placed here */}
     </div>
   );
 };
