@@ -25,7 +25,7 @@ const RideCard = () => {
   const [carName, setCarName] = useState("");
   const [date, setDate] = useState("");
   const [startTime, setStartTime] = useState("");
-  const [endTime, setendTime] = useState("");
+  // const [endTime, setendTime] = useState("");
   const [carNumber, setCarNumber] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -96,7 +96,8 @@ const RideCard = () => {
         carName,
         date,
         startTime,
-        endTime
+        endTime,
+        ride_completion_status:"no"
       };
       console.log("Ride details are ",rideDetails);
       axios

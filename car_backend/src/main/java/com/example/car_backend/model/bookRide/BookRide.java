@@ -35,7 +35,7 @@ public class BookRide {
     private String date; 
     private String startTime; 
     private String endTime; 
-
+    private String rideCompletionStatus;
     @OneToMany(mappedBy = "bookRide", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<UserRideHistory> userRideHistory;
