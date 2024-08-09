@@ -32,6 +32,7 @@ public class BookRide {
     private double price;
     private String carName;
     private String carNumber;
+    private String rideCompletionStatus;
     private String date;
     private String startTime;
     private String endTime;

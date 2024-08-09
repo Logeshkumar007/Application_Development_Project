@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.*;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+;
 
 /**
  * BookRideController
@@ -25,7 +27,7 @@ public class BookRideController {
 
     @GetMapping("/app/bookride/getallrides")
     public List<BookRide> getMethodName() {
-        return repo.findAll();
+        return repo.findAllCompleted();
     }
     @GetMapping("/app/bookride/selectedValue/{id}")
     public Optional<BookRide> getSelectedRideDetails(@PathVariable("id") int id) {
@@ -35,7 +37,44 @@ public class BookRideController {
     public List<BookRide> getSelectedRideDetailsby(@PathVariable String email) {
         return repo.findByEmail(email);
     }
+    @PutMapping("/app/bookride/updateRideCompletionStatus/{id}")
+    public void updateRideCompletionStatus(@PathVariable("id") int id) {
+        
 
+        Optional<BookRide> optionalBookRide = repo.findById(id);
+
+    if (optionalBookRide.isPresent()) {
+        BookRide p = optionalBookRide.get();
+        int seats=p.getAvailableSeats();
+        if(seats>0) {
+            seats-=1;
+            p.setAvailableSeats(seats);
+        }
+        if(seats<=0)
+        {
+            p.setRideCompletionStatus("yes");
+        }
+        repo.save(p);
+    }
+
+        
+    }
+    @PutMapping("/app/bookride/updateseatsAvailable/onCancelation/{id}")
+    public void updateseatsAvailableonCancelation(@PathVariable("id") int id) {
+        
+
+        Optional<BookRide> optionalBookRide = repo.findById(id);
+
+    if (optionalBookRide.isPresent()) {
+            BookRide p = optionalBookRide.get();
+            int seats=p.getAvailableSeats();
+            seats+=1;
+            p.setAvailableSeats(seats);
+            repo.save(p);
+    }
+
+        
+    }
     
     @PostMapping("/app/bookRide/getALLRide/Byid")
     public List<BookRide> getMethodNam(@RequestBody List<String>allId) {
