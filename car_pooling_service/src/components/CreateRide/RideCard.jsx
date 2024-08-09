@@ -16,8 +16,18 @@ import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 
 const RideCard = () => {
-  const [status, setStatus] = useState("");
+  //ToDo: state maintanance
+  // const [state, setState] = useState({
+  //   status: "",
+  //   locationFirstName: "",
+  // });
+  // function updateState(key, value) {
+  //   setState((prev) => ({ ...prev, [key]: value }));
+  // }
 
+  // updateState('status', 'asfdsd')
+  const [status, setStatus] = useState("");
+  const [locationFirstName, setLocationFirstName] = useState("");
   const [leaving, setLeaving] = useState("");
   const [going, setGoing] = useState("");
   const [availableSeats, setSeats] = useState("");
@@ -62,6 +72,7 @@ const RideCard = () => {
   //   console.log(".");
   // });
   // console.log("login data from ride card", logindata);
+  console.log("Location first name" + locationFirstName);
   const handleSubmit = (event) => {
     setName(logindata.firstName + " " + logindata.lastName);
     setEmail(logindata.email);
@@ -197,6 +208,7 @@ const RideCard = () => {
                     setLeaving(newValue.label);
                     setLeavingFromLatitude(newValue.value.lat);
                     setLeavingFromLongitude(newValue.value.lon);
+                    setLocationFirstName(newValue.value.address_line1);
                   } else {
                     setLeaving("");
                     setLeavingFromLatitude(null);
