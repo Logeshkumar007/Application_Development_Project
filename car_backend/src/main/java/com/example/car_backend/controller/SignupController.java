@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.car_backend.model.UserDetails;
+import com.example.car_backend.scripts.ImageRecognition;
 import com.example.car_backend.service.SignupService;
 
 @RestController
@@ -34,9 +35,12 @@ public class SignupController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<String> signup(@ModelAttribute UserDetails userDetails,
-            @RequestParam("image") MultipartFile imageFile) {
+    public ResponseEntity<String> signup(@ModelAttribute UserDetails userDetails, @RequestParam("image") MultipartFile imageFile) {
         email = userDetails.getEmail();
+        String name = userDetails.getLastName() + " " + userDetails.getFirstName();
+        String register_number = email.replaceAll("@skcet.ac.in", "");
+        System.out.println(register_number.toUpperCase() + " " + name.toUpperCase());
+        ImageRecognition recognition = new ImageRecognition();
         try {
             if (!imageFile.isEmpty()) {
                 // Convert MultipartFile to byte[]
@@ -46,8 +50,14 @@ public class SignupController {
                 Blob imageBlob = new SerialBlob(imageBytes);
 
                 userDetails.setIdCard(imageBlob);
-                signupService.saveUser(userDetails);
-                return new ResponseEntity<>("User added to database", HttpStatus.CREATED);
+                List<String> results = recognition.recognizeImage(imageFile);
+                if(results.contains(register_number.toUpperCase()) && results.contains(name.toUpperCase())) {
+                    signupService.saveUser(userDetails);
+                    return new ResponseEntity<>("You have successfully added to database", HttpStatus.CREATED);
+                } else {
+                    return new ResponseEntity<>("We can't able to recoginze your ID card", HttpStatus.NOT_ACCEPTABLE);
+                }
+
             } else {
                 return new ResponseEntity<>("Image file is required", HttpStatus.BAD_REQUEST);
             }

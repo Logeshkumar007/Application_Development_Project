@@ -41,10 +41,15 @@ export default function PassangerSignUp() {
   const [department, setDepartment] = useState('')
   const [year, setYear] = useState('')
   const [step, setStep] = useState(1)
-  const [open, setopen] = useState(false)
+  const [open, setopen] = useState(true)
   const [phoneNumber, setPhoneNumber] = useState('')
   const [otp, setOtp] = useState('')
-  const [emailError, setEmailError] = useState(false)
+  const [errors, setErrors] = useState({
+    emailError: '',
+    passwordError: '',
+    mobileNumberError: '',
+    otpError: '',
+  })
 
   const navigate = useNavigate()
 
@@ -58,34 +63,8 @@ export default function PassangerSignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(e);
-    
+    console.log(e)
     const data = new FormData(e.currentTarget)
-    
-    if (
-      !firstName ||
-      !lastName ||
-      !email ||
-      !password ||
-      !idCard ||
-      !department ||
-      !year
-    ) {
-      Swal.fire({
-        icon: 'error',
-        title: 'oops',
-        text: 'Enter all the details',
-        timer: '2000',
-      })
-    } else if (!email.includes('@skcet.ac.in')) {
-      setEmailError(true)
-      Swal.fire({
-        icon: 'error',
-        title: 'oops',
-        text: 'Enter valid email',
-        timer: '2000',
-      })
-    }
     data.append('firstName', firstName)
     data.append('lastName', lastName)
     data.append('email', email)
@@ -105,10 +84,11 @@ export default function PassangerSignUp() {
       .then((Response) => {
         if (Response.status === 201) {
           console.log(Response)
+          setopen(true)
         }
       })
       .catch((error) => {
-        console.error("Axios error in Backend => ",error)
+        console.error('Axios error in Backend => ', error)
       })
   }
 
@@ -121,14 +101,49 @@ export default function PassangerSignUp() {
           setopen(false)
           navigate('/passangerSignin')
         } else {
-          setOtpError('Invalid OTP. Please try again.')
+          setErrors({ ...errors, otpError: 'Invalid OTP. Please try again.' })
           setopen(true)
         }
       })
       .catch((error) => {
-        setOtpError('Invalid OTP. Please try again.')
+        setErrors({ ...errors, otpError: 'Invalid OTP. Please try again.' })
         console.error(error)
       })
+  }
+
+  const handlePhoneNumberChange = (event) => {
+    setPhoneNumber(event.target.value)
+    if (!/^[6-9][0-9]{9}$/.test(event.target.value))
+      setErrors({
+        ...errors,
+        mobileNumberError: 'Enter a valid mobile number.',
+      })
+    else setErrors({ ...errors, mobileNumberError: '' })
+  }
+
+  const handleOtpChange = (event) => {
+    setOtp(event.target.value)
+    setErrors({ ...errors, otpError: '' })
+  }
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value)
+    if (event.target.value.length < 8) {
+      setErrors({
+        ...errors,
+        passwordError: 'Password must contain atleast 8 characters',
+      })
+    } else {
+      setErrors({ ...errors, passwordError: '' })
+    }
+  }
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value)
+    console.log(event.target.value)
+    if (!/^[A-Z0-9._%+-]+@skcet\.ac\.in$/i.test(event.target.value))
+      setErrors({...errors, emailError: 'Enter a valid SKCET email address.'})
+    else setErrors({ ...errors, emailError: '' })
   }
 
   return (
@@ -138,7 +153,7 @@ export default function PassangerSignUp() {
           <CardHeader>
             <CardTitle className="text-xl">Sign Up</CardTitle>
             <CardDescription>
-              Enter your information to create an account
+              Enter your information as your ID Card
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -176,20 +191,28 @@ export default function PassangerSignUp() {
                       type="email"
                       value={email}
                       placeholder="must contain @skcet.ac.in"
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={handleEmailChange}
                       className={`w-full px-3 py-1 border rounded ${
-                        emailError ? 'border-red-500' : ''
+                        errors.emailError !== '' ? 'border-red-500' : ''
                       } `}
                     />
+                    <span className="text-xs text-red-600 italic">
+                      {errors.emailError}
+                    </span>
                   </div>
                   <div className="mb-4">
                     <label className=" text-foreground">Password</label>
                     <input
                       type="password"
                       value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      className="w-full px-3 py-1 border rounded"
+                      onChange={handlePasswordChange}
+                      className={`w-full px-3 py-1 border rounded ${
+                        errors.passwordError !== '' && 'border-red-600'
+                      }`}
                     />
+                    <span className="text-xs text-red-600 italic">
+                      {errors.passwordError}
+                    </span>
                   </div>
                   <button
                     type="button"
@@ -209,9 +232,14 @@ export default function PassangerSignUp() {
                     </label>
                     <input
                       type="tel"
-                      onChange={(e) => setPhoneNumber(e.target.value)}
-                      className="w-full px-3 py-1 border rounded"
+                      onChange={handlePhoneNumberChange}
+                      className={`w-full px-3 py-1 border rounded ${
+                        errors.mobileNumberError != '' ? 'border-red-500' : ''
+                      } `}
                     />
+                    <span className="text-xs text-red-600 italic">
+                      {errors.mobileNumberError}
+                    </span>
                   </div>
                   <div className="mb-4">
                     <label className="block text-foreground">ID Card</label>
@@ -229,7 +257,7 @@ export default function PassangerSignUp() {
                       className="w-full"
                     >
                       <SelectTrigger className="">
-                        <SelectValue placeholder="Department" />
+                        <SelectValue placeholder=" Department" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup>
@@ -297,7 +325,6 @@ export default function PassangerSignUp() {
                     </Select>
                   </div>
                   <div className="mb-4">
-                    {/* <label className="block text-foreground">Year</label> */}
                     <Select
                       value={year}
                       onValueChange={(value) => setYear(value)}
@@ -324,14 +351,14 @@ export default function PassangerSignUp() {
                     >
                       Previous
                     </button>
-                    <AlertDialog>
-                      <AlertDialogTrigger asChild>
                         <button
                           type="submit"
                           className="px-4 py-1 bg-foreground text-white rounded"
                         >
                           Submit
                         </button>
+                    {open && (<AlertDialog>
+                      <AlertDialogTrigger>
                       </AlertDialogTrigger>
                       <AlertDialogContent>
                         <AlertDialogHeader>
@@ -344,17 +371,20 @@ export default function PassangerSignUp() {
                         <input
                           type="text"
                           value={otp}
-                          onChange={(e) => setOtp(e.target.value)}
-                          className="w-full px-3 py-1 border rounded"
+                          onChange={handleOtpChange}
+                          className={`w-full px-3 py-1 border rounded ${
+                            errors.otpError != '' ? 'border-red-500' : ''
+                          } `}
                         />
+                        <span className='text-xs text-red-600 italic'>{errors.otpError}</span>
                         <AlertDialogFooter>
-                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          {/* <AlertDialogCancel>Cancel</AlertDialogCancel> */}
                           <AlertDialogAction onClick={handleOtpVerification}>
-                            Continue
+                            Verify
                           </AlertDialogAction>
                         </AlertDialogFooter>
                       </AlertDialogContent>
-                    </AlertDialog>
+                    </AlertDialog>)}
                   </div>
                 </>
               )}
