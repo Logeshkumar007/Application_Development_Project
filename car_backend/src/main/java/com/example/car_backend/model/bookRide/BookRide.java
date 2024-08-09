@@ -38,6 +38,7 @@ public class BookRide {
     private String leavingFromLatitude;
     private String leavingFromLongitude;
     private String goingToLatitude;
+    private String locationFirstName;
     private String goingToLongitude;
 
     @OneToMany(mappedBy = "bookRide", cascade = CascadeType.ALL)
