@@ -94,6 +94,7 @@ const RideCard = () => {
         date,
         startTime,
         endTime,
+        ride_completion_status:"no",
         leavingFromLatitude,
         leavingFromLongitude,
         goingToLatitude,

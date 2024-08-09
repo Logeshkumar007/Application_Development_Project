@@ -76,6 +76,16 @@ const PilotsRideHistory = () => {
       .catch((err) => {
         console.log(err);
       });
+
+
+
+
+
+
+
+
+
+
       axios
       .get(
         `http://localhost:8080/app/userRideHistory/getAllRideID/completed/${logindata.email}`
@@ -91,6 +101,15 @@ const PilotsRideHistory = () => {
       .catch((err) => {
         console.log(err);
       });
+
+
+
+
+
+
+
+
+      
   };
 
   useEffect(() => {
