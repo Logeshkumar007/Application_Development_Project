@@ -1,4 +1,11 @@
-import { Button, Dialog, Divider, Paper, Typography,Checkbox } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  Divider,
+  Paper,
+  Typography,
+  Checkbox,
+} from "@mui/material";
 import NavBar from "../NavBar/NavBar";
 import "./BookRide.css";
 import routepng from "./Route2.png";
@@ -36,21 +43,22 @@ const BookRide = () => {
   const [leavingFromFilters, setLeavingFromFilters] = useState([]);
   const [goingToFilters, setGoingToFilters] = useState([]);
 
- 
   const handleLeavingFromcheckbox = (event) => {
     const value = event.target.value;
     setLeavingFromFilters((prev) =>
-      prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
+      prev.includes(value)
+        ? prev.filter((item) => item !== value)
+        : [...prev, value]
     );
   };
-  
+
   const handleGoingTocheckbox = (event) => {
     const value = event.target.value;
     setGoingToFilters((prev) =>
-      prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
+      prev.includes(value)
+        ? prev.filter((item) => item !== value)
+        : [...prev, value]
     );
-    
-    
   };
   const logindata=useSelector(state=>state.loginReducer);
   const handleBookRide=()=>{
@@ -77,8 +85,7 @@ const BookRide = () => {
         f();
         nav("/dummy");
     }
-
-  }
+  };
   const [rideData, setRideData] = useState([
     {
       id: null,
@@ -128,35 +135,25 @@ const BookRide = () => {
     startTime: "jdjd",
     endTime: "jdj",
   });
-  
-  const handleFilterChanges=(e)=>{
+
+  const handleFilterChanges = (e) => {
     console.log("hello this is filter handle func");
-    try{
-      if(leavingFromFilters.length==0&&goingToFilters.length==0)
-      {
-
+    try {
+      if (leavingFromFilters.length == 0 && goingToFilters.length == 0) {
+      } else {
+        const res = axios.post("http://localhost:8080/app/bookride/filter", [
+          leavingFromFilters,
+          goingToFilters,
+        ]);
+        res.then((res) => {
+          setRideData(res.data);
+          console.log("react data", res.data);
+        });
       }
-      else
-      {
-
-        const res=axios.post("http://localhost:8080/app/bookride/filter",[leavingFromFilters,goingToFilters]);
-        res.then(res=>
-          {
-            setRideData(res.data);
-            console.log("react data",res.data);
-          }
-        )
-      }
-    }
-    catch(err)
-    {
+    } catch (err) {
       console.log(err);
     }
-  }
-
-
-
-
+  };
 
   useEffect(() => {
     console.log("The selecetd data is ", selectedRideData);
@@ -197,85 +194,84 @@ const BookRide = () => {
             <Typography>Sort by</Typography>
             <KeyboardArrowDownIcon></KeyboardArrowDownIcon>
           </button>
-          <button className="filterButton"
-            style={{
-              
-            }}
-          >
-            <Typography onClick={()=>{
-              setOpendilog(!opendilog);
-            }}>Filter</Typography>
+          <button className="filterButton" style={{}}>
+            <Typography
+              onClick={() => {
+                setOpendilog(!opendilog);
+              }}
+            >
+              Filter
+            </Typography>
             <Dialog open={opendilog} sx={{}}>
-                  <div style={{ padding: "1vh" }}>
-                    <label>Leaving From : </label>
-                    <div
-                      style={{
-                        display: "grid",
-                        justifyContent: "center",
-                        padding: "3vh",
-                        gap: "1vh",
-                        gridTemplateColumns: "auto auto auto",
-                        width: "max-content",
-                      }}
-                    >
-                      {AllrideData.map((data) => {
-                        return (
-                          <div>
-                            <Checkbox
-                              value={data.leaving}
-                              checked={leavingFromFilters.includes(data.leaving)}
-                              onChange={handleLeavingFromcheckbox}
-                              ></Checkbox>
-                            <label>{data.leaving}</label>
-                          </div>
-                        );
-                      })}
-                    </div>
-                    <label>Going To : </label>
-                    <div
-                      style={{
-                        display: "grid",
-                        justifyContent: "center",
-                        padding: "3vh",
-                        gap: "1vh",
-                        gridTemplateColumns: "auto auto auto",
-                        width: "max-content",
-                      }}
-                    >
-                      {AllrideData.map((data) => {
-                        return (
-                          <div>
-                            <Checkbox
-                              value={data.going}
-                              checked={goingToFilters.includes(data.going)}
-
-                              onChange={handleGoingTocheckbox}
-                              
-                              ></Checkbox>
-                            <label>{data.going}</label>
-                          </div>
-                        );
-                      })}
-                    </div>
-                    <Button variant="contained" sx={{margin:"2vh"}}
-                      onClick={() => {
-                        setOpendilog(false);
-                        console.log(goingToFilters);
-                        console.log(leavingFromFilters);
-                        handleFilterChanges();
-                      }}
-                    >
-                      Apply filters
-                    </Button>
-                  </div>
-                </Dialog>
+              <div style={{ padding: "1vh" }}>
+                <label>Leaving From : </label>
+                <div
+                  style={{
+                    display: "grid",
+                    justifyContent: "center",
+                    padding: "3vh",
+                    gap: "1vh",
+                    gridTemplateColumns: "auto auto auto",
+                    width: "max-content",
+                  }}
+                >
+                  {AllrideData.map((data) => {
+                    return (
+                      <div>
+                        <Checkbox
+                          value={data.leaving}
+                          checked={leavingFromFilters.includes(data.leaving)}
+                          onChange={handleLeavingFromcheckbox}
+                        ></Checkbox>
+                        <label>{data.leaving}</label>
+                      </div>
+                    );
+                  })}
+                </div>
+                <label>Going To : </label>
+                <div
+                  style={{
+                    display: "grid",
+                    justifyContent: "center",
+                    padding: "3vh",
+                    gap: "1vh",
+                    gridTemplateColumns: "auto auto auto",
+                    width: "max-content",
+                  }}
+                >
+                  {AllrideData.map((data) => {
+                    return (
+                      <div>
+                        <Checkbox
+                          value={data.going}
+                          checked={goingToFilters.includes(data.going)}
+                          onChange={handleGoingTocheckbox}
+                        ></Checkbox>
+                        <label>{data.going}</label>
+                      </div>
+                    );
+                  })}
+                </div>
+                <Button
+                  variant="contained"
+                  sx={{ margin: "2vh" }}
+                  onClick={() => {
+                    setOpendilog(false);
+                    console.log(goingToFilters);
+                    console.log(leavingFromFilters);
+                    handleFilterChanges();
+                  }}
+                >
+                  Apply filters
+                </Button>
+              </div>
+            </Dialog>
             <FilterListIcon style={{ paddingLeft: "4%" }}></FilterListIcon>
           </button>
-        
         </div>
         <Divider></Divider>
       </div>
-      <div className="content" style={{color:"black"}}>
+      <div className="content" style={{ color: "black" }}>
         <div className="ride-papers">
           {rideData.map((data) => {
             return <RidePaper value={data} />;
@@ -385,7 +381,7 @@ const BookRide = () => {
                     alignContent: "center",
                   }}
                 >
-                  <img style={{ height: "18dvh" }} src={car} ></img>
+                  <img style={{ height: "18dvh" }} src={car}></img>
                   <div>
                     <Typography variant="h4">
                       {selectedRideData.carNumber}
@@ -432,7 +428,9 @@ const BookRide = () => {
                     <img src={man} style={{ height: "22vh" }}></img>
                   </div>
                   <div>
-                    <Typography variant="h4">{selectedRideData.name}</Typography>
+                    <Typography variant="h4">
+                      {selectedRideData.name}
+                    </Typography>
                     <Typography variant="h6">Male</Typography>
                     <Typography variant="h6">Btech IT</Typography>
                     <Typography variant="h6" sx={{ fontSize: "115%" }}>
@@ -450,11 +448,14 @@ const BookRide = () => {
                   paddingBottom: "5dvh",
                 }}
               >
-                <Button variant="contained" onClick={()=>{
-                  
-                  handleBookRide();
-                  
-                }}>Book Ride</Button>
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    handleBookRide();
+                  }}
+                >
+                  Book Ride
+                </Button>
               </div>
             </div>
           ) : (

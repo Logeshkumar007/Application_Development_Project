@@ -32,13 +32,17 @@ public class BookRide {
     private double price;
     private String carName;
     private String carNumber;
-    private String date; 
-    private String startTime; 
-    private String endTime; 
     private String rideCompletionStatus;
+    private String date;
+    private String startTime;
+    private String endTime;
+    private String leavingFromLatitude;
+    private String leavingFromLongitude;
+    private String goingToLatitude;
+    private String goingToLongitude;
+
     @OneToMany(mappedBy = "bookRide", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<UserRideHistory> userRideHistory;
 
 }
-

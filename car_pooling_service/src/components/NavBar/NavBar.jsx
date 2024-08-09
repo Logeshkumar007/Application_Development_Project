@@ -1,5 +1,5 @@
 import { AppBar, Toolbar, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { CalendarDays } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -44,6 +44,9 @@ const Navbar = () => {
             width: "15%",
           }}
         >
+          <NavLink to="/map">
+            <Button>Map</Button>
+          </NavLink>
           <HoverCard>
             <HoverCardTrigger asChild>
               <Button className="  text-white font-bold py-2 px-4 rounded">
@@ -89,7 +92,10 @@ const Navbar = () => {
                 </Typography>
               </Link>
               <div className="border-t border-primary my-2"></div>
-              <Link to="/passangerSignup" className="block hover:bg-blue-100 p-2 rounded">
+              <Link
+                to="/passangerSignup"
+                className="block hover:bg-blue-100 p-2 rounded"
+              >
                 <Typography sx={{ fontWeight: "550" }} className="text-primary">
                   SignUp
                 </Typography>

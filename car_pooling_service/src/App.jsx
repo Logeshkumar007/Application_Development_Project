@@ -23,7 +23,8 @@ import PassangerSignIn from "./components/PassangerAuthorization/PassangerSignIn
 import PassangerSignUp from "./components/PassangerAuthorization/PassangerSignUp";
 import RiderSignUp from "./components/RiderAuthorization/RiderSignUp";
 import Footer from "./components/Footer/Footer.jsx";
-
+import Map from "./components/Map/Map.jsx";
+import MyModal from "./components/DialogueBox/Dialogue.jsx";
 const App = () => {
   return (
     <Router>
@@ -52,10 +53,26 @@ const AnimatedRoutes = () => {
           }
         />
         <Route
+          path="/dialogue"
+          element={
+            <PageWrapper>
+              <MyModal />
+            </PageWrapper>
+          }
+        />
+        <Route
           path="/RiderSignIn"
           element={
             <PageWrapper>
               <RiderSignUp />
+            </PageWrapper>
+          }
+        />
+        <Route
+          path="/map"
+          element={
+            <PageWrapper>
+              <Map />
             </PageWrapper>
           }
         />

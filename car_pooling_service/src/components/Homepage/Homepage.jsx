@@ -14,7 +14,7 @@ import "./Homepage.css";
 import TextTransition, { presets } from "react-text-transition";
 import png1 from "./carowner.png";
 import { motion } from "framer-motion";
-import Footer from '../Footer/Footer'
+import Footer from "../Footer/Footer";
 const TEXTS = ["For", "By", "Of"];
 
 const Homepage = () => {
@@ -295,7 +295,7 @@ const Homepage = () => {
         className="mt-24"
         // className="h-[40vh] bg-gradient-to-r from-blue-500 to-purple-600 flex w-full justify-between mt-5 p-6 rounded-lg shadow-xl"
       >
-        <Footer/>
+        <Footer />
       </motion.div>
     </div>
   );

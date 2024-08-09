@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Alert, Snackbar } from '@mui/material'
+import { Alert, Snackbar } from "@mui/material";
 import SignInImage from "../../assets/images/interview_svg.png";
 import {
   Card,
@@ -16,43 +16,44 @@ import "../../../src/index.css";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setLogin } from "../Store/Reducer";
+// import { useNavigate } from "react-router-dom";
 
 export default function PassangerSignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  const [userDetails, setUserDetails] = React.useState({})
-  const vertical = 'top';
-  const horizontal = 'right';
+  const [userDetails, setUserDetails] = React.useState({});
+  const vertical = "top";
+  const horizontal = "right";
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return
+    if (reason === "clickaway") {
+      return;
     }
 
-    setOpen(false)
-  }
+    setOpen(false);
+  };
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .get('http://localhost:8080/api/ecoride/login', {
+      .get("http://localhost:8080/api/ecoride/login", {
         params: {
           email: email,
           password: password,
         },
       })
       .then((Response) => {
-        console.log(Response.status)
-        setUserDetails(Response.data)
-        dispatch(setLogin(Response.data))
-        navigate('/loginSuccess')
+        console.log(Response.status);
+        setUserDetails(Response.data);
+        dispatch(setLogin(Response.data));
+        navigate("/loginSuccess");
       })
       .catch((error) => {
-        console.error('There is an error in Singin ', error)
-        setOpen(true)
-      })
+        console.error("There is an error in Singin ", error);
+        setOpen(true);
+      });
   };
 
   return (
@@ -67,7 +68,7 @@ export default function PassangerSignIn() {
           onClose={handleClose}
           severity="error"
           variant="filled"
-          sx={{ width: '100%' }}
+          sx={{ width: "100%" }}
         >
           Error Invalid crendentials. Please try again!
         </Alert>
@@ -122,7 +123,7 @@ export default function PassangerSignIn() {
               </Button>
             </form>
             <div className="mt-4 text-center text-sm">
-              Don&apos;t have an account?{' '}
+              Don&apos;t have an account?{" "}
               <Link to="/passangerSignUp" className="underline">
                 Sign up
               </Link>
@@ -131,5 +132,5 @@ export default function PassangerSignIn() {
         </Card>
       </div>
     </div>
-  )
+  );
 }

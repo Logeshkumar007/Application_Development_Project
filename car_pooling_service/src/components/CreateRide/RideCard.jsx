@@ -32,39 +32,36 @@ const RideCard = () => {
   const [phone, setPhone] = useState("");
   const [endTime, setEndTime] = useState("2:30 PM");
 
+  const [suggestions, setSuggestions] = useState([]);
+  const [leavingFromLatitude, setLeavingFromLatitude] = useState(null);
+  const [leavingFromLongitude, setLeavingFromLongitude] = useState(null);
+  const [goingToLatitude, setGoingToLatitude] = useState(null);
+  const [goingToLongitude, setGoingToLongitude] = useState(null);
   const [errors, setErrors] = useState({});
-
-  const [suggestions, setSuggestions] = useState([
-    { label: "Marudhamalai Temple" },
-    { label: "VOC Park and Zoo" },
-    { label: "Siruvani Waterfalls" },
-    { label: "Gedee Car Museum" },
-    { label: "Perur Pateeswarar Temple" },
-    { label: "Adiyogi Shiva Statue" },
-    { label: "TNAU Botanical Garden" },
-    { label: "Brookefields Mall" },
-    { label: "Kovai Kondattam Amusement Park" },
-    { label: "Black Thunder Water Park" },
-  ]);
 
   const navigate = useNavigate();
   const logindata = useSelector((state) => state.loginReducer);
-  useEffect(()=>{
-    console.log(".");
-    console.log(".");
-    console.log(".");
-    console.log(".");
-    console.log(".");
-    console.log(".");
-    console.log("the login data from ride card",logindata.email,logindata.firstName);
-    console.log(".");
-    console.log(".");
-    console.log(".");
-    console.log(".");
-    console.log(".");
-    console.log(".");
-  })
-  console.log("login data from ride card", logindata);
+
+  // useEffect(() => {
+  //   console.log(".");
+  //   console.log(".");
+  //   console.log(".");
+  //   console.log(".");
+  //   console.log(".");
+  //   console.log(".");
+  //   console.log(
+  //     "the login data from ride card",
+  //     logindata.email,
+  //     logindata.firstName
+  //   );
+  //   console.log(".");
+  //   console.log(".");
+  //   console.log(".");
+  //   console.log(".");
+  //   console.log(".");
+  //   console.log(".");
+  // });
+  // console.log("login data from ride card", logindata);
   const handleSubmit = (event) => {
     setName(logindata.firstName + " " + logindata.lastName);
     setEmail(logindata.email);
@@ -85,9 +82,9 @@ const RideCard = () => {
 
     if (Object.keys(newErrors).length === 0) {
       const rideDetails = {
-        name:logindata.firstName + " " + logindata.lastName,
-        email:logindata.email,
-        phone:logindata.phoneNumber,
+        name: logindata.firstName + " " + logindata.lastName,
+        email: logindata.email,
+        phone: logindata.phoneNumber,
         leaving,
         carNumber,
         going,
@@ -97,9 +94,13 @@ const RideCard = () => {
         date,
         startTime,
         endTime,
-        ride_completion_status:"no"
+        ride_completion_status:"no",
+        leavingFromLatitude,
+        leavingFromLongitude,
+        goingToLatitude,
+        goingToLongitude,
       };
-      console.log("Ride details are ",rideDetails);
+      // console.log("Ride details are ", rideDetails);
       axios
         .post("http://localhost:8080/app/createride", rideDetails)
         .then((response) => {
@@ -126,6 +127,23 @@ const RideCard = () => {
     }
   };
 
+  useEffect(() => {
+    if (leaving !== "") {
+      fetch(
+        `https://api.geoapify.com/v1/geocode/autocomplete?text=${leaving}&format=json&apiKey=7150d3d1879642babb4e29c827ae645b`
+      )
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          const newSuggestions = result.results.map((item) => ({
+            label: `${item.address_line1} ${item.address_line2}`,
+            value: item,
+          }));
+          setSuggestions(newSuggestions);
+        })
+        .catch((error) => console.log("error", error));
+    }
+  }, [leaving]);
   return (
     <div
       style={{
@@ -164,90 +182,50 @@ const RideCard = () => {
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <Autocomplete
-                id="outlined-leaving"
                 options={suggestions}
-                getOptionLabel={(option) => option.label || ""}
+                getOptionLabel={(option) => option.label}
                 renderInput={(params) => (
                   <TextField
                     {...params}
                     label="Leaving From"
                     variant="outlined"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    fullWidth
-                    error={!!errors.leaving}
-                    helperText={errors.leaving}
+                    onChange={(e) => setLeaving(e.target.value)}
                   />
                 )}
-                value={leaving ? { label: leaving } : null}
                 onChange={(event, newValue) => {
-                  if (newValue && typeof newValue === "object") {
+                  if (newValue) {
                     setLeaving(newValue.label);
+                    setLeavingFromLatitude(newValue.value.lat);
+                    setLeavingFromLongitude(newValue.value.lon);
                   } else {
-                    const newLabel = newValue || "";
-                    setLeaving(newLabel);
-                    if (
-                      !suggestions.some((option) => option.label === newLabel)
-                    ) {
-                      setSuggestions([...suggestions, { label: newLabel }]);
-                    }
-                  }
-                }}
-                freeSolo
-                onInputChange={(event, newInputValue) => {
-                  if (
-                    newInputValue &&
-                    !suggestions.some(
-                      (option) => option.label === newInputValue
-                    )
-                  ) {
-                    setSuggestions([...suggestions, { label: newInputValue }]);
+                    setLeaving("");
+                    setLeavingFromLatitude(null);
+                    setLeavingFromLongitude(null);
                   }
                 }}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <Autocomplete
-                id="outlined-going"
                 options={suggestions}
-                getOptionLabel={(option) => option.label || ""}
+                getOptionLabel={(option) => option.label}
                 renderInput={(params) => (
                   <TextField
                     {...params}
                     label="Going To"
                     variant="outlined"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    fullWidth
-                    error={!!errors.going}
-                    helperText={errors.going}
+                    onChange={(e) => setGoing(e.target.value)}
                   />
                 )}
-                value={going ? { label: going } : null}
                 onChange={(event, newValue) => {
-                  if (newValue && typeof newValue === "object") {
+                  if (newValue) {
                     setGoing(newValue.label);
+                    setGoingToLatitude(newValue.value.lat);
+                    setGoingToLongitude(newValue.value.lon);
                   } else {
-                    const newLabel = newValue || "";
-                    setGoing(newLabel);
-                    if (
-                      !suggestions.some((option) => option.label === newLabel)
-                    ) {
-                      setSuggestions([...suggestions, { label: newLabel }]);
-                    }
-                  }
-                }}
-                freeSolo
-                onInputChange={(event, newInputValue) => {
-                  if (
-                    newInputValue &&
-                    !suggestions.some(
-                      (option) => option.label === newInputValue
-                    )
-                  ) {
-                    setSuggestions([...suggestions, { label: newInputValue }]);
+                    setGoing("");
+                    setGoingToLatitude(null);
+                    setGoingToLongitude(null);
                   }
                 }}
               />

@@ -20,7 +20,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-// import './profilePage.css'
 
 export default function ProfilePage() {
   const data = useSelector((state) => state.loginReducer);
