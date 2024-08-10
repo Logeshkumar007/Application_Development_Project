@@ -25,21 +25,19 @@ import { useNavigate } from "react-router-dom";
 const BookRide = () => {
   const dispatch = useDispatch();
   const selectedid = useSelector((state) => state.selectedIdReducer);
-  const [opendilog,setOpendilog]=useState(false);
-  const nav=useNavigate();
-  const f=()=>{
+  const [opendilog, setOpendilog] = useState(false);
+  const nav = useNavigate();
+  const f = () => {
     axios.get("http://localhost:8080/app/bookride/getallrides").then((res) => {
-    
-    setRideData(res.data);
-    setAllRideData(res.data);
-    dispatch(setIdselected(1));
-  });
-  }
+      setRideData(res.data);
+      setAllRideData(res.data);
+      dispatch(setIdselected(1));
+    });
+  };
   useEffect(() => {
-    
-  f();
+    f();
   }, []);
-  
+
   const [leavingFromFilters, setLeavingFromFilters] = useState([]);
   const [goingToFilters, setGoingToFilters] = useState([]);
 
@@ -60,30 +58,33 @@ const BookRide = () => {
         : [...prev, value]
     );
   };
-  const logindata=useSelector(state=>state.loginReducer);
-  const handleBookRide=()=>{
-    if(logindata.email==="")
-      {
-        alert("please login first");
-      }
-      else
-      {
-        axios.put(`http://localhost:8080/app/bookride/updateRideCompletionStatus/${selectedRideData.id}`)
+  const logindata = useSelector((state) => state.loginReducer);
+  const handleBookRide = () => {
+    if (logindata.email === "") {
+      alert("please login first");
+    } else {
+      axios
+        .put(
+          `http://localhost:8080/app/bookride/updateRideCompletionStatus/${selectedRideData.id}`
+        )
         .then()
-        .catch(err=>{
+        .catch((err) => {
           console.log(err);
         });
-        axios.post(`http://localhost:8080/app/userRideHistory/${logindata.email}/${selectedRideData.id}`)
-        .then(response=>{
+      axios
+        .post(
+          `http://localhost:8080/app/userRideHistory/${logindata.email}/${selectedRideData.id}`
+        )
+        .then((response) => {
           console.log(response);
         })
-        .catch(error=>{
-          console.log("error occured in posting a booking ride",error);
-          })
-        console.log("Ride Booked with Driver Id : ",selectedRideData.id);
-        console.log("Ride Booked By ",logindata.email);
-        f();
-        nav("/dummy");
+        .catch((error) => {
+          console.log("error occured in posting a booking ride", error);
+        });
+      console.log("Ride Booked with Driver Id : ", selectedRideData.id);
+      console.log("Ride Booked By ", logindata.email);
+      f();
+      nav("/dummy");
     }
   };
   const [rideData, setRideData] = useState([
@@ -172,8 +173,6 @@ const BookRide = () => {
       console.log("error in fetching selected value", err);
     }
   }, [selectedid.idSelected]);
-
-  
 
   return (
     <div>
@@ -303,7 +302,7 @@ const BookRide = () => {
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "space-between",
-                  paddingTop:"2%"
+                  paddingTop: "2%",
                 }}
               >
                 <div
@@ -371,7 +370,13 @@ const BookRide = () => {
                 <Divider sx={{ paddingTop: "3%" }}></Divider>
               </div>
               <div style={{ paddingTop: "4%" }}>
-                <h1 style={{ paddingBottom: "5dvh", textAlign: "center" ,fontSize:"155%"}}>
+                <h1
+                  style={{
+                    paddingBottom: "5dvh",
+                    textAlign: "center",
+                    fontSize: "155%",
+                  }}
+                >
                   Car Info
                 </h1>
                 <div
@@ -405,7 +410,7 @@ const BookRide = () => {
                       paddingBottom: "4dvh",
                       paddingTop: "3dvh",
                       textAlign: "center",
-                      fontSize:"155%"
+                      fontSize: "155%",
                     }}
                   >
                     Driver Profile
