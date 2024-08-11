@@ -80,7 +80,7 @@ const RideCard = () => {
     setPhone(logindata.phoneNumber);
     event.preventDefault();
     const newErrors = {};
-
+    const no = "no";
     if (!leaving) newErrors.leaving = "This field is required";
     if (!going) newErrors.going = "This field is required";
     if (!availableSeats) newErrors.availableSeats = "This field is required";
@@ -106,7 +106,9 @@ const RideCard = () => {
         date,
         startTime,
         endTime,
-        ride_completion_status: "no",
+
+        ride_completion_status: no,
+
         leavingFromLatitude,
         leavingFromLongitude,
         goingToLatitude,
@@ -264,7 +266,7 @@ const RideCard = () => {
             <Grid item xs={12} sm={6}>
               <TextField
                 id="outlined-availableSeats"
-                label="Available availableSeats"
+                label="AvailableSeats"
                 type="number"
                 value={availableSeats}
                 onChange={(e) => setSeats(e.target.value)}

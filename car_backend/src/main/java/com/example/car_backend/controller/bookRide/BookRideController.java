@@ -108,6 +108,7 @@ public class BookRideController {
     @PostMapping("/app/createride")
     public BookRide createAnRide(@RequestBody BookRide bookRide) {
 
+        bookRide.setRideCompletionStatus("no");
         return repo.save(bookRide);
     }
 

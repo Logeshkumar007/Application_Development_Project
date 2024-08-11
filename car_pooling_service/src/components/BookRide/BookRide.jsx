@@ -64,17 +64,43 @@ const theme = createTheme({
   },
 });
 const BookRide = () => {
+  // const passLongitude=localStorage.getItem("passLongitude");
+  // const passLatitude=localStorage.getItem("passLati");
+  const passLocation = localStorage.getItem("passLocation");
   const dispatch = useDispatch();
   const selectedid = useSelector((state) => state.selectedIdReducer);
   const [opendilog, setOpendilog] = useState(false);
   const nav = useNavigate();
   const f = () => {
     axios.get("http://localhost:8080/app/bookride/getallrides").then((res) => {
-      setRideData(res.data);
-      setAllRideData(res.data);
+      console.log("all rides are from book ride ", res.data);
+      const updatedRidesData = res.data.map((ride) => {
+        const distance = haversine(
+          ride.leavingFromLatitude,
+          ride.leavingFromLongitude,
+          passLatitude,
+          passLongitude
+        );
+        console.log(`The distance is ${distance.toFixed(2)} km`);
+        console.log(
+          ride.leavingFromLatitude,
+          ride.leavingFromLongitude,
+          passLatitude,
+          passLongitude
+        );
+
+        return {
+          ...ride,
+          distance: distance.toFixed(2), // Update the distance property
+        };
+      });
+      console.log(updatedRidesData);
+      setRideData(updatedRidesData);
+      setAllRideData(updatedRidesData);
       dispatch(setIdselected(1));
     });
   };
+
   useEffect(() => {
     f();
   }, []);
@@ -220,6 +246,7 @@ const BookRide = () => {
         ]);
         res.then((res) => {
           setRideData(res.data);
+
           console.log("react data", res.data);
         });
       }
@@ -227,10 +254,45 @@ const BookRide = () => {
       console.log(err);
     }
   };
+  function haversine(lat1, lon1, lat2, lon2) {
+    // Convert latitude and longitude from degrees to radians
+    const toRadians = (degree) => degree * (Math.PI / 180);
 
+    lat1 = toRadians(lat1);
+    lon1 = toRadians(lon1);
+    lat2 = toRadians(lat2);
+    lon2 = toRadians(lon2);
+
+    // Haversine formula
+    const dLat = lat2 - lat1;
+    const dLon = lon2 - lon1;
+    const a =
+      Math.sin(dLat / 2) ** 2 +
+      Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    // Earth's radius in kilometers
+    const R = 6371;
+    const distance = R * c;
+
+    return distance;
+  }
   useEffect(() => {
-    console.log("The selecetd data is ", selectedRideData);
-  }, [selectedRideData]);
+    rideData.map((ride) => {
+      const distance = haversine(
+        ride.leavingFromLatitude,
+        ride.leavingFromLongitude,
+        passLatitude,
+        passLongitude
+      );
+      console.log(`The distance is ${distance.toFixed(2)} km`);
+
+      return {
+        ...ride,
+        distance: distance.toFixed(2),
+      };
+    });
+  }, [rideData]);
   useEffect(() => {
     console.log("the store selected id is ", selectedid.idSelected);
     try {
@@ -262,7 +324,16 @@ const BookRide = () => {
               paddingRight: "1%",
             }}
           >
-            <Typography>Sort by</Typography>
+            <Typography
+              onClick={() => {
+                const sorted = [...rideData].sort(
+                  (a, b) => a.distance - b.distance
+                );
+                setRideData(sorted);
+              }}
+            >
+              Sort by
+            </Typography>
             <KeyboardArrowDownIcon></KeyboardArrowDownIcon>
           </button>
           <button className="filterButton" style={{}}>
