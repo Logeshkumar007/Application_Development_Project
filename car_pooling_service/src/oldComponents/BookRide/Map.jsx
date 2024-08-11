@@ -4,17 +4,17 @@ import "leaflet/dist/leaflet.css";
 import PropTypes from "prop-types";
 import "./Map.css"; // Import the CSS file
 
-const MapComponent = () => {
+const MapComponent = ({ latitude, longitude }) => {
   useEffect(() => {
-    const map = L.map("my-map").setView([10.9601, 78.0766], 10);
+    const map = L.map("my-map").setView([latitude, longitude], 10);
     L.tileLayer(
-      "https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}.png?apiKey=7150d3d1879642babb4e29c827ae645b",
-      {
-        attribution:
-          'Powered by <a href="https://www.geoapify.com/" target="_blank">Geoapify</a> | <a href="https://openmaptiles.org/" target="_blank">© OpenMapTiles</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap</a> contributors',
-        maxZoom: 20,
-        id: "osm-bright",
-      }
+      "https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}.png?apiKey=7150d3d1879642babb4e29c827ae645b"
+      // {
+      //   attribution:
+      //     'Powered by <a href="https://www.geoapify.com/" target="_blank">Geoapify</a> | <a href="https://openmaptiles.org/" target="_blank">© OpenMapTiles</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap</a> contributors',
+      //   maxZoom: 20,
+      //   id: "osm-bright",
+      // }
     ).addTo(map);
 
     // Create a custom icon for the marker
@@ -27,20 +27,20 @@ const MapComponent = () => {
     });
 
     // Add a marker with the custom icon to the map
-    L.marker([10.9601, 78.0766], { icon: customIcon }).addTo(map);
+    L.marker([latitude, longitude], { icon: customIcon }).addTo(map);
 
     // Cleanup function to remove the map instance
     return () => {
       map.remove();
     };
-  }, []);
+  }, [latitude, longitude]);
 
-  // MapComponent.propTypes = {
-  //   latitude: PropTypes.number.isRequired,
-  //   longitude: PropTypes.number.isRequired,
-  // };
+  MapComponent.propTypes = {
+    latitude: PropTypes.number.isRequired,
+    longitude: PropTypes.number.isRequired,
+  };
 
-  return <div id="my-map" style={{ height: "300px", width: "100%" }}></div>;
+  return <div id="my-map" style={{ height: "400px", width: "100%" }}></div>;
 };
 
 export default MapComponent;
