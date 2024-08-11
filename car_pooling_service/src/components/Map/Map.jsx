@@ -1,7 +1,7 @@
 // import Image from "next/image"
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-// import MapComponent from "../../oldComponents/BookRide/Map";
+import MapComponent from "../../oldComponents/BookRide/Map";
 import "leaflet/dist/leaflet.css"; // Import Leaflet CSS
 import {
   ChevronLeft,
@@ -75,7 +75,16 @@ import axios from "axios";
 export default function Map() {
   const profile = useSelector((state) => state.loginReducer);
   const rideId = useSelector((state) => state.selectedIdReducer);
-  // const [rideDetails, setRideDetails] = useState(null);
+  const [mapData, setmapData] = useState(null);
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+  const [open, setOpen] = useState(false);
+  // useEffect(() => {
+  //   console.log("MapData from useffect ", mapData);
+  //   if (!mapData) {
+  //     console.log(latitude + " " + longitude);
+  //   }
+  // }, [mapData]);
   useEffect(() => {
     axios
       .get(
@@ -83,21 +92,28 @@ export default function Map() {
       )
       .then((response) => {
         {
-          console.log("Rider details ", response);
+          console.log("Rider details ", response.data);
+          setmapData(response.data);
+          setLatitude(response.data.leavingFromLatitude);
+          setLongitude(response.data.leavingFromLongitude);
+          setOpen(true);
         }
       })
       .catch((error) => {
         console.error(error);
       });
-    // console.log("The ride details", rideDetails);
+    console.log("The ride details", mapData);
   }, []);
 
   useEffect(() => {
     console.log("the profile", profile);
   }, [profile]);
   useEffect(() => {
-    console.log("the ridedetails", rideId);
+    console.log("the mapData", rideId);
   }, [rideId]);
+
+  console.log("check", mapData);
+  console.log("open", open);
 
   // sampleSubmit();
   return (
@@ -158,6 +174,35 @@ export default function Map() {
                     <CardDescription>
                       Current location of an pilot approximately.
                     </CardDescription>
+                    <div>
+                      {open && (
+                        <>
+                          <MapComponent
+                            latitude={latitude}
+                            longitude={longitude}
+                          />
+                          <div className="mt-4">
+                            <span className="text-gray-600 font-semibold">
+                              Latitude:
+                            </span>
+                            {latitude && (
+                              <span className="ml-2 text-blue-600 font-bold">
+                                {latitude}
+                              </span>
+                            )}
+                            <br />
+                            <span className="text-gray-600 font-semibold">
+                              Longitude:
+                            </span>
+                            {longitude && (
+                              <span className="ml-2 text-blue-600 font-bold">
+                                {longitude}
+                              </span>
+                            )}
+                          </div>
+                        </>
+                      )}
+                    </div>
                   </CardHeader>
                 </Card>
                 <div></div>
@@ -167,13 +212,13 @@ export default function Map() {
           <div>
             <Card className="overflow-hidden" x-chunk="dashboard-05-chunk-4">
               <CardHeader className="flex flex-row items-start bg-muted/50">
-                <div className="grid gap-0.5">
+                {mapData ? (
                   <CardTitle className="group flex items-center gap-2 text-lg">
-                    {/* Date : {rideDetails.date} */}
+                    Date : {mapData.date}
                   </CardTitle>
-
-                  {/* <CardDescription>{rideDetails.date}</CardDescription> */}
-                </div>
+                ) : (
+                  <p>Loading...</p>
+                )}
                 <div className="ml-auto flex items-center gap-1">
                   <Button size="sm" variant="outline" className="h-8 gap-1">
                     <Truck className="h-3.5 w-3.5" />
@@ -201,38 +246,91 @@ export default function Map() {
                 <div className="grid gap-3">
                   <div className="font-semibold"> Ride Details</div>
                   <ul className="grid gap-3">
-                    <li className="flex items-center justify-between">
-                      <span className="text-muted-foreground">
-                        Leaving From :
-                      </span>
-                      {/* {<span>{rideDetails.data.leaving}</span>} */}
+                    <li className="flex  m-1 items-center justify-between">
+                      {mapData ? (
+                        <div className="flex flex-col sm:flex-row justify-aro w-full">
+                          <span className="text-gray-600 font-semibold">
+                            Leaving From:
+                          </span>
+                          <span className="ml-2 text-blue-600 font-bold">
+                            {mapData.leaving}
+                          </span>
+                        </div>
+                      ) : (
+                        <p className="text-gray-500">Loading....</p>
+                      )}
                     </li>
-                    <li className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Going To:</span>
-                      {/* {<span>{rideDetails.data.going}</span>} */}
-                    </li>
-                  </ul>
 
-                  <ul className="grid gap-3">
-                    <li className="flex items-center justify-between">
-                      <span className="text-muted-foreground">
-                        Available Seats:
-                      </span>
-                      {/* <span>{rideDetails.data.availableSeats}</span> */}
+                    <li className="flex items-center m-1 justify-between">
+                      {mapData ? (
+                        <div className="flex flex-col sm:flex-row justify-aro w-full">
+                          <span className="text-gray-600 font-semibold">
+                            Going To:
+                          </span>
+                          <span className="ml-2 text-blue-600 font-bold">
+                            {mapData.going}
+                          </span>
+                        </div>
+                      ) : (
+                        <p className="text-gray-500">Loading....</p>
+                      )}
                     </li>
-                    <li className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Car Name:</span>
-                      {/* <span>{rideDetails.data.carName}</span> */}
+
+                    <li className="flex items-center m-1 justify-between ">
+                      {mapData ? (
+                        <div className="flex flex-col sm:flex-row justify-aro w-full">
+                          <span className="text-gray-600 font-semibold">
+                            Available Seats:
+                          </span>
+                          <span className="ml-2 text-blue-600 font-bold">
+                            {mapData.availableSeats}
+                          </span>
+                        </div>
+                      ) : (
+                        <p className="text-gray-500">Loading....</p>
+                      )}
                     </li>
-                    <li className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Car Number:</span>
-                      {/* <span>{rideDetails.data.carNumber}</span> */}
+                    <li className="flex items-center m-1 justify-between">
+                      {mapData ? (
+                        <div className="flex flex-col sm:flex-row justify-aro w-full">
+                          <span className="text-gray-600 font-semibold">
+                            Car Name:
+                          </span>
+                          <span className="ml-2 text-blue-600 font-bold">
+                            {mapData.carName}
+                          </span>
+                        </div>
+                      ) : (
+                        <p className="text-gray-500">Loading....</p>
+                      )}
                     </li>
-                    <li className="flex items-center justify-between font-semibold">
-                      <span className="text-muted-foreground">
-                        Expected Price:
-                      </span>
-                      {/* <span>${rideDetails.data.price}</span> */}
+                    <li className="flex items-center m-1 justify-between">
+                      {mapData ? (
+                        <div className="flex flex-col sm:flex-row justify-aro w-full">
+                          <span className="text-gray-600 font-semibold">
+                            Car Number:
+                          </span>
+                          <span className="ml-2 text-blue-600 font-bold">
+                            {mapData.carNumber}
+                          </span>
+                        </div>
+                      ) : (
+                        <p className="text-gray-500">Loading....</p>
+                      )}
+                    </li>
+                    <li className="flex items-center m-1 justify-between font-semibold">
+                      {mapData ? (
+                        <div className="flex flex-col sm:flex-row justify-aro w-full">
+                          <span className="text-gray-600 font-semibold">
+                            Excepted Price:
+                          </span>
+                          <span className="ml-2 text-blue-600 font-bold">
+                            {mapData.price}
+                          </span>
+                        </div>
+                      ) : (
+                        <p className="text-gray-500">Loading....</p>
+                      )}
                     </li>
                   </ul>
                 </div>
@@ -241,12 +339,48 @@ export default function Map() {
                   <div className="grid gap-3">
                     <div className="font-semibold">Pilot Details:</div>
                     <address className="grid  not-italic text-muted-foreground p-5 m">
-                      {/* <div className="m-1">Name : {rideDetails.data.name}</div> */}
-                      <div className="m-1">
-                        {/* Email : {rideDetails.data.email} */}
+                      <div>
+                        {mapData ? (
+                          <div className="flex flex-col sm:flex-row justify-aro w-full">
+                            <span className="text-gray-600 font-semibold">
+                              Name:
+                            </span>
+                            <span className="ml-2 text-blue-600 font-bold">
+                              {mapData.name}
+                            </span>
+                          </div>
+                        ) : (
+                          <p className="text-gray-500">Loading....</p>
+                        )}
                       </div>
                       <div className="m-1">
-                        {/* Phone Number: {rideDetails.data.phone} */}
+                        {" "}
+                        {mapData ? (
+                          <div className="flex flex-col sm:flex-row justify-aro w-full">
+                            <span className="text-gray-600 font-semibold">
+                              Email:
+                            </span>
+                            <span className="ml-2 text-blue-600 font-bold">
+                              {mapData.email}
+                            </span>
+                          </div>
+                        ) : (
+                          <p className="text-gray-500">Loading....</p>
+                        )}
+                      </div>
+                      <div className="m-1">
+                        {mapData ? (
+                          <div className="flex flex-col sm:flex-row justify-aro w-full">
+                            <span className="text-gray-600 font-semibold">
+                              Phone Number:
+                            </span>
+                            <span className="ml-2 text-blue-600 font-bold">
+                              {mapData.phone}
+                            </span>
+                          </div>
+                        ) : (
+                          <p className="text-gray-500">Loading....</p>
+                        )}
                       </div>
                     </address>
                   </div>
