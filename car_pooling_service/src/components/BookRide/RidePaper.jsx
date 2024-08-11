@@ -49,9 +49,9 @@ const RidePaper=(props)=>{
         return distance;
     }
    
-    const distance = haversine(props.value.leavingFromLatitude,props.value.leavingFromLongitude, passLatitude, passLongitude);
-    console.log(`The distance is ${distance.toFixed(2)} km`);
-    console.log(props.value.leavingFromLatitude,props.value.leavingFromLongitude, passLatitude, passLongitude);
+    // const distance = haversine(props.value.leavingFromLatitude,props.value.leavingFromLongitude, passLatitude, passLongitude);
+    // console.log(`The distance is ${distance.toFixed(2)} km`);
+    // console.log(props.value.leavingFromLatitude,props.value.leavingFromLongitude, passLatitude, passLongitude);
     
 
 
@@ -81,15 +81,16 @@ const RidePaper=(props)=>{
                         <Typography variant="h6">--------</Typography>
                         <Typography variant="h6">{props.value.going}</Typography>
                             
-                        <Typography variant="h6" sx={{fontSize:"95%"}}>{props.value.startTime}</Typography>
-                        <Typography variant="h6"></Typography>
-                        <Typography variant="h6" sx={{fontSize:"95%"}}>{props.value.endTime}</Typography>
+                        <Typography variant="h6" sx={{fontSize:""}}>{props.value.startTime}</Typography>
+                        <Typography variant="h6" sx={{fontSize:""}}></Typography>
+                        <Typography variant="h6" sx={{fontSize:""}}>{props.value.endTime}</Typography>
+                        {/* <Typography variant="h6" sx={{fontSize:"95%"}}>{props.value.distance} km away from you </Typography> */}
                         </div>
                         </div>
 
-                        <div style={{display:"flex",paddingLeft:"12%",justifyContent:"space-between",alignItems:"baseline",marginTop:"3dvh"}}>
+                        <div style={{display:"flex",paddingLeft:"12%",justifyContent:"space-between",alignItems:"baseline",marginTop:"5dvh"}}>
 
-                        <Typography  variant="h6" sx={{fontSize:"80%"}}>{props.value.availableSeats} seats Available</Typography>
+                        <Typography  variant="h6"  sx={{fontSize:"90%",fontWeight:"500"}}><span style={{ fontWeight: 750, fontSize: '1rem'}}>{props.value.distance}</span> km away</Typography>
                         <Typography color="primary" variant="h5" sx={{}}>Rs.{props.value.price}</Typography>
                         </div>
                 

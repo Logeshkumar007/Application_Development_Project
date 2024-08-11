@@ -49,6 +49,7 @@ export default function MyModal() {
     localStorage.setItem("passLati",passLatitude);
     localStorage.setItem("passLongitude",passLongitude);
     localStorage.setItem("passengerLocation",passengerLocation);
+    close();
   }
   useEffect(() => {
     if (passengerLocation !== "") {
@@ -134,7 +135,7 @@ export default function MyModal() {
               <div className="mt-4">
                 <Button
                   className="inline-flex items-center gap-2 rounded-md bg-primary py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
-                  onClick={handleSubmit && close}
+                  onClick={handleSubmit}
                 >
                   Got it, thanks!
                 </Button>
