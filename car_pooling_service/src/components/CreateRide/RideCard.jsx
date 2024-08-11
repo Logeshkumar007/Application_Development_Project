@@ -105,7 +105,9 @@ const RideCard = () => {
         date,
         startTime,
         endTime,
+
         ride_completion_status:no,
+
         leavingFromLatitude,
         leavingFromLongitude,
         goingToLatitude,
@@ -155,6 +157,23 @@ const RideCard = () => {
         .catch((error) => console.log("error", error));
     }
   }, [leaving]);
+  useEffect(() => {
+    if (going !== "") {
+      fetch(
+        `https://api.geoapify.com/v1/geocode/autocomplete?text=${going}&format=json&apiKey=7150d3d1879642babb4e29c827ae645b`
+      )
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          const newSuggestions = result.results.map((item) => ({
+            label: `${item.address_line1} ${item.address_line2}`,
+            value: item,
+          }));
+          setSuggestions(newSuggestions);
+        })
+        .catch((error) => console.log("error", error));
+    }
+  }, [going]);
   return (
     <div
       style={{
@@ -245,7 +264,7 @@ const RideCard = () => {
             <Grid item xs={12} sm={6}>
               <TextField
                 id="outlined-availableSeats"
-                label="Available availableSeats"
+                label="AvailableSeats"
                 type="number"
                 value={availableSeats}
                 onChange={(e) => setSeats(e.target.value)}
