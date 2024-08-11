@@ -5,7 +5,7 @@ import App from "./App.jsx";
 import "./index.css";
 import { Provider } from "react-redux";
 import store from "./components/Store/store.jsx";
-import MapComponent from "./oldComponents/BookRide/Map.jsx";
+// import MapComponent from "./oldComponents/BookRide/Map.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

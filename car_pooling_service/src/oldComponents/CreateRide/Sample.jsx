@@ -68,12 +68,12 @@ const Sample = () => {
           }
         }}
       />
-      {leavingFromLatitude !== null && leavingFromLongitude !== null && (
-        <MapComponent
-          latitude={leavingFromLatitude}
-          longitude={leavingFromLongitude}
-        />
-      )}
+      {/* {leavingFromLatitude !== null && leavingFromLongitude !== null && ( */}
+      <MapComponent
+      // latitude={leavingFromLatitude}
+      // longitude={leavingFromLongitude}
+      />
+      {/* )} */}
     </div>
   );
 };

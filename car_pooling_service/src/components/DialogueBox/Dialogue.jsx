@@ -1,9 +1,15 @@
-import { Button, Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { useEffect, useState } from "react";
-import { Autocomplete } from "@mui/material";
-import { TextField } from "@mui/material";
-// import "./Dialogue.css";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import {
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Autocomplete,
+  TextField,
+  ThemeProvider,
+  createTheme,
+} from "@mui/material";
 
 const theme = createTheme({
   components: {
@@ -19,7 +25,18 @@ const theme = createTheme({
           "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
             borderColor: "black",
           },
+
           color: "black",
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#000000",
+          "&:hover": {
+            backgroundColor: "#000000",
+          },
         },
       },
     },
@@ -35,6 +52,7 @@ const theme = createTheme({
     },
   },
 });
+
 export default function MyModal() {
   let [isOpen, setIsOpen] = useState(true);
   const [passengerLocation, setPassengerLocation] = useState("");
@@ -47,6 +65,7 @@ export default function MyModal() {
     console.log(passLatitude);
     console.log(passLongitude);
   }
+
   useEffect(() => {
     if (passengerLocation !== "") {
       fetch(
@@ -77,68 +96,66 @@ export default function MyModal() {
     <>
       <Button
         onClick={open}
-        className="rounded-md bg-primary py-2 px-4 text-sm font-medium text-white focus:outline-none data-[hover]:bg-black/30 data-[focus]:outline-1 data-[focus]:outline-white"
+        variant="contained"
+        style={{ backgroundColor: "black" }}
+        className=" py-2 px-4 text-sm font-medium text-white rounded-md bg-black "
       >
-        Open dialog
+        Change your location
       </Button>
 
       <Dialog
         open={isOpen}
-        as="div"
-        className="relative z-10 focus:outline-none shadow-4xl"
         onClose={close}
+        className="rounded-lg"
+        maxWidth="xs" // You can use 'xs', 'sm', 'md', 'lg', 'xl' or a custom value
+        fullWidth={true}
       >
-        <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center p-4">
-            <DialogPanel
-              transition
-              className="w-full shadow-2xl max-w-md rounded-xl bg-secondary p-6 backdrop-blur-2xl duration-300 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0"
-            >
-              <DialogTitle
-                as="h3"
-                className="text-base/7 font-medium text-primary"
-              >
-                Current Location:
-              </DialogTitle>
-              <p className="mt-2 text-sm/6 text-primary mr-4" id="location">
-                Enter your Current Location :{"   "}
-                <ThemeProvider theme={theme}>
-                  <Autocomplete
-                    options={suggestions}
-                    getOptionLabel={(option) => option.label}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        variant="outlined"
-                        onChange={(e) => setPassengerLocation(e.target.value)}
-                      />
-                    )}
-                    onChange={(event, newValue) => {
-                      if (newValue) {
-                        setPassengerLocation(newValue.label);
-                        setPassLatitude(newValue.value.lat);
-                        setPassLongitude(newValue.value.lon);
-                      } else {
-                        setPassengerLocation("");
-                        setPassLatitude(null);
-                        setPassLongitude(null);
-                      }
-                    }}
+        <DialogTitle className="text-base/7 font-medium text-primary">
+          Current Location:
+        </DialogTitle>
+        <DialogContent className="bg-secondary p-6">
+          <p className="mt-2 text-sm/6 text-primary mr-4" id="location">
+            Enter your Current Location :{" "}
+            <ThemeProvider theme={theme}>
+              <Autocomplete
+                options={suggestions}
+                getOptionLabel={(option) => option.label}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    variant="outlined"
+                    onChange={(e) => setPassengerLocation(e.target.value)}
                   />
-                </ThemeProvider>
-              </p>
-
-              <div className="mt-4">
-                <Button
-                  className="inline-flex items-center gap-2 rounded-md bg-primary py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
-                  onClick={handleSubmit && close}
-                >
-                  Got it, thanks!
-                </Button>
-              </div>
-            </DialogPanel>
-          </div>
-        </div>
+                )}
+                onChange={(event, newValue) => {
+                  if (newValue) {
+                    setPassengerLocation(newValue.label);
+                    setPassLatitude(newValue.value.lat);
+                    setPassLongitude(newValue.value.lon);
+                  } else {
+                    setPassengerLocation("");
+                    setPassLatitude(null);
+                    setPassLongitude(null);
+                  }
+                }}
+              />
+            </ThemeProvider>
+          </p>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            variant="contained"
+            // color="primary"
+            style={{ backgroundColor: "black" }}
+            className="inline-flex items-center gap-2 py-1.5 px-3 text-sm/6 font-semibold text-white"
+            onClick={() => {
+              handleSubmit();
+              close();
+            }}
+          >
+            Got it, thanks!
+          </Button>
+        </DialogActions>
       </Dialog>
     </>
   );

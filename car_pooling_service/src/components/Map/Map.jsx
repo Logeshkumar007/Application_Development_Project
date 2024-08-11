@@ -1,7 +1,7 @@
 // import Image from "next/image"
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import MapComponent from "../../oldComponents/BookRide/Map";
+// import MapComponent from "../../oldComponents/BookRide/Map";
 import "leaflet/dist/leaflet.css"; // Import Leaflet CSS
 import {
   ChevronLeft,
@@ -51,6 +51,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 // import { Input } from "@/components/ui/input";
+
 import {
   Pagination,
   PaginationContent,
@@ -68,27 +69,35 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useEffect } from "react";
-// import {
-//   Tooltip,
-//   TooltipProvider,
-//   TooltipContent,
-//   TooltipTrigger,
-// } from "@/components/ui/tooltip";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Map() {
   const profile = useSelector((state) => state.loginReducer);
-  const rideDetails = useSelector((state) => state.selectedIdReducer);
+  const rideId = useSelector((state) => state.selectedIdReducer);
+  // const [rideDetails, setRideDetails] = useState(null);
+  useEffect(() => {
+    axios
+      .get(
+        `http://localhost:8080/app/bookride/selectedValue/${rideId.idSelected}`
+      )
+      .then((response) => {
+        {
+          console.log("Rider details ", response);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    // console.log("The ride details", rideDetails);
+  }, []);
 
-  // const sampleSubmit = async () => {
-  //   console.log(profile);
-  // };
   useEffect(() => {
     console.log("the profile", profile);
   }, [profile]);
   useEffect(() => {
-    console.log("the ridedetails", rideDetails);
-  }, [rideDetails]);
+    console.log("the ridedetails", rideId);
+  }, [rideId]);
 
   // sampleSubmit();
   return (
@@ -151,6 +160,7 @@ export default function Map() {
                     </CardDescription>
                   </CardHeader>
                 </Card>
+                <div></div>
               </TabsContent>
             </Tabs>
           </div>
@@ -159,17 +169,10 @@ export default function Map() {
               <CardHeader className="flex flex-row items-start bg-muted/50">
                 <div className="grid gap-0.5">
                   <CardTitle className="group flex items-center gap-2 text-lg">
-                    Date
-                    <Button
-                      size="icon"
-                      variant="outline"
-                      className="h-6 w-6 opacity-0 transition-opacity group-hover:opacity-100"
-                    >
-                      <Copy className="h-3 w-3" />
-                      <span className="sr-only">Copy Order ID</span>
-                    </Button>
+                    {/* Date : {rideDetails.date} */}
                   </CardTitle>
-                  <CardDescription>{rideDetails.date}</CardDescription>
+
+                  {/* <CardDescription>{rideDetails.date}</CardDescription> */}
                 </div>
                 <div className="ml-auto flex items-center gap-1">
                   <Button size="sm" variant="outline" className="h-8 gap-1">
@@ -196,113 +199,59 @@ export default function Map() {
               </CardHeader>
               <CardContent className="p-6 text-sm">
                 <div className="grid gap-3">
-                  <div className="font-semibold"> Pilot Details</div>
+                  <div className="font-semibold"> Ride Details</div>
                   <ul className="grid gap-3">
                     <li className="flex items-center justify-between">
                       <span className="text-muted-foreground">
                         Leaving From :
                       </span>
-                      <span>{rideDetails.leaving}</span>
+                      {/* {<span>{rideDetails.data.leaving}</span>} */}
                     </li>
                     <li className="flex items-center justify-between">
                       <span className="text-muted-foreground">Going To:</span>
-                      <span>{rideDetails.going}</span>
+                      {/* {<span>{rideDetails.data.going}</span>} */}
                     </li>
                   </ul>
-                  <Separator className="my-2" />
+
                   <ul className="grid gap-3">
                     <li className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Subtotal</span>
-                      <span>$299.00</span>
+                      <span className="text-muted-foreground">
+                        Available Seats:
+                      </span>
+                      {/* <span>{rideDetails.data.availableSeats}</span> */}
                     </li>
                     <li className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Shipping</span>
-                      <span>$5.00</span>
+                      <span className="text-muted-foreground">Car Name:</span>
+                      {/* <span>{rideDetails.data.carName}</span> */}
                     </li>
                     <li className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Tax</span>
-                      <span>$25.00</span>
+                      <span className="text-muted-foreground">Car Number:</span>
+                      {/* <span>{rideDetails.data.carNumber}</span> */}
                     </li>
                     <li className="flex items-center justify-between font-semibold">
-                      <span className="text-muted-foreground">Total</span>
-                      <span>$329.00</span>
+                      <span className="text-muted-foreground">
+                        Expected Price:
+                      </span>
+                      {/* <span>${rideDetails.data.price}</span> */}
                     </li>
                   </ul>
                 </div>
                 <Separator className="my-4" />
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-6">
                   <div className="grid gap-3">
-                    <div className="font-semibold">Shipping Information</div>
-                    <address className="grid gap-0.5 not-italic text-muted-foreground">
-                      <span>Liam Johnson</span>
-                      <span>1234 Main St.</span>
-                      <span>Anytown, CA 12345</span>
+                    <div className="font-semibold">Pilot Details:</div>
+                    <address className="grid  not-italic text-muted-foreground p-5 m">
+                      {/* <div className="m-1">Name : {rideDetails.data.name}</div> */}
+                      <div className="m-1">
+                        {/* Email : {rideDetails.data.email} */}
+                      </div>
+                      <div className="m-1">
+                        {/* Phone Number: {rideDetails.data.phone} */}
+                      </div>
                     </address>
                   </div>
-                  <div className="grid auto-rows-max gap-3">
-                    <div className="font-semibold">Billing Information</div>
-                    <div className="text-muted-foreground">
-                      Same as shipping address
-                    </div>
-                  </div>
-                </div>
-                <Separator className="my-4" />
-                <div className="grid gap-3">
-                  <div className="font-semibold">Customer Information</div>
-                  <dl className="grid gap-3">
-                    <div className="flex items-center justify-between">
-                      <dt className="text-muted-foreground">Customer</dt>
-                      <dd>Liam Johnson</dd>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <dt className="text-muted-foreground">Email</dt>
-                      <dd>
-                        <a href="mailto:">liam@acme.com</a>
-                      </dd>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <dt className="text-muted-foreground">Phone</dt>
-                      <dd>
-                        <a href="tel:">+1 234 567 890</a>
-                      </dd>
-                    </div>
-                  </dl>
-                </div>
-                <Separator className="my-4" />
-                <div className="grid gap-3">
-                  <div className="font-semibold">Payment Information</div>
-                  <dl className="grid gap-3">
-                    <div className="flex items-center justify-between">
-                      <dt className="flex items-center gap-1 text-muted-foreground">
-                        <CreditCard className="h-4 w-4" />
-                        Visa
-                      </dt>
-                      <dd>**** **** **** 4532</dd>
-                    </div>
-                  </dl>
                 </div>
               </CardContent>
-              <CardFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3">
-                <div className="text-xs text-muted-foreground">
-                  Updated <time dateTime="2023-11-23">November 23, 2023</time>
-                </div>
-                <Pagination className="ml-auto mr-0 w-auto">
-                  <PaginationContent>
-                    <PaginationItem>
-                      <Button size="icon" variant="outline" className="h-6 w-6">
-                        <ChevronLeft className="h-3.5 w-3.5" />
-                        <span className="sr-only">Previous Order</span>
-                      </Button>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <Button size="icon" variant="outline" className="h-6 w-6">
-                        <ChevronRight className="h-3.5 w-3.5" />
-                        <span className="sr-only">Next Order</span>
-                      </Button>
-                    </PaginationItem>
-                  </PaginationContent>
-                </Pagination>
-              </CardFooter>
             </Card>
           </div>
         </main>

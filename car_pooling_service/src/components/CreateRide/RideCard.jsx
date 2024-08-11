@@ -28,6 +28,7 @@ const RideCard = () => {
   // updateState('status', 'asfdsd')
   const [status, setStatus] = useState("");
   const [locationFirstName, setLocationFirstName] = useState("");
+  const [goingLocationFirstName, setGoingLocationFirstName] = useState("");
   const [leaving, setLeaving] = useState("");
   const [going, setGoing] = useState("");
   const [availableSeats, setSeats] = useState("");
@@ -105,7 +106,7 @@ const RideCard = () => {
         date,
         startTime,
         endTime,
-        ride_completion_status:"no",
+        ride_completion_status: "no",
         leavingFromLatitude,
         leavingFromLongitude,
         goingToLatitude,
@@ -155,6 +156,23 @@ const RideCard = () => {
         .catch((error) => console.log("error", error));
     }
   }, [leaving]);
+  useEffect(() => {
+    if (going !== "") {
+      fetch(
+        `https://api.geoapify.com/v1/geocode/autocomplete?text=${going}&format=json&apiKey=7150d3d1879642babb4e29c827ae645b`
+      )
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          const newSuggestions = result.results.map((item) => ({
+            label: `${item.address_line1} ${item.address_line2}`,
+            value: item,
+          }));
+          setSuggestions(newSuggestions);
+        })
+        .catch((error) => console.log("error", error));
+    }
+  }, [going]);
   return (
     <div
       style={{
@@ -232,6 +250,7 @@ const RideCard = () => {
                 onChange={(event, newValue) => {
                   if (newValue) {
                     setGoing(newValue.label);
+                    setGoingLocationFirstName(newValue.value.address_line1);
                     setGoingToLatitude(newValue.value.lat);
                     setGoingToLongitude(newValue.value.lon);
                   } else {
