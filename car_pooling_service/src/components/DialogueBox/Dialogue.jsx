@@ -46,6 +46,9 @@ export default function MyModal() {
     console.log(passengerLocation);
     console.log(passLatitude);
     console.log(passLongitude);
+    localStorage.setItem("passLati",passLatitude);
+    localStorage.setItem("passLongitude",passLongitude);
+    localStorage.setItem("passengerLocation",passengerLocation);
   }
   useEffect(() => {
     if (passengerLocation !== "") {

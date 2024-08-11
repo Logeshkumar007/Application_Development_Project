@@ -23,17 +23,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { setIdselected } from "../Store/Reducer";
 import { useNavigate } from "react-router-dom";
 const BookRide = () => {
+  const passLongitude=localStorage.getItem("passLongitude");
+  const passLatitude=localStorage.getItem("passLatitude");
+  const passLocation=localStorage.getItem("passLocation");
   const dispatch = useDispatch();
   const selectedid = useSelector((state) => state.selectedIdReducer);
   const [opendilog, setOpendilog] = useState(false);
   const nav = useNavigate();
   const f = () => {
     axios.get("http://localhost:8080/app/bookride/getallrides").then((res) => {
+
+      console.log("all rides are from book ride ",AllrideData);
       setRideData(res.data);
-      setAllRideData(res.data);
-      dispatch(setIdselected(1));
-    });
-  };
+    setAllRideData(res.data);
+    dispatch(setIdselected(1));
+  });
+  }
+
   useEffect(() => {
     f();
   }, []);
@@ -119,6 +125,7 @@ const BookRide = () => {
       date: "",
       startTime: "",
       endTime: "",
+      
     },
   ]);
   const [selectedRideData, setSelectedRideData] = useState({
