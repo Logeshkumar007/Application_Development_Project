@@ -92,15 +92,13 @@ const RideCard = () => {
 
     setErrors(newErrors);
 
-
-    
-    
-    if(goingLocationFirstName==="Sri Krishna College of Engineering and Technology")
-    {
-      console.log("hiiiiii",goingLocationFirstName);
+    if (
+      goingLocationFirstName ===
+      "Sri Krishna College of Engineering and Technology"
+    ) {
+      console.log("hiiiiii", goingLocationFirstName);
       setGoingLocationFirstName("SKCET");
       console.log(goingLocationFirstName);
-
     }
     if (Object.keys(newErrors).length === 0) {
       const rideDetails = {
@@ -120,7 +118,7 @@ const RideCard = () => {
         ride_completion_status: no,
         locationFirstName,
         goingLocationFirstName,
-        locationFirstName,
+
         leavingFromLatitude,
         leavingFromLongitude,
         goingToLatitude,

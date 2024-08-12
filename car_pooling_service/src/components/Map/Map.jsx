@@ -146,7 +146,30 @@ export default function Map() {
   console.log("check", mapData);
   console.log("open", open);
 
-  // sampleSubmit();
+  //*calculate distance between passanger and driver
+  function haversine(lat1, lon1, lat2, lon2) {
+    // Convert latitude and longitude from degrees to radians
+    const toRadians = (degree) => degree * (Math.PI / 180);
+
+    lat1 = toRadians(lat1);
+    lon1 = toRadians(lon1);
+    lat2 = toRadians(lat2);
+    lon2 = toRadians(lon2);
+
+    // Haversine formula
+    const dLat = lat2 - lat1;
+    const dLon = lon2 - lon1;
+    const a =
+      Math.sin(dLat / 2) * 2 +
+      Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) * 2;
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    // Earth's radius in kilometers
+    const R = 6371;
+    const distance = R * c;
+
+    return distance;
+  }
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
@@ -175,7 +198,7 @@ export default function Map() {
                   <CardTitle className="text-2xl">Eligable for Ride</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className=" text-muted-foreground text-green-800 font-bold text-2xl">
+                  <div className="text-green-700 font-bold text-2xl">
                     Verified
                   </div>
                 </CardContent>

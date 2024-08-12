@@ -60,7 +60,7 @@ export default function MyModal() {
   const [passLongitude, setPassLongitude] = useState();
   const [suggestions, setSuggestions] = useState([]);
 
-  const handleSubmit=()=> {
+  const handleSubmit = () => {
     console.log("dialogue");
     console.log("dialogue");
     console.log("dialogue");
@@ -86,8 +86,7 @@ export default function MyModal() {
     localStorage.setItem("passLati", passLatitude);
     localStorage.setItem("passLongitude", passLongitude);
     localStorage.setItem("passengerLocation", passengerLocation);
-    
-  }
+  };
 
   useEffect(() => {
     if (passengerLocation !== "") {
