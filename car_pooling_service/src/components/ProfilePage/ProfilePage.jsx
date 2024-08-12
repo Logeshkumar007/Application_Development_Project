@@ -64,7 +64,7 @@ export default function ProfilePage() {
               </section>
               <AlertDialog>
                 <AlertDialogTrigger asChild>
-                  <Button className="self-end">Edit Profile</Button>
+                  {/* <Button className="self-end"></Button> */}
                 </AlertDialogTrigger>
                 <AlertDialogContent>
                   <AlertDialogHeader>

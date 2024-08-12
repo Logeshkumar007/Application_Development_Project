@@ -56,17 +56,23 @@ const theme = createTheme({
 export default function MyModal() {
   let [isOpen, setIsOpen] = useState(true);
   const [passengerLocation, setPassengerLocation] = useState("");
-  const [passLatitude, setPassLatitude] = useState([]);
-  const [passLongitude, setPassLongitude] = useState([]);
+  const [passLatitude, setPassLatitude] = useState("");
+  const [passLongitude, setPassLongitude] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
   function handleSubmit() {
-    console.log(passengerLocation);
-    console.log(passLatitude);
-    console.log(passLongitude);
-    localStorage.setItem("passLati", passLatitude);
-    localStorage.setItem("passLongitude", passLongitude);
-    localStorage.setItem("passengerLocation", passengerLocation);
+    console.log("handleSubmit called");
+    console.log("Passenger Location:", passengerLocation);
+    console.log("Passenger Latitude:", passLatitude);
+    console.log("Passenger Longitude:", passLongitude);
+    try {
+      localStorage.setItem("passLati", passLatitude);
+      localStorage.setItem("passLongitude", passLongitude);
+      localStorage.setItem("passengerLocation", passengerLocation);
+      console.log("Data saved to localStorage");
+    } catch (error) {
+      console.error("Error saving to localStorage:", error);
+    }
     close();
   }
 

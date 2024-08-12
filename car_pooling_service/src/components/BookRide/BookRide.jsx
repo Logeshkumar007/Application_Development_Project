@@ -31,7 +31,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setIdselected } from "../Store/Reducer";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const theme = createTheme({
   components: {
@@ -660,12 +660,24 @@ const BookRide = () => {
               >
                 <Button
                   variant="contained"
+                  style={{ backgroundColor: "black" }}
                   onClick={() => {
                     handleBookRide();
                   }}
                 >
                   Book Ride
                 </Button>
+                <Link to="/map">
+                  <Button
+                    variant="contained"
+                    style={{ backgroundColor: "black", marginLeft: "10px" }}
+                    onClick={() => {
+                      handleBookRide();
+                    }}
+                  >
+                    More Details
+                  </Button>
+                </Link>
               </div>
             </div>
           ) : (

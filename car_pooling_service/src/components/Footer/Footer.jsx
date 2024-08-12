@@ -47,11 +47,11 @@ const Footer = () => {
               Contact us
             </div>
             <a className="my-3 block" href="/#">
-              XXX XXXX, Floor 4 San Francisco, CA
+              123 Avinashi Road, Floor 4, Coimbatore, TN 641018, India
               <span className="text-secondary text-xs p-1"></span>
             </a>
             <a className="my-3 block" href="/#">
-              contact@company.com
+              Eco_Connect@gmail.com
               <span className="text-secondary text-xs p-1"></span>
             </a>
           </div>
@@ -82,7 +82,10 @@ const Footer = () => {
               />{" "}
               {/* Replaced with FontAwesome Facebook Icon */}
             </a>
-            <a href="https://instagram.com/nithishperumal" className="w-6 mx-1">
+            <a
+              href="https://www.instagram.com/nithishperumal/"
+              className="w-6 mx-1"
+            >
               <FontAwesomeIcon
                 icon={faInstagram}
                 className="fill-current cursor-pointer text-gray-500 hover:text-indigo-600"

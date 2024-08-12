@@ -44,9 +44,6 @@ const Navbar = () => {
             width: "15%",
           }}
         >
-          <NavLink to="/map">
-            <Button>Map</Button>
-          </NavLink>
           <HoverCard>
             <HoverCardTrigger asChild>
               <Button className="  text-white font-bold py-2 px-4 rounded">
@@ -62,13 +59,13 @@ const Navbar = () => {
                   sx={{ fontWeight: "550" }}
                   className="text-primary mb-4"
                 >
-                  Pilot
+                  As Pilot
                 </Typography>
               </Link>
               <div className="border-t border-primary my-2"></div>
               <Link to="/dummy" className="block hover:bg-blue-100 p-2 rounded">
                 <Typography sx={{ fontWeight: "550" }} className="text-primary">
-                  Passenger
+                  As Passenger
                 </Typography>
               </Link>
             </HoverCardContent>
@@ -88,7 +85,7 @@ const Navbar = () => {
                   sx={{ fontWeight: "550" }}
                   className="text-primary mb-4"
                 >
-                  SignIn
+                  Login
                 </Typography>
               </Link>
               <div className="border-t border-primary my-2"></div>

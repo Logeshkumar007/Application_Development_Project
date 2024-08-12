@@ -15,9 +15,12 @@ import TextTransition, { presets } from "react-text-transition";
 import png1 from "./carowner.png";
 import { motion } from "framer-motion";
 import Footer from "../Footer/Footer";
+import Swal from "sweetalert2";
 const TEXTS = ["For", "By", "Of"];
+import { useSelector } from "react-redux";
 
 const Homepage = () => {
+  const logindata = useSelector((state) => state.loginReducer);
   const navigate = useNavigate();
   const [index, setIndex] = useState(0);
   const [isVisible, setIsVisible] = useState({
@@ -33,7 +36,17 @@ const Homepage = () => {
   const section2Ref = useRef(null);
   const aboutRef = useRef(null);
   const whyUseRef = useRef(null);
-
+  const handleCreateRide = () => {
+    if (logindata.email != "") {
+      navigate("/createRide");
+    } else {
+      Swal.fire({
+        icon: "warning",
+        title: "Oops...",
+        text: "Login to create Ride!",
+      });
+    }
+  };
   useEffect(() => {
     const intervalId = setInterval(() => setIndex((index) => index + 1), 2000);
     return () => clearInterval(intervalId);
@@ -175,7 +188,7 @@ const Homepage = () => {
                 backgroundColor: "black",
                 width: "25%",
               }}
-              onClick={() => navigate("/createRide")}
+              onClick={handleCreateRide}
             >
               Create Ride
             </Button>
