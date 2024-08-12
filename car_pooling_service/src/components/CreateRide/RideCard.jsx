@@ -92,6 +92,16 @@ const RideCard = () => {
 
     setErrors(newErrors);
 
+
+    
+    
+    if(goingLocationFirstName==="Sri Krishna College of Engineering and Technology")
+    {
+      console.log("hiiiiii",goingLocationFirstName);
+      setGoingLocationFirstName("SKCET");
+      console.log(goingLocationFirstName);
+
+    }
     if (Object.keys(newErrors).length === 0) {
       const rideDetails = {
         name: logindata.firstName + " " + logindata.lastName,
@@ -108,13 +118,24 @@ const RideCard = () => {
         endTime,
 
         ride_completion_status: no,
-
+        locationFirstName,
+        goingLocationFirstName,
+        locationFirstName,
         leavingFromLatitude,
         leavingFromLongitude,
         goingToLatitude,
         goingToLongitude,
       };
-      // console.log("Ride details are ", rideDetails);
+      console.log("Ride details are ", rideDetails);
+      console.log("Ride details are ", rideDetails);
+      console.log("Ride details are ", rideDetails);
+      console.log("Ride details are ", rideDetails);
+      console.log("Ride details are ", rideDetails);
+      console.log("Ride details are ", rideDetails);
+      console.log("Ride details are ", rideDetails);
+      console.log("Ride details are ", rideDetails);
+      console.log("Ride details are ", rideDetails);
+      console.log("Ride details are ", rideDetails);
       axios
         .post("http://localhost:8080/app/createride", rideDetails)
         .then((response) => {

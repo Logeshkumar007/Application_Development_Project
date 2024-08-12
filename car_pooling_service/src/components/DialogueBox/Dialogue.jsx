@@ -56,6 +56,7 @@ const theme = createTheme({
 export default function MyModal() {
   let [isOpen, setIsOpen] = useState(true);
   const [passengerLocation, setPassengerLocation] = useState("");
+<<<<<<< HEAD
   const [passLatitude, setPassLatitude] = useState("");
   const [passLongitude, setPassLongitude] = useState("");
   const [suggestions, setSuggestions] = useState([]);
@@ -74,6 +75,39 @@ export default function MyModal() {
       console.error("Error saving to localStorage:", error);
     }
     close();
+=======
+  const [passLatitude, setPassLatitude] = useState();
+  const [passLongitude, setPassLongitude] = useState();
+  const [suggestions, setSuggestions] = useState([]);
+
+  const handleSubmit=()=> {
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log(passengerLocation);
+    console.log(passLatitude);
+    console.log(passLongitude);
+    localStorage.setItem("passLati", passLatitude);
+    localStorage.setItem("passLongitude", passLongitude);
+    localStorage.setItem("passengerLocation", passengerLocation);
+    
+>>>>>>> d04ef7b264217737be5e340b2ff0671f567e5065
   }
 
   useEffect(() => {
@@ -158,10 +192,7 @@ export default function MyModal() {
             // color="primary"
             style={{ backgroundColor: "black" }}
             className="inline-flex items-center gap-2 py-1.5 px-3 text-sm/6 font-semibold text-white"
-            onClick={() => {
-              handleSubmit();
-              close();
-            }}
+            onClick={handleSubmit}
           >
             Got it, thanks!
           </Button>
