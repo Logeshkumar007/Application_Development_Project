@@ -221,7 +221,7 @@ const BookRide = () => {
     );
   };
   const logindata = useSelector((state) => state.loginReducer);
-  const +handleBookRide = () => {
+  const handleBookRide = () => {
     if (logindata.email === "") {
       alert("please login first");
     } else {
