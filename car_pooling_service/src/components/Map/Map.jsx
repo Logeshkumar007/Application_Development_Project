@@ -85,7 +85,33 @@ export default function Map() {
   //     console.log(latitude + " " + longitude);
   //   }
   // }, [mapData]);
+  const passLongitude=localStorage.getItem("passLongitude");
+  const passLatitude=localStorage.getItem("passLati");
+  const passLocation=localStorage.getItem("passLocation");
+  const [distance,setDistance]=useState(0);
+  function haversine(lat1, lon1, lat2, lon2) {
+    // Convert latitude and longitude from degrees to radians
+    const toRadians = (degree) => degree * (Math.PI / 180);
+    
+    lat1 = toRadians(lat1);
+    lon1 = toRadians(lon1);
+    lat2 = toRadians(lat2);
+    lon2 = toRadians(lon2);
+
+    // Haversine formula
+    const dLat = lat2 - lat1;
+    const dLon = lon2 - lon1;
+    const a = Math.sin(dLat / 2) ** 2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    
+    // Earth's radius in kilometers
+    const R = 6371;
+    const distance = R * c;
+
+    return distance;
+}
   useEffect(() => {
+
     axios
       .get(
         `http://localhost:8080/app/bookride/selectedValue/${rideId.idSelected}`
@@ -103,8 +129,13 @@ export default function Map() {
         console.error(error);
       });
     console.log("The ride details", mapData);
-  }, []);
 
+  }, []);
+  useEffect(()=>{
+      const dis = haversine(latitude,longitude, passLatitude, passLongitude);
+      
+      setDistance(dis);
+  },[latitude,longitude])
   useEffect(() => {
     console.log("the profile", profile);
   }, [profile]);
@@ -150,20 +181,18 @@ export default function Map() {
                 </CardContent>
               </Card>
               <Card x-chunk="dashboard-05-chunk-2">
-                <CardHeader className="pb-2">
-                  <CardDescription>Proximity to Driver</CardDescription>
+                <CardHeader className="pb-2 ">
+                  <CardDescription>Distance away from you</CardDescription>
                   <CardTitle className="text-xs">
-                    Distance between driver and passanger should be displayed
+                    
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-xs text-muted-foreground">
-                    +10% from last month
+                  <div className="text-[4dvh] text-black text-center  flex align-middle justify-center items-center">
+                    {distance.toFixed(2)} km
                   </div>
                 </CardContent>
-                <CardFooter>
-                  <Progress value={12} aria-label="12% increase" />
-                </CardFooter>
+               
               </Card>
             </div>
             <Tabs defaultValue="week">
