@@ -8,8 +8,11 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from '@/components/ui/input-otp'
 import {
   Select,
   SelectTrigger,
@@ -31,6 +34,7 @@ import {
 } from '@/components/ui/alert-dialog'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { CircularProgress } from '@mui/material'
 
 export default function PassangerSignUp() {
   const [firstName, setFirstName] = useState('')
@@ -41,7 +45,7 @@ export default function PassangerSignUp() {
   const [department, setDepartment] = useState('')
   const [year, setYear] = useState('')
   const [step, setStep] = useState(1)
-  const [open, setopen] = useState(true)
+  const [open, setopen] = useState(false)
   const [phoneNumber, setPhoneNumber] = useState('')
   const [otp, setOtp] = useState('')
   const [errors, setErrors] = useState({
@@ -50,6 +54,7 @@ export default function PassangerSignUp() {
     mobileNumberError: '',
     otpError: '',
   })
+  const [idCardCheck, setIdCardCheck] = useState(false)
 
   const navigate = useNavigate()
 
@@ -64,6 +69,8 @@ export default function PassangerSignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     console.log(e)
+    setIdCardCheck(false)
+    setopen(false)
     const data = new FormData(e.currentTarget)
     data.append('firstName', firstName)
     data.append('lastName', lastName)
@@ -89,6 +96,8 @@ export default function PassangerSignUp() {
       })
       .catch((error) => {
         console.error('Axios error in Backend => ', error)
+        setIdCardCheck(true)
+        setopen(true)
       })
   }
 
@@ -102,7 +111,6 @@ export default function PassangerSignUp() {
           navigate('/passangerSignin')
         } else {
           setErrors({ ...errors, otpError: 'Invalid OTP. Please try again.' })
-          setopen(true)
         }
       })
       .catch((error) => {
@@ -122,7 +130,7 @@ export default function PassangerSignUp() {
   }
 
   const handleOtpChange = (event) => {
-    setOtp(event.target.value)
+    setOtp(event)
     setErrors({ ...errors, otpError: '' })
   }
 
@@ -351,40 +359,81 @@ export default function PassangerSignUp() {
                     >
                       Previous
                     </button>
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
                         <button
                           type="submit"
-                          className="px-4 py-1 bg-foreground text-white rounded"
+                          disabled={errors.emailError !== '' || errors.passwordError !== '' || errors.mobileNumberError !== '' || firstName === '' || lastName === '' || email === '' || password === '' || phoneNumber === '' || idCard === null || department === '' || year === ''}
+                          className="px-4 py-1 bg-foreground text-white rounded disabled:opacity-50"
                         >
                           Submit
                         </button>
-                    {open && (<AlertDialog>
-                      <AlertDialogTrigger>
                       </AlertDialogTrigger>
                       <AlertDialogContent>
                         <AlertDialogHeader>
-                          <AlertDialogTitle>OPT Verification</AlertDialogTitle>
+                          {idCardCheck && <><AlertDialogTitle>Invalid ID Card</AlertDialogTitle></>}
+                          {!idCardCheck && <><AlertDialogTitle>OTP Verification</AlertDialogTitle>
                           <AlertDialogDescription>
                             You're at the final step. Enter the OTP sent to your
                             mail <b>{email}</b> to complete the registration.
-                          </AlertDialogDescription>
+                          </AlertDialogDescription></>
+                          }
                         </AlertDialogHeader>
-                        <input
-                          type="text"
-                          value={otp}
-                          onChange={handleOtpChange}
-                          className={`w-full px-3 py-1 border rounded ${
-                            errors.otpError != '' ? 'border-red-500' : ''
-                          } `}
-                        />
-                        <span className='text-xs text-red-600 italic'>{errors.otpError}</span>
-                        <AlertDialogFooter>
-                          {/* <AlertDialogCancel>Cancel</AlertDialogCancel> */}
-                          <AlertDialogAction onClick={handleOtpVerification}>
-                            Verify
-                          </AlertDialogAction>
-                        </AlertDialogFooter>
+                        {!open && (
+                          <>
+                            <section className='flex flex-row items-center'>
+                              <CircularProgress className='m-4' />
+                              Recognizing your ID Card...
+                            </section>
+                            Please wait while we send the OTP to your email.
+                          </>
+                        )}
+                        {idCardCheck && (
+                          <>
+                            <section>
+                              <p className='text-red-600 italic'>Sorry, We unable to recognize your ID card. It may occur for following reasons:</p>
+                              <ul className='list-disc list-inside text-red-600 italic'>
+                                <li>1. You have uploaded a wrong ID card.</li>
+                                <li>2. The ID card is not clear.</li>
+                                <li>3. The ID card is not from SKCET.</li>
+                                <li>4. Name not same as name in ID card.</li>
+                              </ul>
+                            </section>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          </>
+                        )}
+                        {open && !idCardCheck && (
+                          <>
+                            <InputOTP
+                              maxLength={6}
+                              value={otp}
+                              // onChange={(value) => setOtp(value)}
+                              onChange={handleOtpChange}
+                            >
+                              <InputOTPGroup>
+                                <InputOTPSlot index={0} />
+                                <InputOTPSlot index={1} />
+                                <InputOTPSlot index={2} />
+                                <InputOTPSlot index={3} />
+                                <InputOTPSlot index={4} />
+                                <InputOTPSlot index={5} />
+                              </InputOTPGroup>
+                            </InputOTP>
+                            <span className="text-xs text-red-600 italic">
+                              {errors.otpError}
+                            </span>
+                            <AlertDialogFooter>
+                              {/* <AlertDialogCancel>Cancel</AlertDialogCancel> */}
+                              <AlertDialogAction
+                                onClick={handleOtpVerification}
+                              >
+                                Verify
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </>
+                        )}
                       </AlertDialogContent>
-                    </AlertDialog>)}
+                    </AlertDialog>
                   </div>
                 </>
               )}
