@@ -56,18 +56,37 @@ const theme = createTheme({
 export default function MyModal() {
   let [isOpen, setIsOpen] = useState(true);
   const [passengerLocation, setPassengerLocation] = useState("");
-  const [passLatitude, setPassLatitude] = useState([]);
-  const [passLongitude, setPassLongitude] = useState([]);
+  const [passLatitude, setPassLatitude] = useState();
+  const [passLongitude, setPassLongitude] = useState();
   const [suggestions, setSuggestions] = useState([]);
 
-  function handleSubmit() {
+  const handleSubmit=()=> {
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
+    console.log("dialogue");
     console.log(passengerLocation);
     console.log(passLatitude);
     console.log(passLongitude);
     localStorage.setItem("passLati", passLatitude);
     localStorage.setItem("passLongitude", passLongitude);
     localStorage.setItem("passengerLocation", passengerLocation);
-    close();
+    
   }
 
   useEffect(() => {
@@ -152,10 +171,7 @@ export default function MyModal() {
             // color="primary"
             style={{ backgroundColor: "black" }}
             className="inline-flex items-center gap-2 py-1.5 px-3 text-sm/6 font-semibold text-white"
-            onClick={() => {
-              handleSubmit();
-              close();
-            }}
+            onClick={handleSubmit}
           >
             Got it, thanks!
           </Button>

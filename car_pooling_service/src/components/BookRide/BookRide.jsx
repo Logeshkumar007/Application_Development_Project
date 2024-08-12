@@ -64,9 +64,9 @@ const theme = createTheme({
   },
 });
 const BookRide = () => {
-  // const passLongitude=localStorage.getItem("passLongitude");
-  // const passLatitude=localStorage.getItem("passLati");
-  const passLocation = localStorage.getItem("passLocation");
+  const passLongitude=localStorage.getItem("passLongitude");
+  const passLatitude=localStorage.getItem("passLati");
+  // const passLocation = localStorage.getItem("passLocation");
   const dispatch = useDispatch();
   const selectedid = useSelector((state) => state.selectedIdReducer);
   const [opendilog, setOpendilog] = useState(false);
@@ -100,7 +100,65 @@ const BookRide = () => {
       dispatch(setIdselected(1));
     });
   };
-
+  const [rideData, setRideData] = useState([
+    {
+      id: null,
+      name: "",
+      phone: "",
+      email: "",
+      leaving: "",
+      going: "",
+      availableSeats: 0,
+      price: 0.0,
+      carName: "",
+      carNumber: "",
+      date: "",
+      startTime: "",
+      endTime: "",
+    },
+  ]);
+  const op=()=>{
+    console.log("op");
+    console.log("op");
+    console.log("op");
+    console.log("op");
+    console.log("op");
+    console.log("op");
+    console.log("op");
+    console.log("op");
+    console.log("op");
+    console.log("op");
+    console.log("op");
+    console.log("op");
+    console.log("op");
+    console.log("op");
+    console.log("op");
+    console.log("op");
+    rideData.map((ride) => {
+      
+      const distance = haversine(
+        ride.leavingFromLatitude,
+        ride.leavingFromLongitude,
+        passLatitude,
+        passLongitude
+      );
+      console.log(ride.leavingFromLatitude,
+        ride.leavingFromLongitude,
+      passLatitude,
+      passLongitude);
+      console.log(`The distance is ${distance.toFixed(2)} km`);
+      
+      return {
+        ...ride,
+        distance: distance.toFixed(2),
+      };
+  });
+}
+  useEffect(() => {
+    
+   
+  op();
+  }, [rideData]);
   useEffect(() => {
     f();
   }, []);
@@ -109,8 +167,8 @@ const BookRide = () => {
   const [goingToFilters, setGoingToFilters] = useState([]);
   let [isOpen, setIsOpen] = useState(true);
   const [passengerLocation, setPassengerLocation] = useState("");
-  const [passLatitude, setPassLatitude] = useState([]);
-  const [passLongitude, setPassLongitude] = useState([]);
+  const [passLatitud, setPassLatitude] = useState();
+  const [passLongitud, setPassLongitude] = useState();
   const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
@@ -147,6 +205,12 @@ const BookRide = () => {
         : [...prev, value]
     );
   };
+  useEffect(()=>{
+    localStorage.setItem("passLati", passLatitud);
+    localStorage.setItem("passLongitude", passLongitud);
+    localStorage.setItem("passengerLocation", passengerLocation);
+    op();
+  },[passLatitud,passLongitud])
 
   const handleGoingTocheckbox = (event) => {
     const value = event.target.value;
@@ -184,24 +248,8 @@ const BookRide = () => {
       f();
       nav("/dummy");
     }
+    
   };
-  const [rideData, setRideData] = useState([
-    {
-      id: null,
-      name: "",
-      phone: "",
-      email: "",
-      leaving: "",
-      going: "",
-      availableSeats: 0,
-      price: 0.0,
-      carName: "",
-      carNumber: "",
-      date: "",
-      startTime: "",
-      endTime: "",
-    },
-  ]);
   const [AllrideData, setAllRideData] = useState([
     {
       id: null,
@@ -277,22 +325,7 @@ const BookRide = () => {
 
     return distance;
   }
-  useEffect(() => {
-    rideData.map((ride) => {
-      const distance = haversine(
-        ride.leavingFromLatitude,
-        ride.leavingFromLongitude,
-        passLatitude,
-        passLongitude
-      );
-      console.log(`The distance is ${distance.toFixed(2)} km`);
-
-      return {
-        ...ride,
-        distance: distance.toFixed(2),
-      };
-    });
-  }, [rideData]);
+ 
   useEffect(() => {
     console.log("the store selected id is ", selectedid.idSelected);
     try {
@@ -361,11 +394,11 @@ const BookRide = () => {
                     return (
                       <div>
                         <Checkbox
-                          value={data.leaving}
-                          checked={leavingFromFilters.includes(data.leaving)}
+                          value={data.locationFirstName}
+                          checked={leavingFromFilters.includes(data.locationFirstName)}
                           onChange={handleLeavingFromcheckbox}
                         ></Checkbox>
-                        <label>{data.leaving}</label>
+                        <label>{data.locationFirstName}</label>
                       </div>
                     );
                   })}
@@ -385,11 +418,11 @@ const BookRide = () => {
                     return (
                       <div>
                         <Checkbox
-                          value={data.going}
-                          checked={goingToFilters.includes(data.going)}
+                          value={data.goingLocationFirstName}
+                          checked={goingToFilters.includes(data.goingLocationFirstName)}
                           onChange={handleGoingTocheckbox}
                         ></Checkbox>
-                        <label>{data.going}</label>
+                        <label>{data.goingLocationFirstName}</label>
                       </div>
                     );
                   })}
@@ -448,11 +481,7 @@ const BookRide = () => {
                         setPassengerLocation(newValue.label);
                         setPassLatitude(newValue.value.lat);
                         setPassLongitude(newValue.value.lon);
-                      } else {
-                        setPassengerLocation("");
-                        setPassLatitude(null);
-                        setPassLongitude(null);
-                      }
+                      } 
                     }}
                   />
                 </ThemeProvider>
@@ -466,6 +495,8 @@ const BookRide = () => {
                 className="inline-flex items-center gap-2 py-1.5 px-3 text-sm/6 font-semibold text-white"
                 onClick={() => {
                   close();
+                  op();
+                  f();
                 }}
               >
                 Got it, thanks!
@@ -517,9 +548,9 @@ const BookRide = () => {
                   }}
                 >
                   <Typography variant="h5">
-                    {selectedRideData.leaving}
+                    {selectedRideData.locationFirstName}
                   </Typography>
-                  <Typography variant="h5">{selectedRideData.going}</Typography>
+                  <Typography variant="h5">{selectedRideData.goingLocationFirstName==="Sri Krishna College of Engineering and Technology"?"SKCET":selectedRideData.goingLocationFirstName}</Typography>
                 </div>
                 <div
                   style={{
