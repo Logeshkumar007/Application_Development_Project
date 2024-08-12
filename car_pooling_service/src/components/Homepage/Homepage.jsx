@@ -43,7 +43,7 @@ const Homepage = () => {
       Swal.fire({
         icon: "warning",
         title: "Oops...",
-        text: "Login to create Ride!",
+        text: "Login to create R!",
       });
     }
   };

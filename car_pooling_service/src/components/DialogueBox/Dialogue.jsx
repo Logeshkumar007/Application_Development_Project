@@ -56,31 +56,11 @@ const theme = createTheme({
 export default function MyModal() {
   let [isOpen, setIsOpen] = useState(true);
   const [passengerLocation, setPassengerLocation] = useState("");
-<<<<<<< HEAD
-  const [passLatitude, setPassLatitude] = useState("");
-  const [passLongitude, setPassLongitude] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
-
-  function handleSubmit() {
-    console.log("handleSubmit called");
-    console.log("Passenger Location:", passengerLocation);
-    console.log("Passenger Latitude:", passLatitude);
-    console.log("Passenger Longitude:", passLongitude);
-    try {
-      localStorage.setItem("passLati", passLatitude);
-      localStorage.setItem("passLongitude", passLongitude);
-      localStorage.setItem("passengerLocation", passengerLocation);
-      console.log("Data saved to localStorage");
-    } catch (error) {
-      console.error("Error saving to localStorage:", error);
-    }
-    close();
-=======
   const [passLatitude, setPassLatitude] = useState();
   const [passLongitude, setPassLongitude] = useState();
   const [suggestions, setSuggestions] = useState([]);
 
-  const handleSubmit=()=> {
+  const handleSubmit = () => {
     console.log("dialogue");
     console.log("dialogue");
     console.log("dialogue");
@@ -106,9 +86,7 @@ export default function MyModal() {
     localStorage.setItem("passLati", passLatitude);
     localStorage.setItem("passLongitude", passLongitude);
     localStorage.setItem("passengerLocation", passengerLocation);
-    
->>>>>>> d04ef7b264217737be5e340b2ff0671f567e5065
-  }
+  };
 
   useEffect(() => {
     if (passengerLocation !== "") {
