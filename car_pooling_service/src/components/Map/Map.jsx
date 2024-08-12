@@ -89,10 +89,20 @@ export default function Map() {
   const passLatitude=localStorage.getItem("passLati");
   const passLocation=localStorage.getItem("passLocation");
   const [distance,setDistance]=useState(0);
-  function haversine(lat1, lon1, lat2, lon2) {
+  const  haversine=(lat1, lon1, lat2, lon2)=> {
     // Convert latitude and longitude from degrees to radians
+    console.log("hi");
+    console.log("hi");
+    console.log("hi");
+    console.log("hi");
+    console.log("hi");
+    console.log("hi");
+    console.log("hi");
+    console.log("hi");
+    console.log(lat1,lat2,lon1,lon2);
+
     const toRadians = (degree) => degree * (Math.PI / 180);
-    
+
     lat1 = toRadians(lat1);
     lon1 = toRadians(lon1);
     lat2 = toRadians(lat2);
@@ -101,15 +111,18 @@ export default function Map() {
     // Haversine formula
     const dLat = lat2 - lat1;
     const dLon = lon2 - lon1;
-    const a = Math.sin(dLat / 2) ** 2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
+    const a =
+      Math.sin(dLat / 2) ** 2 +
+      Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    
+
     // Earth's radius in kilometers
     const R = 6371;
     const distance = R * c;
 
     return distance;
-}
+  }
+ 
   useEffect(() => {
 
     axios
@@ -122,6 +135,10 @@ export default function Map() {
           setmapData(response.data);
           setLatitude(response.data.leavingFromLatitude);
           setLongitude(response.data.leavingFromLongitude);
+          console.log("haver sine called",response.data.leavingFromLatitude,response.data.leavingFromLongitude, passLatitude, passLongitude)  ;
+          const dis=haversine(response.data.leavingFromLatitude,response.data.leavingFromLongitude,passLatitude, passLongitude);
+          console.log("distance is " ,dis);
+          setDistance(dis);
           setOpen(true);
         }
       })
@@ -129,47 +146,26 @@ export default function Map() {
         console.error(error);
       });
     console.log("The ride details", mapData);
-
+    
   }, []);
   useEffect(()=>{
-      const dis = haversine(latitude,longitude, passLatitude, passLongitude);
-      
-      setDistance(dis);
+    // console.log("haver sine called",response.data.leavingFromLatitude,response.data.leavingFromLongitude, passLatitude, passLongitude)  ;
+          const dis=haversine(latitude,longitude,passLatitude, passLongitude);
+          console.log("distance is " ,dis);
   },[latitude,longitude])
   useEffect(() => {
     console.log("the profile", profile);
   }, [profile]);
   useEffect(() => {
     console.log("the mapData", rideId);
+    
   }, [rideId]);
 
   console.log("check", mapData);
   console.log("open", open);
 
   //*calculate distance between passanger and driver
-  function haversine(lat1, lon1, lat2, lon2) {
-    // Convert latitude and longitude from degrees to radians
-    const toRadians = (degree) => degree * (Math.PI / 180);
-
-    lat1 = toRadians(lat1);
-    lon1 = toRadians(lon1);
-    lat2 = toRadians(lat2);
-    lon2 = toRadians(lon2);
-
-    // Haversine formula
-    const dLat = lat2 - lat1;
-    const dLon = lon2 - lon1;
-    const a =
-      Math.sin(dLat / 2) * 2 +
-      Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) * 2;
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-    // Earth's radius in kilometers
-    const R = 6371;
-    const distance = R * c;
-
-    return distance;
-  }
+  
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
