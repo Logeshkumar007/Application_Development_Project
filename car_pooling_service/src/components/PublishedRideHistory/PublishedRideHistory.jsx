@@ -189,7 +189,7 @@ const PublishedRideHistory = () => {
                       <div
                         style={{
                           backgroundColor: "White",
-                          width: "100%",
+                          width: "70%",
                           height: "23dvh",
                           padding: "1vh",
                         }}
@@ -219,42 +219,16 @@ const PublishedRideHistory = () => {
                         </div>
                       </div>
 
-                      <div style={{ marginTop: "3%", width: "65%" }}>
+                      <div style={{ marginTop: "3%", width: "85%" }}>
                         <div
                           style={{ display: "flex", justifyContent: "center" }}
                         >
-                          <Button
-                            className="w-[55%] text-sm"
-                            onClick={() => {
-                              axios
-                                .delete(
-                                  `http://localhost:8080/app/deleteRide/${logindata.email}/${ride.bookRide.id}`
-                                )
-                                .then(() => {
-                                  getall();
-                                });
-                            }}
+                           <Typography
+                            sx={{ lineHeight: "2rem", fontSize: "0.9rem",fontWeight:"700" }}
                           >
-                            Cancel Ride
-                          </Button>
-                          <Button
-                            onClick={() => {
-                              axios.put(
-                                `http://localhost:8080/app/updateRide/${logindata.email}/${ride.bookRide.id}/ongoing`
-                              );
-                            }}
-                          >
-                            ongoing
-                          </Button>
-                          <Button
-                            onClick={() => {
-                              axios.put(
-                                `http://localhost:8080/app/updateRide/${logindata.email}/${ride.bookRide.id}/completed`
-                              );
-                            }}
-                          >
-                            completed
-                          </Button>
+                            Ride has been completed
+                          </Typography>
+                          
                         </div>
                       </div>
                     </div>
@@ -564,19 +538,14 @@ const PublishedRideHistory = () => {
                                 .then(() => {
                                   getall();
                                 });
+                                axios.put(
+                                  `http://localhost:8080/app/bookride/updateseatsAvailable/onCancelation/${ride.bookRide.id}`
+                                )
                             }}
                           >
                             Cancel Ride
                           </Button>
-                          <Button
-                            onClick={() => {
-                              axios.put(
-                                `http://localhost:8080/app/updateRide/${logindata.email}/${ride.bookRide.id}/ongoing`
-                              );
-                            }}
-                          >
-                            ongoing
-                          </Button>
+                          
                          
                         </div>
                       </div>

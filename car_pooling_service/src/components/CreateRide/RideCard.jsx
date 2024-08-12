@@ -6,7 +6,7 @@ import {
   Autocomplete,
   Grid,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./RideCard.css";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -16,8 +16,19 @@ import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 
 const RideCard = () => {
-  const [status, setStatus] = useState("");
+  //ToDo: state maintanance
+  // const [state, setState] = useState({
+  //   status: "",
+  //   locationFirstName: "",
+  // });
+  // function updateState(key, value) {
+  //   setState((prev) => ({ ...prev, [key]: value }));
+  // }
 
+  // updateState('status', 'asfdsd')
+  const [status, setStatus] = useState("");
+  const [locationFirstName, setLocationFirstName] = useState("");
+  const [goingLocationFirstName, setGoingLocationFirstName] = useState("");
   const [leaving, setLeaving] = useState("");
   const [going, setGoing] = useState("");
   const [availableSeats, setSeats] = useState("");
@@ -25,36 +36,51 @@ const RideCard = () => {
   const [carName, setCarName] = useState("");
   const [date, setDate] = useState("");
   const [startTime, setStartTime] = useState("");
+  // const [endTime, setendTime] = useState("");
   const [carNumber, setCarNumber] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [endTime, setEndTime] = useState("2:30 PM");
 
+  const [suggestions, setSuggestions] = useState([]);
+  const [leavingFromLatitude, setLeavingFromLatitude] = useState(null);
+  const [leavingFromLongitude, setLeavingFromLongitude] = useState(null);
+  const [goingToLatitude, setGoingToLatitude] = useState(null);
+  const [goingToLongitude, setGoingToLongitude] = useState(null);
   const [errors, setErrors] = useState({});
-
-  const [suggestions, setSuggestions] = useState([
-    { label: "Marudhamalai Temple" },
-    { label: "VOC Park and Zoo" },
-    { label: "Siruvani Waterfalls" },
-    { label: "Gedee Car Museum" },
-    { label: "Perur Pateeswarar Temple" },
-    { label: "Adiyogi Shiva Statue" },
-    { label: "TNAU Botanical Garden" },
-    { label: "Brookefields Mall" },
-    { label: "Kovai Kondattam Amusement Park" },
-    { label: "Black Thunder Water Park" },
-  ]);
 
   const navigate = useNavigate();
   const logindata = useSelector((state) => state.loginReducer);
-  console.log("login data from ride card", logindata);
+
+  // useEffect(() => {
+  //   console.log(".");
+  //   console.log(".");
+  //   console.log(".");
+  //   console.log(".");
+  //   console.log(".");
+  //   console.log(".");
+  //   console.log(
+  //     "the login data from ride card",
+  //     logindata.email,
+  //     logindata.firstName
+  //   );
+  //   console.log(".");
+  //   console.log(".");
+  //   console.log(".");
+  //   console.log(".");
+  //   console.log(".");
+  //   console.log(".");
+  // });
+  // console.log("login data from ride card", logindata);
+  console.log("Location first name" + locationFirstName);
   const handleSubmit = (event) => {
     setName(logindata.firstName + " " + logindata.lastName);
     setEmail(logindata.email);
     setPhone(logindata.phoneNumber);
     event.preventDefault();
     const newErrors = {};
-
+    const no = "no";
     if (!leaving) newErrors.leaving = "This field is required";
     if (!going) newErrors.going = "This field is required";
     if (!availableSeats) newErrors.availableSeats = "This field is required";
@@ -68,9 +94,9 @@ const RideCard = () => {
 
     if (Object.keys(newErrors).length === 0) {
       const rideDetails = {
-        name,
-        email,
-        phone,
+        name: logindata.firstName + " " + logindata.lastName,
+        email: logindata.email,
+        phone: logindata.phoneNumber,
         leaving,
         carNumber,
         going,
@@ -79,8 +105,16 @@ const RideCard = () => {
         carName,
         date,
         startTime,
+        endTime,
+
+        ride_completion_status: no,
+
+        leavingFromLatitude,
+        leavingFromLongitude,
+        goingToLatitude,
+        goingToLongitude,
       };
-      console.log(rideDetails);
+      // console.log("Ride details are ", rideDetails);
       axios
         .post("http://localhost:8080/app/createride", rideDetails)
         .then((response) => {
@@ -107,6 +141,40 @@ const RideCard = () => {
     }
   };
 
+  useEffect(() => {
+    if (leaving !== "") {
+      fetch(
+        `https://api.geoapify.com/v1/geocode/autocomplete?text=${leaving}&format=json&apiKey=7150d3d1879642babb4e29c827ae645b`
+      )
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          const newSuggestions = result.results.map((item) => ({
+            label: `${item.address_line1} ${item.address_line2}`,
+            value: item,
+          }));
+          setSuggestions(newSuggestions);
+        })
+        .catch((error) => console.log("error", error));
+    }
+  }, [leaving]);
+  useEffect(() => {
+    if (going !== "") {
+      fetch(
+        `https://api.geoapify.com/v1/geocode/autocomplete?text=${going}&format=json&apiKey=7150d3d1879642babb4e29c827ae645b`
+      )
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          const newSuggestions = result.results.map((item) => ({
+            label: `${item.address_line1} ${item.address_line2}`,
+            value: item,
+          }));
+          setSuggestions(newSuggestions);
+        })
+        .catch((error) => console.log("error", error));
+    }
+  }, [going]);
   return (
     <div
       style={{
@@ -145,90 +213,52 @@ const RideCard = () => {
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <Autocomplete
-                id="outlined-leaving"
                 options={suggestions}
-                getOptionLabel={(option) => option.label || ""}
+                getOptionLabel={(option) => option.label}
                 renderInput={(params) => (
                   <TextField
                     {...params}
                     label="Leaving From"
                     variant="outlined"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    fullWidth
-                    error={!!errors.leaving}
-                    helperText={errors.leaving}
+                    onChange={(e) => setLeaving(e.target.value)}
                   />
                 )}
-                value={leaving ? { label: leaving } : null}
                 onChange={(event, newValue) => {
-                  if (newValue && typeof newValue === "object") {
+                  if (newValue) {
                     setLeaving(newValue.label);
+                    setLeavingFromLatitude(newValue.value.lat);
+                    setLeavingFromLongitude(newValue.value.lon);
+                    setLocationFirstName(newValue.value.address_line1);
                   } else {
-                    const newLabel = newValue || "";
-                    setLeaving(newLabel);
-                    if (
-                      !suggestions.some((option) => option.label === newLabel)
-                    ) {
-                      setSuggestions([...suggestions, { label: newLabel }]);
-                    }
-                  }
-                }}
-                freeSolo
-                onInputChange={(event, newInputValue) => {
-                  if (
-                    newInputValue &&
-                    !suggestions.some(
-                      (option) => option.label === newInputValue
-                    )
-                  ) {
-                    setSuggestions([...suggestions, { label: newInputValue }]);
+                    setLeaving("");
+                    setLeavingFromLatitude(null);
+                    setLeavingFromLongitude(null);
                   }
                 }}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <Autocomplete
-                id="outlined-going"
                 options={suggestions}
-                getOptionLabel={(option) => option.label || ""}
+                getOptionLabel={(option) => option.label}
                 renderInput={(params) => (
                   <TextField
                     {...params}
                     label="Going To"
                     variant="outlined"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    fullWidth
-                    error={!!errors.going}
-                    helperText={errors.going}
+                    onChange={(e) => setGoing(e.target.value)}
                   />
                 )}
-                value={going ? { label: going } : null}
                 onChange={(event, newValue) => {
-                  if (newValue && typeof newValue === "object") {
+                  if (newValue) {
                     setGoing(newValue.label);
+                    setGoingLocationFirstName(newValue.value.address_line1);
+                    setGoingToLatitude(newValue.value.lat);
+                    setGoingToLongitude(newValue.value.lon);
                   } else {
-                    const newLabel = newValue || "";
-                    setGoing(newLabel);
-                    if (
-                      !suggestions.some((option) => option.label === newLabel)
-                    ) {
-                      setSuggestions([...suggestions, { label: newLabel }]);
-                    }
-                  }
-                }}
-                freeSolo
-                onInputChange={(event, newInputValue) => {
-                  if (
-                    newInputValue &&
-                    !suggestions.some(
-                      (option) => option.label === newInputValue
-                    )
-                  ) {
-                    setSuggestions([...suggestions, { label: newInputValue }]);
+                    setGoing("");
+                    setGoingToLatitude(null);
+                    setGoingToLongitude(null);
                   }
                 }}
               />
@@ -236,7 +266,7 @@ const RideCard = () => {
             <Grid item xs={12} sm={6}>
               <TextField
                 id="outlined-availableSeats"
-                label="Available availableSeats"
+                label="AvailableSeats"
                 type="number"
                 value={availableSeats}
                 onChange={(e) => setSeats(e.target.value)}

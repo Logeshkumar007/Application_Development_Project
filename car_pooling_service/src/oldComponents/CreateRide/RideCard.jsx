@@ -28,6 +28,7 @@ const RideCard = () => {
   const [email] = useState("727722euit131@skcet.ac.in");
   const [phNo] = useState("8667455968");
   const [errors, setErrors] = useState({});
+  const [input, setInptut] = useState("");
 
   const [suggestions, setSuggestions] = useState([
     { label: "Marudhamalai Temple" },
@@ -42,6 +43,8 @@ const RideCard = () => {
     { label: "Black Thunder Water Park" },
   ]);
 
+  const [api, setApi] = useState([]);
+  const [textFieldValue, setTextFieldValue] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
@@ -98,6 +101,7 @@ const RideCard = () => {
         });
     }
   };
+  console.log(textFieldValue);
 
   return (
     <motion.div
@@ -140,6 +144,15 @@ const RideCard = () => {
         >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
+              <label htmlFor="check">CheckField</label>
+              <input
+                type="text"
+                value={textFieldValue}
+                id="check"
+                onChange={(e, value) => {
+                  setTextFieldValue(value);
+                }}
+              />
               <Autocomplete
                 id="outlined-leaving"
                 options={suggestions}
