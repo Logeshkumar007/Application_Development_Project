@@ -393,10 +393,8 @@ const BookRide = () => {
                     return (
                       <div>
                         <Checkbox
-                          value={data.locationFirstName}
-                          checked={leavingFromFilters.includes(
-                            data.locationFirstName
-                          )}
+                          value={data.leaving}
+                          checked={leavingFromFilters.includes(data.leaving)}
                           onChange={handleLeavingFromcheckbox}
                         ></Checkbox>
                         <label>{data.locationFirstName}</label>
@@ -419,10 +417,8 @@ const BookRide = () => {
                     return (
                       <div>
                         <Checkbox
-                          value={data.goingLocationFirstName}
-                          checked={goingToFilters.includes(
-                            data.goingLocationFirstName
-                          )}
+                          value={data.going}
+                          checked={goingToFilters.includes(data.going)}
                           onChange={handleGoingTocheckbox}
                         ></Checkbox>
                         <label>{data.goingLocationFirstName}</label>
