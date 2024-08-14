@@ -397,7 +397,12 @@ const BookRide = () => {
                           checked={leavingFromFilters.includes(data.leaving)}
                           onChange={handleLeavingFromcheckbox}
                         ></Checkbox>
-                        <label>{data.locationFirstName==="Sri Krishna College of Engineering and Technology"?"SKCET":data.locationFirstName}</label>
+                        <label>
+                          {data.locationFirstName ===
+                          "Sri Krishna College of Engineering and Technology"
+                            ? "SKCET"
+                            : data.locationFirstName}
+                        </label>
                       </div>
                     );
                   })}
@@ -421,7 +426,12 @@ const BookRide = () => {
                           checked={goingToFilters.includes(data.going)}
                           onChange={handleGoingTocheckbox}
                         ></Checkbox>
-                        <label>{data.goingLocationFirstName==="Sri Krishna College of Engineering and Technology"?"SKCET":data.goingLocationFirstName}</label>
+                        <label>
+                          {data.goingLocationFirstName ===
+                          "Sri Krishna College of Engineering and Technology"
+                            ? "SKCET"
+                            : data.goingLocationFirstName}
+                        </label>
                       </div>
                     );
                   })}
@@ -705,8 +715,11 @@ const BookRide = () => {
                 <Link to="/map">
                   <Button
                     variant="contained"
-                    style={{ backgroundColor: "black", marginLeft: "10px" }}
-                    
+                    style={{
+                      backgroundColor: "black",
+                      marginLeft: "10px",
+                      color: "white",
+                    }}
                   >
                     More Details
                   </Button>
