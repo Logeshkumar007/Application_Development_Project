@@ -25,6 +25,7 @@ import RiderSignUp from "./components/RiderAuthorization/RiderSignUp";
 import Footer from "./components/Footer/Footer.jsx";
 import Map from "./components/Map/Map.jsx";
 import MyModal from "./components/DialogueBox/Dialogue.jsx";
+// import GetStarted from './components/getStartedPage/GetStarted';
 const App = () => {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
@@ -143,14 +144,7 @@ const AnimatedRoutes = () => {
             </PageWrapper>
           }
         />
-        <Route
-          path="/PilotsRideHistory"
-          element={
-            <PageWrapper>
-              <PilotsRideHistory />
-            </PageWrapper>
-          }
-        />
+        
       </Routes>
     </AnimatePresence>
   );

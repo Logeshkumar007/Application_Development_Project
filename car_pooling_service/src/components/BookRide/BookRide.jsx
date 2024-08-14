@@ -397,7 +397,12 @@ const BookRide = () => {
                           checked={leavingFromFilters.includes(data.leaving)}
                           onChange={handleLeavingFromcheckbox}
                         ></Checkbox>
-                        <label>{data.locationFirstName}</label>
+                        <label>
+                          {data.locationFirstName ===
+                          "Sri Krishna College of Engineering and Technology"
+                            ? "SKCET"
+                            : data.locationFirstName}
+                        </label>
                       </div>
                     );
                   })}
@@ -421,7 +426,12 @@ const BookRide = () => {
                           checked={goingToFilters.includes(data.going)}
                           onChange={handleGoingTocheckbox}
                         ></Checkbox>
-                        <label>{data.goingLocationFirstName}</label>
+                        <label>
+                          {data.goingLocationFirstName ===
+                          "Sri Krishna College of Engineering and Technology"
+                            ? "SKCET"
+                            : data.goingLocationFirstName}
+                        </label>
                       </div>
                     );
                   })}
@@ -444,9 +454,9 @@ const BookRide = () => {
           </button>
           <Button
             onClick={open}
-            // variant="contained"
-            // style={{ backgroundColor: "black" }}
-            // className=" py-2 px-4 text-sm font-medium text-white rounded-md bg-black "
+            variant="contained"
+            style={{ backgroundColor: "black" }}
+            className=" py-2 px-4 text-sm font-medium text-white rounded-md bg-black "
           >
             Change your location
           </Button>
@@ -704,11 +714,11 @@ const BookRide = () => {
                 </Button>
                 <Link to="/map">
                   <Button
-                    className="ml-3"
-                    // variant="contained"
-                    // style={{ backgroundColor: "black", marginLeft: "10px" }}
-                    onClick={() => {
-                      handleBookRide();
+                    variant="contained"
+                    style={{
+                      backgroundColor: "black",
+                      marginLeft: "10px",
+                      color: "white",
                     }}
                   >
                     More Details
