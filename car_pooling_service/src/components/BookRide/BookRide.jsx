@@ -454,9 +454,9 @@ const BookRide = () => {
           </button>
           <Button
             onClick={open}
-            // variant="contained"
-            // style={{ backgroundColor: "black" }}
-            // className=" py-2 px-4 text-sm font-medium text-white rounded-md bg-black "
+            variant="contained"
+            style={{ backgroundColor: "black" }}
+            className=" py-2 px-4 text-sm font-medium text-white rounded-md bg-black "
           >
             Change your location
           </Button>

@@ -7,7 +7,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { Button } from "@/components/ui/button";
+import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState, useRef } from "react";
 import "./Homepage.css";
@@ -182,12 +182,12 @@ const Homepage = () => {
               commuting.
             </h4>
             <Button
-              // id="btn-donate"
-              // variant="contained"
-              // sx={{
-              //   backgroundColor: "black",
-              //   width: "25%",
-              // }}
+              
+              variant="contained"
+              sx={{
+                backgroundColor: "black",
+                width: "25%",
+              }}
               onClick={handleCreateRide}
             >
               Create Ride
@@ -208,7 +208,7 @@ const Homepage = () => {
             alignContent: "center",
             width: "50dvw",
             height: "70dvh",
-            backgroundColor: "rgba(255, 254, 224,0.8)",
+            backgroundColor: "rgba(178, 243, 178,0.3)"
           }}
           // className="bg bg-gradient-to-tr from-white to-green-500 w-[50dvw] h-[70dvh] items-center content-center"
         >
@@ -246,12 +246,12 @@ const Homepage = () => {
             </h4>
 
             <Button
-              // variant="contained"
-              // sx={{
-              //   width: "25%",
-              //   backgroundColor: "black",
-              //   marginTop: "1%",
-              // }}
+              variant="contained"
+              sx={{
+                width: "25%",
+                backgroundColor: "black",
+                marginTop: "1%",
+              }}
               onClick={() => navigate("/bookRide")}
             >
               Book ride

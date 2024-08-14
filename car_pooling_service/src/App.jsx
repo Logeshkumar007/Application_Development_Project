@@ -25,7 +25,7 @@ import RiderSignUp from "./components/RiderAuthorization/RiderSignUp";
 import Footer from "./components/Footer/Footer.jsx";
 import Map from "./components/Map/Map.jsx";
 import MyModal from "./components/DialogueBox/Dialogue.jsx";
-import GetStarted from './components/getStartedPage/GetStarted';
+// import GetStarted from './components/getStartedPage/GetStarted';
 const App = () => {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
@@ -48,7 +48,7 @@ const AnimatedRoutes = () => {
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route
-          path="/home"
+          path="/"
           element={
             <PageWrapper>
               <Homepage />
@@ -144,14 +144,7 @@ const AnimatedRoutes = () => {
             </PageWrapper>
           }
         />
-        <Route
-          path="/"
-          element={
-            <PageWrapper>
-              <GetStarted/>
-            </PageWrapper>
-          }
-        />
+        
       </Routes>
     </AnimatePresence>
   );
