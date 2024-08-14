@@ -6,12 +6,12 @@ import { TypeAnimation } from 'react-type-animation';
 const GetStarted = () => {
     const nav=useNavigate();
     const handleButton=()=>{
-        nav("/homepage");
+        nav("/home");
     }
     return (
-        <div className='wrapper'>
-            <div className='container'>
-                <div className='container-content'>
+        <div className='wrapperr'>
+            <div className='containerr'>
+                <div className='container-contentt'>
                 <TypeAnimation
         sequence={[
           "Hi Skcetians Car La Selvoma?",
