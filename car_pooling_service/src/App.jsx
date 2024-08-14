@@ -5,7 +5,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import BookRide from "./components/BookRide/BookRide";
-
+import { ThemeProvider } from "./components/ThemeProvider.jsx";
 import Homepage from "./components/Homepage/Homepage";
 import SignInSide from "./components/SignIn/SignIn";
 import SignUp from "./components/SignUp/SignUp";
@@ -27,14 +27,16 @@ import Map from "./components/Map/Map.jsx";
 import MyModal from "./components/DialogueBox/Dialogue.jsx";
 const App = () => {
   return (
-    <Router>
-      <Navbar />
-      <AnimatedRoutes />
-      <Routes>
-        <Route path="/passangerSignUp" element={<PassangerSignUp />} />
-        <Route path="/passangerSignIn" element={<PassangerSignIn />} />
-      </Routes>
-    </Router>
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <Router>
+        <Navbar />
+        <AnimatedRoutes />
+        <Routes>
+          <Route path="/passangerSignUp" element={<PassangerSignUp />} />
+          <Route path="/passangerSignIn" element={<PassangerSignIn />} />
+        </Routes>
+      </Router>
+    </ThemeProvider>
   );
 };
 
