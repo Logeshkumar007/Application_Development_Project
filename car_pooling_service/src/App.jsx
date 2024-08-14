@@ -25,6 +25,7 @@ import RiderSignUp from "./components/RiderAuthorization/RiderSignUp";
 import Footer from "./components/Footer/Footer.jsx";
 import Map from "./components/Map/Map.jsx";
 import MyModal from "./components/DialogueBox/Dialogue.jsx";
+import GetStarted from './components/getStartedPage/GetStarted';
 const App = () => {
   return (
     <Router>
@@ -45,7 +46,7 @@ const AnimatedRoutes = () => {
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route
-          path="/"
+          path="/home"
           element={
             <PageWrapper>
               <Homepage />
@@ -142,10 +143,10 @@ const AnimatedRoutes = () => {
           }
         />
         <Route
-          path="/PilotsRideHistory"
+          path="/"
           element={
             <PageWrapper>
-              <PilotsRideHistory />
+              <GetStarted/>
             </PageWrapper>
           }
         />

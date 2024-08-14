@@ -208,7 +208,7 @@ const Homepage = () => {
             alignContent: "center",
             width: "50dvw",
             height: "70dvh",
-            backgroundColor: "rgba(178, 243, 178,0.3)",
+            backgroundColor: "rgba(255, 254, 224,0.8)",
           }}
           // className="bg bg-gradient-to-tr from-white to-green-500 w-[50dvw] h-[70dvh] items-center content-center"
         >

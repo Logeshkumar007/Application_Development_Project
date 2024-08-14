@@ -398,7 +398,7 @@ const BookRide = () => {
                           checked={leavingFromFilters.includes(data.leaving)}
                           onChange={handleLeavingFromcheckbox}
                         ></Checkbox>
-                        <label>{data.locationFirstName}</label>
+                        <label>{data.locationFirstName==="Sri Krishna College of Engineering and Technology"?"SKCET":data.locationFirstName}</label>
                       </div>
                     );
                   })}
@@ -422,7 +422,7 @@ const BookRide = () => {
                           checked={goingToFilters.includes(data.going)}
                           onChange={handleGoingTocheckbox}
                         ></Checkbox>
-                        <label>{data.goingLocationFirstName}</label>
+                        <label>{data.goingLocationFirstName==="Sri Krishna College of Engineering and Technology"?"SKCET":data.goingLocationFirstName}</label>
                       </div>
                     );
                   })}
@@ -702,9 +702,7 @@ const BookRide = () => {
                   <Button
                     variant="contained"
                     style={{ backgroundColor: "black", marginLeft: "10px" }}
-                    onClick={() => {
-                      handleBookRide();
-                    }}
+                    
                   >
                     More Details
                   </Button>
