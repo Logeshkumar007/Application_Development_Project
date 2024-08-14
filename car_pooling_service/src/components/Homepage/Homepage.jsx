@@ -1,6 +1,5 @@
 import {
   AppBar,
-  Button,
   Card,
   CardActions,
   CardContent,
@@ -8,6 +7,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState, useRef } from "react";
 import "./Homepage.css";
@@ -183,11 +183,11 @@ const Homepage = () => {
             </h4>
             <Button
               // id="btn-donate"
-              variant="contained"
-              sx={{
-                backgroundColor: "black",
-                width: "25%",
-              }}
+              // variant="contained"
+              // sx={{
+              //   backgroundColor: "black",
+              //   width: "25%",
+              // }}
               onClick={handleCreateRide}
             >
               Create Ride
@@ -246,12 +246,12 @@ const Homepage = () => {
             </h4>
 
             <Button
-              variant="contained"
-              sx={{
-                width: "25%",
-                backgroundColor: "black",
-                marginTop: "1%",
-              }}
+              // variant="contained"
+              // sx={{
+              //   width: "25%",
+              //   backgroundColor: "black",
+              //   marginTop: "1%",
+              // }}
               onClick={() => navigate("/bookRide")}
             >
               Book ride
