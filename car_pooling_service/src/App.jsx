@@ -144,6 +144,14 @@ const AnimatedRoutes = () => {
             </PageWrapper>
           }
         />
+        <Route
+          path="/PilotsRideHistory"
+          element={
+            <PageWrapper>
+              <PilotsRideHistory/>
+            </PageWrapper>
+          }
+        />
         
       </Routes>
     </AnimatePresence>

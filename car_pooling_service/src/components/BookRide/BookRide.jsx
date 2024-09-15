@@ -344,18 +344,8 @@ const BookRide = () => {
     <div>
       <div className="sortingContainer">
         <div className="containerItems">
-          <button
-            style={{
-              padding: "0.7vh",
-              borderRadius: "10vh",
-              fontSize: "75%",
-              backgroundColor: "white",
-              display: "flex",
-              border: "1.5px solid lightgrey",
-              paddingLeft: "1%",
-              paddingRight: "1%",
-            }}
-          >
+        <button className="py-[0.7vh] rounded-[10vh] text-[75%] bg-white flex border border-gray-300 pl-4 pr-4">
+
             <Typography
               onClick={() => {
                 const sorted = [...rideData].sort(
@@ -377,18 +367,9 @@ const BookRide = () => {
               Filter
             </Typography>
             <Dialog open={opendilog} sx={{}}>
-              <div style={{ padding: "1vh" }}>
-                <label>Leaving From : </label>
-                <div
-                  style={{
-                    display: "grid",
-                    justifyContent: "center",
-                    padding: "3vh",
-                    gap: "1vh",
-                    gridTemplateColumns: "auto auto auto",
-                    width: "max-content",
-                  }}
-                >
+              <div className="p-4">
+                <label className="font-medium">Leaving From : </label>
+                <div className="grid justify-center p-[3vh] gap-[1vh] grid-cols-[auto_auto_auto] w-max">
                   {AllrideData.map((data) => {
                     return (
                       <div>
@@ -407,17 +388,9 @@ const BookRide = () => {
                     );
                   })}
                 </div>
-                <label>Going To : </label>
-                <div
-                  style={{
-                    display: "grid",
-                    justifyContent: "center",
-                    padding: "3vh",
-                    gap: "1vh",
-                    gridTemplateColumns: "auto auto auto",
-                    width: "max-content",
-                  }}
-                >
+                <label className="font-medium">Going To : </label>
+                <div className="grid justify-center p-[3dvh] gap-1vh grid-cols-[auto_auto_auto] w-max">
+
                   {AllrideData.map((data) => {
                     return (
                       <div>
@@ -436,9 +409,9 @@ const BookRide = () => {
                     );
                   })}
                 </div>
-                <Button
-                  variant="contained"
-                  sx={{ margin: "2vh" }}
+                <Button className="h-5 mt-7 p-5"
+        
+        
                   onClick={() => {
                     setOpendilog(false);
                     console.log(goingToFilters);
@@ -450,12 +423,10 @@ const BookRide = () => {
                 </Button>
               </div>
             </Dialog>
-            <FilterListIcon style={{ paddingLeft: "4%" }}></FilterListIcon>
+            <FilterListIcon className="p-1"></FilterListIcon>
           </button>
           <Button
             onClick={open}
-            variant="contained"
-            style={{ backgroundColor: "black" }}
             className=" py-2 px-4 text-sm font-medium text-white rounded-md bg-black "
           >
             Change your location
@@ -523,38 +494,23 @@ const BookRide = () => {
         </div>
 
         <div
-          className="ride-content"
-          style={{ display: "flex", justifyContent: "space-around" }}
+          className="ride-content flex justify-around"
+          
         >
           {selectedRideData ? (
-            <div
-              style={{ display: "flex", flexDirection: "column", width: "60%" }}
-            >
-              <h1 style={{ fontSize: "5vh", textAlign: "center" }}>
+            <div className="flex flex-col w-[60%]">
+       
+              <h1 className="text-[2.3rem]  text-center">
                 Mon 23 JUL
               </h1>
               <img
                 src={routepng}
-                style={{
-                  width: "93%",
-                  marginTop: "10%",
-                  paddingLeft: "10%",
-                  paddingRight: "10%",
-                }}
+                className="w-[93%] mt-[10%] pl-[10%] pr-[10%]"
               ></img>
               <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  paddingTop: "2%",
-                }}
+                 className="flex flex-col justify-between pt-[2%]"
               >
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                  }}
+                <div className="flex justify-between"
                 >
                   <Typography variant="h5">
                     {selectedRideData.locationFirstName}
@@ -567,16 +523,12 @@ const BookRide = () => {
                   </Typography>
                 </div>
                 <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-
-                    paddingTop: "3%",
-                  }}
+                  className="flex justify-between pt-[3%]"
                 >
                   <Typography
                     color="primary"
                     variant="h6"
+                    className="font-[110%]"
                     sx={{ fontSize: "110%" }}
                   >
                     {selectedRideData.startTime}
